@@ -1,0 +1,27 @@
+@import '../../../content/_variables';
+
+.panel-title {
+  font-size: 1.2em;
+  text-align: center;
+  background-color: #424242;
+}
+.mat-card {
+  border-radius: 10px;
+  background-color: $card-background-color;
+  margin-bottom:10px;
+}
+.mat-card-title {
+  font-size: 1.4em;
+  font-weight: 720;
+  color: $navbar-color;
+  text-align: center;
+}
+.mat-card-header {
+  border-bottom: 1px solid lighten($card-background-color, 20%);
+  text-align: center;
+}
+.mat-card-content {
+  font-size: 1.1em;
+  color: ghostwhite;
+  font-weight: 400;
+}

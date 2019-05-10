@@ -1,0 +1,5 @@
+<select name="division" class="form-control">
+  <option *ngFor="let division of divisions" [ngValue]="division.divisionId" (click)="setDivision(division)" >
+    {{division.div_Desc }}
+</option>
+</select>

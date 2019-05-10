@@ -1,0 +1,35 @@
+<div class="row">
+    <div class="col-sm-4">
+        <div id="panelSeason" class="row">
+            <div class="panel panel-primary">
+                <div>
+                    <table id="grdSeason" class="table  table-responsive table-condensed">
+                        <thead>
+                            <tr>
+                                 <th>ID</th>
+                                <th>Season</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let season of seasons | async" (click)="onSelect(season)">
+                                 <td>{{season.seasonID}}</td>
+                                <td>{{season.description}}</td>
+                                <td>{{season.fromDate | date:'MM/dd/yyyy'}}</td>
+                                <td>{{season.toDate | date:'MM/dd/yyyy'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-8">
+        <div *ngIf="selectedSeason">
+            <csbc-season-detail [season]="selectedSeason"></csbc-season-detail>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,46 @@
+<div id="contentText" class="col-sm-12 col-sm-offset-0 col-xs-12">
+  <div [ngClass]="setSeasonInfoClass()" [hidden]="!showSeasonInfo()">
+    <div *ngFor="let info of activeWebContent" id="showSeasonList" [ngClass]="setSeasonListClass()">
+      <div *ngIf="info.webContentTypeId==2">
+        <div class="card">
+          <div class="card-block">
+            <div class="card-title">{{info.title}}</div>
+          </div>
+          <div class="card-block">
+            <h5 [hidden]="!info.subTitle" class="text-center text-primary">{{info.subTitle}}</h5>
+            <div class="text-center">
+              <strong>
+                <span>{{info.body}}</span>
+              </strong>
+            </div>
+            <div class="text-center" [hidden]="!info.location">Location: {{info.location}}</div>
+            <div class="text-center" [hidden]="!info.dateAndTime">Date/Time: {{info.dateAndTime}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div [ngClass]="setNewsClass()">
+    <div *ngFor="let info of activeWebContent" class="announcements">
+      <div *ngIf="info.webContentTypeId==1">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>{{info.title}}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <h5 class="text-center text-info">{{info.subTitle}}</h5>
+
+            <div class="text-center">
+             
+                <span>{{info.body}}</span>
+             
+            </div>
+            <div class="text-center" [hidden]="!info.location">Location: {{info.location}}</div>
+            <div class="text-center" [hidden]="!info.dateAndTime">Date/Time: {{info.dateAndTime}}</div>
+          </mat-card-content>
+
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+@import '../../../../../content/_variables';
+
+fieldset {
+  background-color:  $card-background-color;
+  border-radius: 10px;
+}
+h2 {
+  color: white;
+  font-size: 1.5em;
+  padding-bottom:6px;
+  padding-left:12px;
+}

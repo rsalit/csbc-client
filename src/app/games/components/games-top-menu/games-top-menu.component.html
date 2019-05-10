@@ -1,0 +1,40 @@
+<mat-toolbar>
+  <div
+    [formGroup]="menuForm"
+    fxLayout="row"
+    fxLayoutAlign="space-evenly center"
+    fxShow="true"
+    fxHide.lt-md="true"
+  >
+    <!-- <div>
+      <mat-form-field>
+        <mat-select
+          placeholder="Division"
+          formControlName="divisions"
+          style="color:white;font-size:1em;"
+        >
+          <mat-option
+            *ngFor="let division of divisions"
+            [value]="division"
+            (click)="divisionSelected(division)"
+          >
+            {{ division.div_Desc }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div> -->
+
+    <div>
+      <a href="/games/schedule" mat-button>Schedule</a>
+    </div>
+    <div>
+      <a href="/games/standings" mat-button>Standings</a>
+    </div>
+    <div>
+      <a href="/games/schedule" mat-button>Scores</a>
+    </div>
+    <div>
+      <a href="#" mat-button>Teams</a>
+    </div>
+  </div>
+</mat-toolbar>

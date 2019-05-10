@@ -1,0 +1,25 @@
+@import '../../../content/_variables';
+
+
+.card {
+    background-color: $table-body-color;
+    color: $table-font-color;
+    box-shadow:0 2px 5px rgba(0,0,0,.26);
+    padding: 4px 8px 4px 8px;
+}
+
+.card>.heading {
+    font-size:1.4em;
+    color:white;
+    text-align: center;
+    padding-bottom: 8px;
+}
+
+.card>.body {
+    font-size:1.0em;
+
+}
+
+tbody {
+    color: white;
+}

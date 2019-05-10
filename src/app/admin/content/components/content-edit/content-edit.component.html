@@ -1,0 +1,88 @@
+<div class="row">
+    <div class="col-sm-12">
+        <form novalidate (ngSubmit)="saveContent()" [formGroup]="contentForm">
+
+            <h2>{{pageTitle}}</h2>
+            <fieldset>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class=form-group [ngClass]="{'has-error': (contentForm.get('title').touched || contentForm.get('title').dirty) && !contentForm.get('title').valid }">
+                            <label class="control-label" for="title">Title</label>
+                            <input id="title" class="form-control" type="text" placeholder="Title" formControlName="title" />
+                        </div>
+                        <span class="help-block" *ngIf="(contentForm.get('title').touched 
+                                                         || contentForm.get('title').dirty) && 
+                                                        contentForm.get('title').errors">
+                            <span *ngIf="contentForm.get('title').errors.required">
+                                Please include a title.
+                            </span>
+                            </span>
+                    </div>
+                    <div class="col-md-12">
+                        <div class=form-group [ngClass]="{'has-error': (contentForm.get('subTitle').touched || contentForm.get('subTitle').dirty) && !contentForm.get('subTitle').valid }">
+                            <label class="control-label" for="subTitle">Sub-Title</label>
+                            <input id="subTitle" class="form-control" type="text" placeholder="Sub-title" formControlName="subTitle" />
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class=form-group [ngClass]="{'has-error': (contentForm.get('body').touched || contentForm.get('body').dirty) && !contentForm.get('body').valid }">
+                            <label class="control-label" for="body">Body</label>
+                            <textarea rows="4" id="body" class="form-control" placeholder="Body" formControlName="body"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class=form-group [ngClass]="{'has-error': (contentForm.get('location').touched || contentForm.get('location').dirty) && !contentForm.get('location').valid }">
+                            <label class="control-label" for="location">Location</label>
+                            <input id="location" class="form-control" type="text" placeholder="Location" formControlName="location" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class=form-group [ngClass]="{'has-error': (contentForm.get('dateAndTime').touched || contentForm.get('dateAndTime').dirty) && !contentForm.get('dateAndTime').valid }">
+                            <label class="control-label" for="dateAndTime">Date and Time</label>
+                            <input id="dateAndTime" class="form-control" type="text" placeholder="Date and Time" formControlName="dateAndTime" />
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class=form-group [ngClass]="{'has-error': (contentForm.get('expirationDate').touched || contentForm.get('expirationDate').dirty) && !contentForm.get('expirationDate').valid }">
+                            -<label class="control-label" for="expirationDate">Expiration Date</label>
+                            <input id="expirationDate" class="form-control" [hidden]="hideId" type="date" placeholder="" formControlName="expirationDate"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class=form-group [ngClass]="{'has-error': (contentForm.get('webContentId').touched || contentForm.get('webContentId').dirty) && !contentForm.get('webContentId').valid }">
+                           
+                            <input id="webContentId" class="form-control" [hidden]="hideId" type="text" placeholder="" formControlName="webContentId"
+                            />
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="row">
+                    <div class="input-group-btn">
+                        <button type="button" class="btn btn-default" type="submit" style="width:80px;margin-right:10px" [disabled]='!contentForm.valid'>Save</button>
+                        <button type="button" class="btn btn-default" style="width:120px;margin-right:10px">Save and New</button>
+                        <button type="button" class="btn btn-default" style="width:80px" [routerLink]="['/admin/content']">Cancel</button>
+                    </div>
+                </div>
+            </fieldset>
+
+        </form>
+    </div>
+</div>
+<!--
+    <div class="col-sm-4 col-sm-offset-3">
+<div class="panel panel-default">
+        <div class="panel-heading">
+          <div class="panel-title" formControlName="exampleTitle">{{title}}</div>
+        </div>
+        <div class="panel-body">
+          <h5 class="text-center text-info">{{subTitle}}</h5>
+
+          <div class="text-center"><strong><span>{{body}}</span></strong></div>
+          <div class="text-center" [hidden]="!location">Location: {{location}}</div>
+          <div class="text-center" [hidden]="!dateAndTime">Date/Time: {{dateAndTime}}</div>
+        </div>
+      </div>
+      </div>-->

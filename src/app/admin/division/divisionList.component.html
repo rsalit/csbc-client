@@ -1,0 +1,29 @@
+<div id="panelSeason" class="row">
+    <div class="panel panel-primary">
+        <div>
+            <table id="grdDivision" class="table table-responsive table-condensed">
+                <thead>
+                    <tr>
+                        <th>Division</th>
+                        <th>Min Date</th>
+                        <th>Max Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let division of divisions" (click)="onSelect(division)">
+                        <td>{{division.div_Desc}}</td>
+                        <td>{{division.minDate | date:'MM/dd/yyyy'}}</td>
+                        <td>{{division.maxDate | date:'MM/dd/yyyy'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<div class="col-sm-8">
+    <div *ngIf="selectedDivision">
+        <csbc-division-detail [division]="selectedDivision"></csbc-division-detail>
+    </div>
+</div>

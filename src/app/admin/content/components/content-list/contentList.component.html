@@ -1,0 +1,52 @@
+<div class="row">
+    <div class="col-md-10 col-sm-12 col-xs-12">
+        <div id="panelContent" class="row">
+            <h3>{{pageTitle}}</h3>
+            <button mat-button (click)="addContent()">Add</button>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title">Content</div>
+                </div>
+                <div>
+                    <table id="grdSeason" class="table table-responsive table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <!-- <th>Sub-title</th> -->
+                                <th>Exp Date</th>
+                                <th>Date and Time</th>
+                                <!-- <th>Location</th> -->
+                                <!--<th>Type</th>-->
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of contents | async" (click)="onSelect(item)">
+                                <td> <a class="btn btn-link" 
+                               [routerLink]="['/admin/contentEdit', item.webContentId]">{{item.title}}</a></td>
+                               <!-- <td>{{ item.subTitle }}</td> -->
+                               
+                                <td>{{item.expirationDate | date:'MM/dd/yyyy'}}</td>
+                               
+                                <td>{{item.dateAndTime}}</td>
+                                <!-- <td>{{item.location}}</td> -->
+                                 <!--<td>{{item.}}</td>-->
+                                <td>
+                            <button mat-icon-button (click)="editContent(item)">
+                                <mat-icon aria-label="Edit Button">edit</mat-icon>
+                              </button>
+                              
+                            
+                        </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--<div class="col-md-6 col-sm-12 col-xs-12">
+        <csbc-content-edit [content] = "selectedContent"></csbc-content-edit>
+    </div>-->
+</div>

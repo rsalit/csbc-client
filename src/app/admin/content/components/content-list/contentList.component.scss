@@ -1,0 +1,17 @@
+@import '../../../../../content/_variables';
+
+.panel .panel-default .panel-heading {
+    background-color: black;
+}
+
+th {
+    background-color: black;
+    color: white;
+}
+tbody {
+    color: white;
+}
+
+table .table .table-responsive .table-condensed {
+    border-radius: 5px;
+}

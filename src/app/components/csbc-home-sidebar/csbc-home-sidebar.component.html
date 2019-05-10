@@ -1,0 +1,21 @@
+<section class="sidebar">
+  <div class="boxContentHeader">
+    <h4 class="text-center text-info">{{boardMeetingMessage}}</h4>
+    <ul>
+      <li *ngFor="let info of activeWebContent">
+        <div class="boxContent">
+          <div class="boxContentHeader">
+            <h4 class="text-center text-primary">{{info.title}}</h4>
+            <h5 class="text-center text-primary">{{info.subTitle}}</h5>
+          </div>
+          <div class="boxContentBody">
+            <div class="text-center"><strong><span>{{info.body}}</span></strong></div>
+            <div class="text-center" [hidden]="!info.location">Location: {{info.location}}</div>
+            <div class="text-center" [hidden]="!info.dateAndTime">Date/Time: {{info.dateAndTime}}</div>
+          </div>
+
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>

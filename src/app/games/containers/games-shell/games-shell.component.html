@@ -1,0 +1,32 @@
+<csbc-games-top-menu
+  [divisions]="divisions$ | async"
+  (selectedDivision)="divisionSelected($event)"
+></csbc-games-top-menu>
+<div fxLayout="row wrap" fxLayoutAlign="start" fxLayoutGap="10px">
+  <div fxFlex="100" style="margin-bottom:12px; padding-left:20px;">
+    <csbc-game-filter
+      [currentDivision]="selectedDivisionId$ | async"
+      (selectedDivision)="divisionSelected($event)"
+    >
+    </csbc-game-filter>
+  </div>
+
+  <!-- <div fxFlex="100" style="margin-bottom:12px; padding-left:20px;">
+    <csbc-game-filter
+      [divisions]="divisions$ | async"
+      [currentDivision]="selectedDivisionId$ | async"
+      [teams]="teams$ | async"
+      [currentTeam]="selectedTeam$ | async"
+      [showAllTeams]="showAllTeams"
+      (selectedDivision)="divisionSelected($event)"
+      (selectedTeam)="teamSelected($event)"
+    >
+    </csbc-game-filter>
+  </div> -->
+  <div fxFlex="row" style="padding-top:12px;">
+    <!-- <div fxFlex="100">
+      <csbc-schedule [games]="filteredGames$ | async"></csbc-schedule>
+    </div> -->
+    <router-outlet></router-outlet>
+  </div>
+</div>
