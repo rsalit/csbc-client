@@ -24,7 +24,6 @@
     "member-access": false,
     "member-ordering": [
       true,
-      "static-before-instance",
       "variables-before-functions"
     ],
     "no-arg": true,
@@ -67,7 +66,7 @@
     ],
     "radix": true,
     "semicolon": [
-      "always"
+      true,
     ],
     "triple-equals": [
       true,

@@ -1,16 +1,20 @@
-import { createFeatureSelector, createSelector, ActionReducerMap } from '@ngrx/store';
+import {
+  createFeatureSelector,
+  createSelector,
+  ActionReducerMap
+} from '@ngrx/store';
 import * as fromRoot from '../../state/app.state';
 import * as fromGames from './games.reducer';
 
 export interface State extends fromRoot.State {
-    games: fromGames.GameState;
-  }
+  games: fromGames.GameState;
+}
 
-  const getGameFeatureState = createFeatureSelector<fromGames.GameState>('games');
+const getGameFeatureState = createFeatureSelector<fromGames.GameState>('games');
 
-  export const getCurrentSeason = createSelector(
-    getGameFeatureState,
-    state => state.currentSeason
+export const getCurrentSeason = createSelector(
+  getGameFeatureState,
+  state => state.currentSeason
 );
 export const getCurrentDivision = createSelector(
   getGameFeatureState,
@@ -36,7 +40,7 @@ export const getGames = createSelector(
   state => state.games
 );
 
-export const getDivisions = createSelector(
+export const divisions = createSelector(
   getGameFeatureState,
   state => state.divisions
 );
@@ -51,4 +55,9 @@ export const getAllTeams = createSelector(
 export const getFilteredGames = createSelector(
   getGameFeatureState,
   state => state.filteredGames
+);
+
+export const getStandings = createSelector(
+  getGameFeatureState,
+  state => state.standings
 );

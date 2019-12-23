@@ -54,17 +54,17 @@ export class CsbcAnnouncementsComponent implements OnInit {
   }
   setSeasonInfoClass() {
     if (this.showNews()) {
-      return 'col-sm-10 col-sm-offset-0 col-xs-12';
+      return 'col-sm-12 col-sm-offset-0 col-xs-12';
     } else {
-      return 'col-sm-10 col-sm-offset-0 col-xs-12';
+      return 'col-sm-12 col-sm-offset-0 col-xs-12';
     }
   }
 
   setNewsClass(): string {
     if (this.showSeasonInfo() || this.latestNewsCount > 0) {
-      return 'col-sm-10 col-sm-offset-0 col-xs-12';
+      return 'col-sm-12 col-sm-offset-0 col-xs-12';
     } else {
-      return 'col-sm-10 col-sm-offset-0 col-xs-12';
+      return 'col-sm-12 col-sm-offset-0 col-xs-12';
     }
   }
   setSeasonListClass(): string {

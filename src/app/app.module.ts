@@ -11,10 +11,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
-import { environment } from 'environments/environment';
 
 import { AppComponent } from './app.component';
-import { HomeModule } from './home/csbc-home.module';
+import { HomeModule } from './home/home.module';
 import { GamesModule } from './games/games.module';
 import { CsbcClubDocsModule } from './club-docs/csbc-club-docs.module';
 
@@ -22,10 +21,9 @@ import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
 
 // import { CsbcGamesComponent} from './csbc-games/csbc-games.component';
-import { CsbcTopNavComponent } from './shared/top-nav/csbc-top-nav.component';
+import { TopNavComponent } from './shared/top-nav/top-nav.component';
 import { CsbcPhotosComponent } from './photos/csbc-photos.component';
 import { CsbcContactsComponent } from './csbc-contacts/csbc-contacts.component';
-import { CsbcSharedComponent } from './shared/csbc-shared.component';
 import { AdminModule } from './admin/admin.module';
 import { ComposeMessageComponent } from './compose-message.component';
 
@@ -39,7 +37,20 @@ import { GamesPipe } from './games.pipe';
 import { CsbcNavComponent } from './csbc-nav/csbc-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { CsbcDashboardComponent } from './csbc-dashboard/csbc-dashboard.component';
-import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule } from '@angular/material';
+import {
+  MatGridListModule,
+  MatCardModule,
+  MatMenuModule,
+  MatIconModule,
+  MatButtonModule,
+  MAT_DIALOG_DEFAULT_OPTIONS
+} from '@angular/material';
+import { AppEffects } from './app.effects';
+import { reducers, metaReducers } from './reducers';
+import { environment } from '../environments/environment';
+import { LoginDialogComponent } from './shared/login-dialog/login-dialog.component';
+import { SharedModule } from './shared/shared.module';
+import { UserModule } from './user/user.module';
 
 // import { ContentComponent } from './admin/content/content.component';
 // import { CsbcSeasonSelectComponent } from './shared/season-select/csbc-season-select.component';
@@ -49,17 +60,16 @@ import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButt
 @NgModule({
   declarations: [
     AppComponent,
-    CsbcTopNavComponent,
+    TopNavComponent,
     CsbcPhotosComponent,
     CsbcContactsComponent,
-    CsbcSharedComponent,
     LoginComponent,
     PageNotFoundComponent,
     ComposeMessageComponent,
     GamesPipe,
     CsbcNavComponent,
-    CsbcDashboardComponent,
-//    ContentComponent
+    CsbcDashboardComponent
+    //    ContentComponent
 
     // CsbcSeasonSelectComponent
     // DivisionSelectComponent,
@@ -76,9 +86,11 @@ import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButt
     HomeModule,
     // GamesModule,
     CsbcClubDocsModule,
+    SharedModule,
     AdminModule,
     LoginRoutingModule,
     LayoutModule,
+    UserModule,
     MatGridListModule,
     MatCardModule,
     MatMenuModule,
@@ -90,9 +102,15 @@ import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButt
       maxAge: 25,
       logOnly: environment.production
     }),
-    EffectsModule.forRoot([])
+    EffectsModule.forRoot([AppEffects]),
+    StoreModule.forRoot(reducers, { metaReducers }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production
+    })
     //  ContentComponent
   ],
+
   providers: [
     SeasonService,
     DivisionService,

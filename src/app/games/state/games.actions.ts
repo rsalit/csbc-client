@@ -6,9 +6,11 @@ import { Action, Store } from '@ngrx/store';
 import { Division } from 'app/domain/division';
 import { Team } from 'app/domain/team';
 import { Season } from 'app/domain/season';
+import { Standing } from 'app/domain/standing';
 
 export enum GameActionTypes {
   ToggleGameCode = '[Game] Toggle Game Code',
+  LoadCurrentSeason = '[Games] Load Current Season',
   SetCurrentSeason = '[Games] Set Current Season',
   SetCurrentDivision = '[Game] Set Current Division',
   SetCurrentTeam = '[Game] Set Current Team',
@@ -24,6 +26,9 @@ export enum GameActionTypes {
   LoadFilteredGames = '[Game] Load  Filtered Games',
   LoadFilteredGamesSuccess = '[Game] Load Filtered Game Success',
   LoadFilteredGamesFail = '[Game] Load Filtered Games Fail',
+  LoadStandings = '[Game] Load Standings',
+  LoadStandingsSuccess = '[Game] Load Standings Success',
+  LoadStandingsFail = '[Game] Load Standings Fail',
   LoadDivisions = '[Game] Load Divisions',
   LoadDivisionsSuccess = '[Game] Load Divisions Success',
   LoadDivisionsFail = '[Game] Load Divisions Fail',
@@ -37,14 +42,18 @@ export class ToggleActionList implements Action {
   readonly type = GameActionTypes.ToggleGameCode;
   constructor(public payload: boolean) {}
 }
+export class LoadCurrentSeason implements Action {
+  readonly type = GameActionTypes.LoadCurrentSeason;
+}
 export class SetCurrentSeason implements Action {
   readonly type = GameActionTypes.SetCurrentSeason;
-  constructor(public payload: Season) {}
+  constructor(public payload: Season) {
+    console.log(payload);
+  }
 }
 export class SetCurrentDivision implements Action {
   readonly type = GameActionTypes.SetCurrentDivision;
-  constructor(public payload: Division) {
-    
+  constructor(public payload:  Division ) {
   }
 }
 export class SetCurrentTeam implements Action {
@@ -106,6 +115,21 @@ export class LoadFilteredGamesFail implements Action {
 
   constructor(public payload: string) {}
 }
+
+export class LoadStandings implements Action {
+  readonly type = GameActionTypes.LoadStandings;
+}
+
+export class LoadStandingsSuccess implements Action {
+  readonly type = GameActionTypes.LoadStandingsSuccess;
+  constructor(public payload: Standing[] ) {}
+}
+
+export class LoadStandingsFail implements Action {
+  readonly type = GameActionTypes.LoadStandingsFail;
+
+  constructor(public payload: string) {}
+}
 export class LoadDivisions implements Action {
   readonly type = GameActionTypes.LoadDivisions;
 }
@@ -143,6 +167,7 @@ export class LoadTeamsFail implements Action {
 
 export type GameActions =
   | ToggleActionList
+  | LoadCurrentSeason
   | SetCurrentSeason
   | SetCurrentDivision
   | SetCurrentTeam
@@ -158,6 +183,9 @@ export type GameActions =
   | LoadFilteredGames
   | LoadFilteredGamesSuccess
   | LoadFilteredGamesFail
+  | LoadStandings
+  | LoadStandingsSuccess
+  | LoadStandingsFail
   | LoadDivisions
   | LoadDivisionsSuccess
   | LoadDivisionsFail

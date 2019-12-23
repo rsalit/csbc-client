@@ -1,5 +1,13 @@
 import { Injectable } from '@angular/core';
 import { User } from '../domain/user';
+import { HttpClient } from '@angular/common/http';
+import { DataService } from 'app/services/data.service';
+import { map } from 'rxjs-compat/operator/map';
+import { tap, catchError } from 'rxjs/operators';
+import * as userActions from '../user/state/user.actions';
+import * as fromUser from '../user/state';
+import { Store } from '@ngrx/store';
+
 @Injectable({
 
   providedIn: 'root',
@@ -7,8 +15,14 @@ import { User } from '../domain/user';
 export class AuthService {
     currentUser: User | null;
     redirectUrl: string;
+    loginUrl: string;
+    user: User;
 
-    constructor() {  }
+    constructor(private http: HttpClient, private dataService: DataService,
+        private store: Store<fromUser.State>
+        ) {
+        this.loginUrl = this.dataService.webUrl + '/api/login';
+     }
 
     isLoggedIn(): boolean {
         return !!this.currentUser;
@@ -18,11 +32,22 @@ export class AuthService {
         // Code here would log into a back end service
         // and return user information
         // This is just hard-coded here.
-        this.currentUser = {
-            id: 2,
-            userName: userName,
-            isAdmin: false
-        };
+        this.http
+      .get<User>(this.loginUrl + '/' + userName + '/' + password)
+      .subscribe((response: User) => {
+                this.user = response;
+                this.setUserState(this.user);
+                console.log(this.user);
+            });
+;
+        // this.currentUser = {
+        //     id: 2,
+        //     userName: userName,
+        //     isAdmin: false
+        // };
+    }
+    setUserState(user: User) {
+        this.store.dispatch(new userActions.SetCurrentUser(user));
     }
 
     logout(): void {

@@ -20,6 +20,7 @@
               "src/favicon.ico"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.scss",
               "src/content/styles.scss"
             ],
@@ -113,10 +114,13 @@
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "csbc",
-      "styleext": "css"
+      "styleext": "scss"
     },
     "@schematics/angular:directive": {
       "prefix": "csbc"
     }
+  },
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
   }
 }

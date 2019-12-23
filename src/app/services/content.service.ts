@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { map, tap } from 'rxjs/operators';
-import { Response } from '@angular/http';
 import { catchError } from 'rxjs/operators';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
@@ -34,12 +33,4 @@ export class ContentService {
                  map((content: Content[]) => content.find(p => p.webContentId === id))
              );
      }
-
-    private handleError(error: Response): Observable<Error> {
-        // in a real world app, we may send the server to some remote logging infrastructure
-        // instead of just logging it to the console
-        console.error(error);
-        return Observable.throw(error.json().error || 'Server error');
-    }
-
 }

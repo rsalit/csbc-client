@@ -10,23 +10,22 @@
 .table-striped thead > tr {
   background-color: $app-bar-background;
 }
-.mat-table {
+.mat-table,
+.mat-card {
   background-color: $card-background-color;
   color: $color;
   border-radius: 10px;
-  width: 100%
+  width: 100%;
 }
 .mat-table tr {
   color: $color;
 }
 .mat-table tr th {
   color: $color;
-  font-size: 1em;
   font-weight: 700;
 }
 .mat-table tr td {
   color: $color;
-  font-size: 1em;
   font-weight: 500;
 }
 
@@ -42,4 +41,48 @@
   border-radius: $border-radius;
   margin-left: 20px;
   margin-right: 20px;
+  background-color: $card-background-color;
+  font: .9rem
+}
+.date {
+  display: inline-block;
+  font-weight: 600;
+  // width: 100px;
+  padding-left: 10px;
+}
+.time {
+  display: inline-block;
+  font-weight: 600;
+  // width: 100px;
+  padding-left: 10px;
+}
+.team {
+  display: inline-block;
+  font-weight: 700;
+  // width: 260px;
+  padding-left: 10px;
+}
+.homeTeam {
+  font-weight: 700;
+  // width: 260px;
+  padding-left: 10px;
+  margin-left: 40px;
+}
+
+.location {
+  display: inline-block;
+  font-weight: 500;
+  // width: 180px;
+  padding-left: 10px;
+}
+.edit {
+  display: inline-block;
+  // width: 80px;
+  padding-left: 10px;
+}
+.row {
+  border-top: 1px solid whitesmoke ;
+  padding-top: 8px;
+  padding-bottom: 8px;
+
 }

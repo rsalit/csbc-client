@@ -488,8 +488,8 @@ th {
   text-align: right;
   font-size: 1.2em;
   font-weight: 500;
-  padding-left: 12px;
-  padding-right: 12px;
+  padding-left: auto;
+  padding-right: auto;
   padding-top: 4px;
   padding-bottom: 10px; }
 

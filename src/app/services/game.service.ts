@@ -1,6 +1,5 @@
-import { Injectable } from '@angular/core';
+                                                                                              import { Injectable } from '@angular/core';
 import { map, tap } from 'rxjs/operators';
-import { Response } from '@angular/http';
 import { catchError } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import '../rxjs-extensions';
@@ -20,17 +19,20 @@ export class GameService {
   set games (games: Game[]) {
     this._games = games;
   }
+  standingsUrl: string;
+  
   public currentTeamId: string;
   constructor(private _http: HttpClient, public dataService: DataService) {
     this._gameUrl = this.dataService.webUrl + '/api/gameschedule';
+    this.standingsUrl = this.dataService.webUrl + '/api/gameStandings';
   }
   getGames(): Observable<Game[]> {
     return this._http
       .get<Game[]>(this._gameUrl)
       .pipe(
-        map(response => this.games = response),
+        map(response => this.games),
         // tap(data => console.log('All: ' + JSON.stringify(data))),
-        catchError(this.handleError)
+        catchError(this.dataService.handleError('getGames', []))
       );
   }
 
@@ -43,14 +45,23 @@ export class GameService {
         );
   }
 
+  getStandings(): Observable<Game[]> {
+    return this._http
+      .get<any[]>(this._gameUrl)
+      .pipe(
+        map(response => this.games = response),
+        // tap(data => console.log('All: ' + JSON.stringify(data))),
+        catchError(this.dataService.handleError('getStandings', []))
+      );
+  }
   filterGamesByDivision(allGames: Game[], divisionId: number): Game[] {
     let games: Game[] = [];
-    console.log(divisionId);
+    // console.log(divisionId);
 
-    console.log(allGames);
+    // console.log(allGames);
     if (allGames) {
       for (let i = 0; i < allGames.length; i++) {
-        console.log(allGames[i].divisionID);
+        // console.log(allGames[i].divisionID);
         if ( allGames[i].divisionID === divisionId ) {
           games.push(allGames[i]);
         }
@@ -74,10 +85,5 @@ export class GameService {
     return games;
   }
 
-  private handleError(error: Response) {
-    // in a real world app, we may send the server to some remote logging infrastructure
-    // instead of just logging it to the console
-    console.error(error);
-    return Observable.throw(error.json().error || 'Server error');
-  }
+ 
 }

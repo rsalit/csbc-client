@@ -4,7 +4,8 @@ import {
   AfterViewInit,
   OnDestroy,
   ViewChildren,
-  ElementRef, Inject
+  ElementRef,
+  Inject
 } from '@angular/core';
 import {
   FormBuilder,
@@ -33,7 +34,7 @@ import { catchError } from 'rxjs/operators';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Content } from '../../../../domain/content';
 import { ContentService } from '../../content.service';
-import { RequestOptions } from '@angular/http';
+import { pipe } from 'rxjs';
 
 @Component({
   selector: 'csbc-content-edit',
@@ -53,7 +54,7 @@ export class ContentEditComponent implements OnInit {
   pageTitle: string;
   hideId: boolean;
   private baseUrl = 'api/products';
-
+  selectedRecord$ = this.contentService.selectedContent$;
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -76,13 +77,14 @@ export class ContentEditComponent implements OnInit {
       webContentId: '',
       expirationDate: ''
     });
-    this.sub = this.route.params.subscribe(params => {
-      let id = +params['webContentId'];
-      console.log(id);
-      this.getContent(id);
-    });
+    // this.sub = this.route.params.subscribe(params => {
+    //   let id = +params['webContentId'];
+    //   console.log(id);
+    //   this.getContent(id);
+    // });
     this.pageTitle = 'Initial';
     this.hideId = true;
+    // this.contentService.selectedContent$.subscribe(data => console.log(data));
   }
 
   update(): void {
@@ -128,5 +130,5 @@ export class ContentEditComponent implements OnInit {
       webContentId: this.content.webContentId
     });
   }
-
+  saveContent() {}
 }

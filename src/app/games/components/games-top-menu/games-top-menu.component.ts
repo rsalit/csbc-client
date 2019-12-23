@@ -5,7 +5,9 @@ import { Store, select } from '@ngrx/store';
 
 import * as fromGames from '../../state';
 import * as gameActions from '../../state/games.actions';
-
+import { catchError, tap } from 'rxjs/operators';
+import { Subject, EMPTY } from 'rxjs';
+import { GameService } from 'app/games/game.service';
 
 @Component({
   selector: 'csbc-games-top-menu',
@@ -17,15 +19,29 @@ export class GamesTopMenuComponent implements OnInit {
   @Input() currentDivision: Division;
   menuForm: FormGroup;
   @Output() selectedDivision = new EventEmitter<Division>();
+  private errorMessageSubject = new Subject<string>();
 
-  constructor(private fb: FormBuilder, private store: Store<fromGames.State>) { }
+  divisions$ = this.gameService.divisions$;
+  // .pipe(
+  //   tap(test => console.log(test)),
+  //   catchError(err => {
+  //     this.errorMessageSubject.next(err);
+  //     return EMPTY;
+  //   })
+  // );
+  
+  constructor(
+    private fb: FormBuilder,
+    private store: Store<fromGames.State>,
+    private gameService: GameService
+  ) {}
 
   ngOnInit() {
     this.setStateSubscriptions();
     this.createForm();
     this.setControlSubscriptions();
-//    const toSelect = this.patientCategories.find(c => c.id == 3);
-//      this.patientCategory.get('patientCategory').setValue(toSelect);
+    //    const toSelect = this.patientCategories.find(c => c.id == 3);
+    //      this.patientCategory.get('patientCategory').setValue(toSelect);
   }
   createForm() {
     this.menuForm = this.fb.group({
@@ -41,13 +57,14 @@ export class GamesTopMenuComponent implements OnInit {
     });
   }
   setStateSubscriptions() {
-    this.store.pipe(select(fromGames.getDivisions)).subscribe(divisions => {
-       console.log(divisions);
-       this.divisions = divisions;
-     });
-    }
-    divisionSelected(division: Division): void {
-      console.log(division);
-      this.selectedDivision.emit(division);
-    }
+//     this.divisions$ = this.store.pipe(select(fromGames.2192isions)); 
+    // .subscribe(divisions => {
+      // console.log(divisions);
+      // this.divisions = divisions;
+   // });
+  }
+  divisionSelected(division: Division): void {
+    console.log(division);
+    this.selectedDivision.emit(division);
+  }
 }

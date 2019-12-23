@@ -15,7 +15,7 @@ const SMALL_WIDTH_BREAKPOINT = 720;
 
 
 export class AdminComponent  implements OnInit {
-  @ViewChild(MatSidenav) sidenav: MatSidenav;
+  @ViewChild(MatSidenav, {static: false}) sidenav: MatSidenav;
 
   opened: true;
   mode = 'side';
@@ -25,9 +25,9 @@ export class AdminComponent  implements OnInit {
   );
 
   constructor(zone: NgZone, private router: Router) {
-    this.mediaMatcher.addListener(mql =>
-      zone.run(() => (this.mediaMatcher = mql))
-    );
+    // this.mediaMatcher.addListener(mql =>
+    //   zone.run(() => (this.mediaMatcher = mql))
+    // );
 
   }
   ngOnInit() {

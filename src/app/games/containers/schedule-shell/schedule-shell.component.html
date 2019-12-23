@@ -1,11 +1,7 @@
 <div fxLayout="row wrap" fxLayoutAlign="start" fxLayoutGap="10px">
-  <!-- <div fxFlex="100" style="margin-bottom:12px; padding-left:20px;">
-    <csbc-game-filter [currentDivision]="selectedDivisionId$ | async">
-    </csbc-game-filter>
-  </div> -->
-  <div fxFlex="row" style="padding-top:12px;">
-    <div fxFlex="100">
-      <csbc-schedule [games]="filteredGames$ | async"></csbc-schedule>
-    </div>
+    <div fxFlex="100" style="border-radius:10px;">
+      <csbc-schedule  
+      [canEdit]="canEdit"></csbc-schedule>
+      <!-- <csbc-schedule-card-view [games]="filteredGames$ | async"></csbc-schedule-card-view> -->
   </div>
 </div>

@@ -1,0 +1,12 @@
+<div fxLayout="row wrap" fxLayoutAlign="start" fxLayoutGap="10px">
+  <!-- <div fxFlex="100" style="margin-bottom:12px; padding-left:20px;">
+    <csbc-game-filter [currentDivision]="selectedDivisionId$ | async">
+    </csbc-game-filter>
+  </div> -->
+  <div fxFlex="row" style="padding-top:12px;width:80%;border-radius:10%;">
+    <div fxFlex="100" style="border-radius:10px;">
+      <csbc-standings [standings]="standings$ | async"></csbc-standings>
+    </div>
+  </div>
+</div>
+

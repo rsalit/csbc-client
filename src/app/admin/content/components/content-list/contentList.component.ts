@@ -40,7 +40,8 @@ export class ContentListComponent implements OnInit {
   addContent() {}
   editContent(item: any) {
     console.log(item);
-    this.router.navigate(['/admin/contentEdit']);
+   //  this.router.navigate(['/admin/contentEdit']);
+   this._contentService.selectedContent = item;
   }
   openDialog(): void {
     const dialogRef = this.dialog.open(ContentEditComponent, {

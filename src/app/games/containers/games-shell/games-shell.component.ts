@@ -10,72 +10,115 @@ import { Game } from 'app/domain/game';
 import { Team } from 'app/domain/team';
 import { Division } from 'app/domain/division';
 import { Season } from 'app/domain/season';
-import { Observable } from 'rxjs';
+import { Observable, from, zip, of } from 'rxjs';
+import { Standing } from 'app/domain/standing';
+import { map } from 'rxjs-compat/operator/map';
+import {
+  groupBy,
+  mergeMap,
+  toArray,
+  tap,
+  flatMap,
+  concatMap
+} from 'rxjs/operators';
+import * as moment from 'moment';
+import * as fromUser from '../../../user/state';
+import { User } from 'app/domain/user';
 
 @Component({
   selector: 'csbc-games-shell',
   templateUrl: './games-shell.component.html',
-  styleUrls: ['./games-shell.component.css']
+  styleUrls: ['./games-shell.component.scss']
 })
 export class GamesShellComponent implements OnInit {
   @Input() showAllTeams: boolean;
   @Input() currentTeam: string;
   teamList: any[];
-  games$:  Observable<Game[]>;
-  filteredGames$:  Observable<Game[]>;
+  filteredGames$: Observable<Game[]>;
+  standings$: Observable<Standing[]>;
   teams: any;
   allGames$: Observable<Game[]>;
   errorMessage: any;
-  currentSeason$: Observable<Season>;
-  divisions$: Observable<Division[]>;
+  // currentSeason$: Observable<Season>;
+  // divisions$: Observable<Division[]>;
   selectedDivisionId$: Observable<number>;
   teams$: Observable<Team[]>;
   selectedTeam$: Observable<Team>;
   errorMessage$: Observable<string>;
   selectedDivision$: Observable<any>;
-
+  standings: Game[];
+  canEdit: boolean;
+  user: User;
+  games: Game[];
+  currentSeason$ = this.seasonService.currentSeason$;
+  divisions$ = this.divisionService.divisions$;
+  games$ = this._gameService.games$;
+  // TODO: this is a bug that needs to be fixed!
+  // gameDivisionFilter$ = this._gameService.games$
+  // .pipe(
+  //   map(games => 
+  //     games.filter(game =>
+  //       this.selectedDivisionId ? game.DivisionID === this.selectedDivisionId  : true)
+  // ) as Game[]);
+  selectedDivisionId: 1;
   constructor(
     private seasonService: SeasonService,
-    private _divisionService: DivisionService,
+    private divisionService: DivisionService,
     private _teamService: TeamService,
     private _gameService: GameService,
     private store: Store<fromGames.State>
   ) {}
 
   ngOnInit() {
-    this.setStateSubscriptions();
-    this.seasonService.getCurrent().subscribe(season => {
-      //     // this.currentSeason = season;
-      console.log(season);
-      this.store.dispatch(new gameActions.SetCurrentSeason(season));
-      this.store.dispatch(new gameActions.LoadDivisions());
-      console.log(fromGames.getDivisions);
-      if (fromGames.getDivisions.length > 0) {
-        this.store.dispatch(
-          new gameActions.SetCurrentDivision(fromGames.getDivisions[0])
-        );
-      }
+    this.store.dispatch(new gameActions.LoadCurrentSeason());
+    this.store.dispatch(new gameActions.LoadDivisions());
+   
+    this._gameService.gamesWithDivision$.pipe(
+      tap(test => console.log(test))
+      );
+    
+    // this.seasonService.currentSeason$.subscribe(season => {
+    //   // this.store.dispatch(new gameActions.SetCurrentSeason(season));
+    //   this.store.dispatch(new gameActions.LoadDivisions());
+    //   this.store.pipe(select(fromGames.divisions)).subscribe(divisions => {
+    //     if (divisions.length > 0) {
+    //       console.log(divisions);
+    //       this.store.dispatch(new gameActions.SetCurrentDivision(divisions[0]));
+    //       this.divisionSelected(divisions[0]);
+    //     }
+    //   });
       this.store.dispatch(new gameActions.LoadTeams());
       this.store.dispatch(new gameActions.Load());
-      this.store.dispatch(new gameActions.LoadFilteredGames());
-    });
+      // this.store.dispatch(new gameActions.LoadFilteredGames());
+
+      this.setStateSubscriptions();
+    // });
   }
   setStateSubscriptions() {
-    this.currentSeason$ = this.store.pipe(select(fromGames.getCurrentSeason));
-    this.selectedDivisionId$ = this.store.pipe(
-      select(fromGames.getCurrentDivisionId)
+     this.currentSeason$ = this.store.pipe(
+       select(fromGames.getCurrentSeason),
+       tap(season => console.log(season))
+     );
+    this.divisions$ = this.store.pipe(
+      select(fromGames.divisions),
+      tap(divisions => console.log(divisions))
     );
-    console.log(this.selectedDivisionId$);
-    console.log(this.selectedTeam$);
-    this.selectedDivision$ = this.store.pipe(
-      select(fromGames.getCurrentDivision)
+    // this.selectedDivisionId$ = this.store.pipe(
+    //   select(fromGames.getCurrentDivisionId),
+    //   tap(division => console.log(division))
+    // );
+    // this.selectedTeam$ = this.store.pipe(select(fromGames.getCurrentTeam));
+    // this.allGames$ = this.store.pipe(select(fromGames.getGames));
+    
+    this.games$ = this.store.pipe(
+      select(fromGames.getGames),
+      tap(division => console.log(division))
     );
-    console.log(this.selectedDivisionId$);
-    this.selectedTeam$ = this.store.pipe(select(fromGames.getCurrentTeam));
-    this.allGames$ = this.store.pipe(select(fromGames.getGames));
-    this.divisions$ = this.store.pipe(select(fromGames.getDivisions));
-    this.games$ = this.store.pipe(select(fromGames.getGames));
     this.filteredGames$ = this.store.pipe(select(fromGames.getFilteredGames));
+    this.standings$ = this.store.pipe(select(fromGames.getStandings));
+    this.store.pipe(select(fromUser.getCurrentUser)).subscribe(user => {
+      this.user = user;
+    });
   }
   public filterByDivision(divisionId: number): void {
     console.log(divisionId);
@@ -85,11 +128,27 @@ export class GamesShellComponent implements OnInit {
   divisionSelected(division: Division): void {
     this.store.dispatch(new gameActions.SetCurrentDivision(division));
     console.log(division);
-    this.store.dispatch(new gameActions.LoadFilteredGames());
+    if (division !== undefined) {
+      this.canEdit = this.getCanEdit(this.user, division.divisionID);
+    }
   }
   teamSelected(team: Team): void {
     this.store.dispatch(new gameActions.SetCurrentTeam(team));
   }
+
+  getCanEdit(user: User, divisionId: number): boolean {
+    console.log(divisionId);
+    if (user) {
+      user.divisions.forEach(element => {
+        if (divisionId === element.divisionID) {
+          return true;
+          console.log('found ' + divisionId);
+        }
+      });
+    }
+    return false;
+  }
+
   setDivisionData(data: any[]): Division[] {
     let divisions: Division[] = [];
     // console.log(data);

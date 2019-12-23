@@ -19,10 +19,10 @@ import { CsbcSeasonSelectComponent } from '../shared/season-select/csbc-season-s
 import { DivisionMasterComponent } from './division-master/division-master.component';
 
 import { CoreModule } from '../core/core.module';
-import { CsbcSharedModule } from '../shared/csbc-Shared.module';
+import { SharedModule } from '../shared/shared.module';
 import { AdminShellComponent } from './containers/admin-shell/admin-shell.component';
 import { StoreModule } from '@ngrx/store';
-import { reducer } from 'app/user/state/user.reducer';
+import { reducer } from './state/admin.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { AdminEffects } from './state/admin.effects';
 import { AdminSeasonShellComponent } from './containers/admin-season-shell/admin-season-shell.component';
@@ -32,6 +32,7 @@ import { AdminTeamListComponent } from './components/admin-team-list/admin-team-
 import { AdminDivisionShellComponent } from './containers/admin-division-shell/admin-division-shell.component';
 import { ContentModule } from './content/content.module';
 import { DirectorModule } from './director/director.module';
+import { ImportScheduleComponent } from './import-schedule/import-schedule.component';
 
 @NgModule({
   imports: [
@@ -39,7 +40,7 @@ import { DirectorModule } from './director/director.module';
     ReactiveFormsModule,
     // BrowserModule,
     FormsModule,
-    CsbcSharedModule,
+    SharedModule,
     CoreModule,
     AdminRoutingModule,
     ContentModule,
@@ -65,7 +66,8 @@ import { DirectorModule } from './director/director.module';
     AdminSeasonListComponent,
     AdminDivisionListComponent,
     AdminTeamListComponent,
-    AdminDivisionShellComponent
+    AdminDivisionShellComponent,
+    ImportScheduleComponent
   ]
 })
 export class AdminModule {}

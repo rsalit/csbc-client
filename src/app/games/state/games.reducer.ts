@@ -1,12 +1,12 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 import { Game } from '../../domain/game';
-import { GamesComponent } from '../games.component';
 import { GameActions, GameActionTypes } from './games.actions';
 import * as fromRoot from '../../state/app.state';
 import { Division } from 'app/domain/division';
 import { Team } from 'app/domain/team';
 import { Season } from 'app/domain/season';
+import { Standing } from 'app/domain/standing';
 
 export interface GameState {
   currentSeason: Season;
@@ -17,6 +17,7 @@ export interface GameState {
   currentTeam: Team | null;
   games: Game[];
   filteredGames: Game[];
+  standings: Standing[];
   showListView: boolean;
   divisions: Division[];
   teams: Team[];
@@ -25,13 +26,21 @@ export interface GameState {
 
 const initialState: GameState = {
   showListView: true,
-  currentSeasonId: 2192,
-  currentSeason: null,
+  currentSeasonId: 2196,
+  currentSeason: {
+    seasonID: 2196,
+    description: 'Summer Season',
+    currentSeason: true,
+    currentSchedule: true,
+    gameSchedules: true,
+    onlineRegistration: false
+  },
   currentDivisionId: null,
   currentDivision: null,
   currentTeamId: null,
   currentTeam: null,
   games: [],
+  standings: [],
   filteredGames: [],
   divisions: [],
   teams: [],
@@ -85,21 +94,26 @@ export function reducer(state = initialState, action: GameActions): GameState {
         ...state,
         divisions: action.payload
       };
-      case GameActionTypes.LoadTeamsSuccess:
-        return {
-          ...state,
-          teams: action.payload
-        };
+    case GameActionTypes.LoadTeamsSuccess:
+      return {
+        ...state,
+        teams: action.payload
+      };
     case GameActionTypes.LoadSuccess:
       return {
         ...state,
         games: action.payload
       };
-      case GameActionTypes.LoadFilteredGamesSuccess:
+    case GameActionTypes.LoadFilteredGamesSuccess:
       return {
         ...state,
         filteredGames: action.payload
       };
+      case GameActionTypes.LoadStandingsSuccess:
+        return {
+          ...state,
+          standings: action.payload
+        };
     default: {
       return state;
     }

@@ -9,10 +9,12 @@ export interface AdminState {
   currentDivisionId: number | null;
   currentTeamId: number | null;
   seasons: Season[];
+  currentSeason: Season;
 }
 
 const initialState: AdminState = {
-  currentSeasonId: null,
+  currentSeason: null,
+  currentSeasonId: 2193,
   currentDivisionId: null,
   currentTeamId: null,
   seasons: []

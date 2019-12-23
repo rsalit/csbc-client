@@ -13,12 +13,11 @@ export class DivisionSelectComponent implements OnInit {
   divisions: Division[];
   errorMessage: string;
   selectedDivision: Division;
+  divisions$  = this._divisionService.divisions$;
+
   constructor(private _divisionService: DivisionService) { }
 
   ngOnInit() {
-    this._divisionService.getDivisions(2090)
-      .subscribe(divisions => this.divisions = this.setDivisionData(divisions),
-      error => this.errorMessage = <any>error);
   }
   onSelect(division: Division): void {
     this.selectedDivision = division;

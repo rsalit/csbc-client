@@ -2,14 +2,16 @@
     <div class="col-sm-3 col-xs-6 col-xss-12">
         <div class="card" routerLink="/admin/season">
             <div class="heading">Current Season</div>
-            <div class="body">Winter 2017</div>
+            <div class="body" *ngIf="currentSeason">{{currentSeason.description}}</div>
         </div>
     </div>
 
      <div class="col-sm-3 col-xs-6 col-xss-12">
         <div class="card" routerLink="/admin/division">
             <div class="heading">Divisions</div>
-            <div class="body">List of divisions</div>
+            <div *ngFor="let division of divisions">
+                {{division.div_Desc}}
+            </div>
         </div>
     </div>
      <div class="col-sm-3 col-xs-6 col-xss-12">

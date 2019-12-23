@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CsbcPhotosComponent } from './photos/csbc-photos.component';
 import { CsbcContactsComponent } from './csbc-contacts/csbc-contacts.component';
 import { CsbcClubDocsComponent } from './club-docs/csbc-club-docs.component';
-import { CsbcHomeComponent } from './home/csbc-home.component';
+import { HomeComponent } from './home/home.component';
 import { GamesModule } from './games/games.module';
 import { AdminComponent } from './admin/admin.component';
 import { PageNotFoundComponent } from './app.not-found.component';
@@ -28,7 +28,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'home',
-    component: CsbcHomeComponent
+    component: HomeComponent
   },
   {
     path: 'photos',

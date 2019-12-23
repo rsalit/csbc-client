@@ -13,7 +13,7 @@
                         <span class="help-block" *ngIf="(contentForm.get('title').touched 
                                                          || contentForm.get('title').dirty) && 
                                                         contentForm.get('title').errors">
-                            <span *ngIf="contentForm.get('title').errors.required">
+                            <span *ngIf="contentForm.get('title').errors">
                                 Please include a title.
                             </span>
                             </span>
