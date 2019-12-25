@@ -1,14 +1,18 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { GameActions } from "./../../state/games.actions";
 import { FormBuilder } from '@angular/forms';
 import { Game } from '../../../domain/game';
 import { Store, select } from '@ngrx/store';
 import * as fromGames from '../../state';
 import * as fromUser from '../../../user/state';
+import * as gameActions from '../../state/games.actions';
 
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatDialog } from '@angular/material';
 import { groupBy, mergeMap, toArray, map } from 'rxjs/operators';
 import { from, zip, of } from 'rxjs';
 import * as moment from 'moment';
+import { User } from 'app/domain/user';
+import { GameScoreDialogComponent } from '../game-score-dialog/game-score-dialog.component';
 
 @Component({
   selector: 'csbc-schedule',
@@ -19,26 +23,28 @@ export class ScheduleComponent implements OnInit {
   dataSource: MatTableDataSource<Game>;
   groupedGames: Game[];
   _gamesByDate: [Date, Game[]];
+  divisionId: number;
   get games() {
     return this._games;
   }
   @Input()
   set games(games: Game[]) {
     this._games = games;
-    console.log(games);
+    //    console.log(games);
     this.dataSource = new MatTableDataSource(games);
-    // this.groupByDate(games).subscribe(grouped => {
-    //   this.groupedGames = grouped;
-    //   console.log(grouped);
-    // });
+    //this.groupByDate(games).subscribe(grouped => {
+    // this.groupedGames = grouped;
+    //console.log(grouped);
+    //});
   }
   private _games: Game[];
   @Input() canEdit: boolean;
 
   errorMessage: string;
   public title: string;
-
-  // games: Game[];
+  private user: User;
+  
+  
   displayedColumns = [
     'gameDate',
     'gameTime',
@@ -48,7 +54,11 @@ export class ScheduleComponent implements OnInit {
     'homeTeamScore',
     'visitingTeamScore'
   ];
-  constructor(private store: Store<fromGames.State>) {
+  constructor(
+    private store: Store<fromGames.State>,
+    private userStore: Store<fromUser.State>,
+    public dialog: MatDialog,
+  ) {
     this.title = 'Schedule!';
     console.log(this.games);
     this.dataSource = new MatTableDataSource(this.games);
@@ -56,35 +66,55 @@ export class ScheduleComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.games);
-    // if (this.canEdit === true) {
-    //   this.displayedColumns.push('actions');
-    // }
-    // this.userStore.pipe(select(fromUser.getCurrentUser)).subscribe(user => {
-    //   this.user = user;
-    //   console.log(this.user);
-    // });
-    // this.store
-    //   .pipe(select(fromGames.getCurrentDivision))
-    //   .subscribe(division => {
-    //     console.log(division);
-    //     if (division !== null) {
-    //       this.divisionId = division.divisionID;
-    //       console.log(this.divisionId);
-    //     }
-    //   });
+    console.log(this.displayedColumns.find(t => t === 'actions'));
+    if (this.canEdit === true) {
+      this.displayedColumns.push('actions');
+    }
+    this.userStore.pipe(select(fromUser.getCurrentUser)).subscribe(user => {
+      this.user = user;
+      console.log(this.user);
+    });
+    this.store
+      .pipe(select(fromGames.getCurrentDivision))
+      .subscribe(division => {
+        console.log(division);
+        if (division !== null && division !== undefined) {
+          this.divisionId = division.divisionID;
+          console.log(this.divisionId);
+          this.canEdit = false;
+          if (this.user !== null && this.user !== undefined) {
+            for (let i = 0; i < this.user.divisions.length; i++) {
+              if (this.user.divisions[i].divisionID === this.divisionId) {
+                this.canEdit = true;
+                console.log('Found division');
+                break;
+              }
+            }
+          }
+        }
+      });
     // this.dataSource = new MatTableDataSource(this.games);
     this.store.pipe(select(fromGames.getFilteredGames)).subscribe(games => {
-      console.log(games);
+      // console.log(games);
       this.games = games;
+      // this.canEdit = true;
       // this.canEdit = this.gameService.getCanEdit(this.user, this.divisionId);
       this.dataSource.data = games;
+    });
+    this.store.pipe(select(fromGames.getCanEdit))
+    .subscribe(canEdit => {
+      console.log('in Schedule');
+      this.canEdit = canEdit;
+      if (canEdit) {
+        this.displayedColumns.push('actions');
+      }
     });
 
     this.dataSource = new MatTableDataSource(this.games);
     this.store.pipe(select(fromGames.getFilteredGames)).subscribe(games => {
-      console.log(games);
+      // console.log(games);
       this.games = games;
-      
+
       this.dataSource.data = games;
     });
   }
@@ -96,11 +126,24 @@ export class ScheduleComponent implements OnInit {
 
     const gamesByDate = source.pipe(
       // map(s => s.gameDate = moment(s.gameDate).toDate()),
-      groupBy(game => game.gameDate, g => g),
+      groupBy(
+        game => game.gameDate,
+        g => g
+      ),
       // return each item in group as array
       mergeMap(group => zip(of(group.key), group.pipe(toArray())))
     );
     console.log(gamesByDate);
     return gamesByDate;
+  }
+  editGame(game){
+    this.store.dispatch(new gameActions.SetCurrentGame(game));
+      const dialogRef = this.dialog.open(GameScoreDialogComponent, {
+        width: '500px'
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed');
+      });
   }
 }

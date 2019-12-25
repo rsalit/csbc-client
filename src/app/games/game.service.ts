@@ -11,7 +11,7 @@ import {
   groupBy
 } from 'rxjs/operators';
 import { DataService } from 'app/services/data.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Game } from 'app/domain/game';
 import * as fromGames from './state';
 import * as gameActions from './state/games.actions';
@@ -25,7 +25,6 @@ import { User } from 'app/domain/user';
   providedIn: 'root'
 })
 export class GameService {
-  
   seasonId: number = 2192; // TO DO make this is passed in!
   currentSeasonId$ = this.store.pipe(
     select(fromGames.getCurrentSeason),
@@ -35,9 +34,8 @@ export class GameService {
 
   divisions: Division[];
   private gameUrl =
-    this.dataService.webUrl +
-    '/api/games/getSeasonGames/' + this.seasonId
-//    this.seasonId;
+    this.dataService.webUrl + '/api/games/getSeasonGames/' + this.seasonId;
+  //    this.seasonId;
   private standingsUrl = this.dataService.webUrl + '/api/gameStandings';
   // private divisionUrl = this.dataService.webUrl + '/api/divisions';
   private divisionUrl =
@@ -51,7 +49,7 @@ export class GameService {
   standing: any[];
   // divisions$: Observable<Division>;
   games$ = this.http.get<Game[]>(this.gameUrl).pipe(
-    tap(data => console.log('All games: ' + JSON.stringify(data))),
+    // tap(data => console.log('All games: ' + JSON.stringify(data))),
     shareReplay(1),
     catchError(this.dataService.handleError)
   );
@@ -102,8 +100,7 @@ export class GameService {
     tap(data => console.log('Division', JSON.stringify(data)))
   );
   divisionGames$ = this.games$.pipe(
-    map(games => games.filter(game => game.divisionID === this.divisionId)),
-    
+    map(games => games.filter(game => game.divisionID === this.divisionId))
   );
   // divisionGames$ = this.allGames$.pipe(
   //   map(games => this.getDivisionGames(games, this.divisionId))
@@ -219,7 +216,7 @@ export class GameService {
   // }
   private sort(a, b) {
     return this.compare(a.gameDate, b.gameDate, true);
-  };
+  }
 
   compare(a: Date | string, b: Date | string, isAsc: boolean) {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
@@ -274,5 +271,37 @@ export class GameService {
     }
     console.error(err);
     return throwError(errorMessage);
+  }
+  validateScores(homeTeamScore, visitorTeamScore) {
+    //validate scores
+    return true;
+  }
+  saveGame({
+    game,
+    homeTeamScore,
+    visitingTeamScore
+  }: {
+    game: Game;
+    homeTeamScore: any;
+    visitingTeamScore: any;
+  }) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    console.log(homeTeamScore);
+    console.log(visitingTeamScore);
+    game.homeTeamScore = homeTeamScore;
+    game.visitingTeamScore = visitingTeamScore;
+    console.log(game);
+    const gameUrl = this.dataService.webUrl + '/api/games/updateScores';
+    // + game;
+    console.log(gameUrl);
+    let result = this.http.put(gameUrl, game, httpOptions).subscribe(x => console.log(x));
+    // .pipe(
+    //   tap(data => console.log(data)),
+    //   catchError(this.dataService.handleError)
+    // );
   }
 }

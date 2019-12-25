@@ -20,6 +20,7 @@ import { GamesTopMenuComponent } from './components/games-top-menu/games-top-men
 import { ScheduleShellComponent } from './containers/schedule-shell/schedule-shell.component';
 import { ScoresComponent } from './components/scores/scores.component';
 import { StandingsShellComponent } from './containers/standings-shell/standings-shell.component';
+import { GameScoreDialogComponent } from './components/game-score-dialog/game-score-dialog.component';
 
 
 @NgModule({
@@ -50,7 +51,10 @@ import { StandingsShellComponent } from './containers/standings-shell/standings-
     ScheduleShellComponent,
     ScoresComponent,
     StandingsShellComponent,
+    GameScoreDialogComponent,
   ],
+  entryComponents: [GameScoreDialogComponent],
+
   providers: [GameService]
 })
 export class GamesModule {}

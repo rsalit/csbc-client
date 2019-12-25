@@ -22,6 +22,8 @@ export interface GameState {
   divisions: Division[];
   teams: Team[];
   showAllteams: boolean;
+  canEdit: boolean;
+  currentGame: Game;
 }
 
 const initialState: GameState = {
@@ -44,7 +46,9 @@ const initialState: GameState = {
   filteredGames: [],
   divisions: [],
   teams: [],
-  showAllteams: true
+  showAllteams: true,
+  canEdit: false,
+  currentGame: null,
 };
 
 export function reducer(state = initialState, action: GameActions): GameState {
@@ -114,7 +118,18 @@ export function reducer(state = initialState, action: GameActions): GameState {
           ...state,
           standings: action.payload
         };
-    default: {
+        case GameActionTypes.SetCanEdit:
+          return {
+            ...state,
+            canEdit: action.payload
+          };
+          case GameActionTypes.SetCurrentGame:
+            return {
+              ...state,
+              currentGame: action.payload
+            };
+    
+        default: {
       return state;
     }
   }

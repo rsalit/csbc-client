@@ -57,6 +57,7 @@ export class ScheduleShellComponent implements OnInit {
 
   constructor(
     private store: Store<fromGames.State>,
+    private userStore: Store<fromUser.State>,
     private divisinService: DivisionService,
     private gameService: GameService
   ) {}
@@ -78,6 +79,11 @@ export class ScheduleShellComponent implements OnInit {
       });
       //});
     });
+    this.userStore.pipe(select(fromUser.getCurrentUser)).subscribe(user => {
+      this.user = user;
+      console.log(this.user);
+    });
+
     this.store
       .pipe(
         select(fromGames.getCurrentDivision),
@@ -99,6 +105,7 @@ export class ScheduleShellComponent implements OnInit {
   divisionSelected(division: Division): void {
     this.store.dispatch(new gameActions.SetCurrentDivision(division));
     console.log(division);
+    console.log(this.user);
     this.canEdit = this.getCanEdit(this.user, division.divisionID);
     // this.store.dispatch(new gameActions.LoadFilteredGames());
     // this.store.dispatch(new gameActions.LoadStandings());

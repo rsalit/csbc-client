@@ -61,3 +61,11 @@ export const getStandings = createSelector(
   getGameFeatureState,
   state => state.standings
 );
+export const getCanEdit = createSelector(
+  getGameFeatureState,
+  state => state.canEdit
+);
+export const getCurrentGame = createSelector(
+  getGameFeatureState,
+  state => state.currentGame
+)

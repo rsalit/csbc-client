@@ -34,7 +34,9 @@ export enum GameActionTypes {
   LoadDivisionsFail = '[Game] Load Divisions Fail',
   LoadTeams = '[Game] Load Teams',
   LoadTeamsSuccess = '[Game] Load Teams Success',
-  LoadTeamsFail = '[Game] Load Teams Fail'
+  LoadTeamsFail = '[Game] Load Teams Fail',
+  SetCanEdit = '[Game] Set Can Edit Scores',
+  SetCurrentGame ='[Game] Set Current Game'
 }
 
 // Action Creators
@@ -53,8 +55,7 @@ export class SetCurrentSeason implements Action {
 }
 export class SetCurrentDivision implements Action {
   readonly type = GameActionTypes.SetCurrentDivision;
-  constructor(public payload:  Division ) {
-  }
+  constructor(public payload: Division) {}
 }
 export class SetCurrentTeam implements Action {
   readonly type = GameActionTypes.SetCurrentTeam;
@@ -122,7 +123,7 @@ export class LoadStandings implements Action {
 
 export class LoadStandingsSuccess implements Action {
   readonly type = GameActionTypes.LoadStandingsSuccess;
-  constructor(public payload: Standing[] ) {}
+  constructor(public payload: Standing[]) {}
 }
 
 export class LoadStandingsFail implements Action {
@@ -136,7 +137,10 @@ export class LoadDivisions implements Action {
 export class LoadDivisionsSuccess implements Action {
   readonly type = GameActionTypes.LoadDivisionsSuccess;
 
-  constructor(public payload: Division[], private store: Store<fromGames.State>) {
+  constructor(
+    public payload: Division[],
+    private store: Store<fromGames.State>
+  ) {
     // this.store.dispatch(
     //   new SetCurrentDivision(payload[0])
     // );
@@ -156,13 +160,20 @@ export class LoadTeamsSuccess implements Action {
   constructor(public payload: Team[]) {
     console.log(payload);
     console.log('LoadTeamSuccess');
-    
   }
 }
 export class LoadTeamsFail implements Action {
   readonly type = GameActionTypes.LoadTeamsFail;
-
   constructor(public payload: string) {}
+}
+
+export class SetCanEdit implements Action {
+  readonly type = GameActionTypes.SetCanEdit;
+  constructor(public payload: boolean) {}
+}
+export class SetCurrentGame implements Action {
+  readonly type = GameActionTypes.SetCurrentGame;
+  constructor(public payload: Game) {}
 }
 
 export type GameActions =
@@ -191,5 +202,6 @@ export type GameActions =
   | LoadDivisionsFail
   | LoadTeams
   | LoadTeamsSuccess
-  | LoadTeamsFail;
-
+  | LoadTeamsFail
+  | SetCanEdit
+  | SetCurrentGame;

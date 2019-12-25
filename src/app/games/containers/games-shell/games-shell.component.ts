@@ -4,7 +4,10 @@ import { DivisionService } from 'app/services/division.service';
 import { TeamService } from 'app/services/team.service';
 import { GameService } from '../../game.service';
 import { Store, select } from '@ngrx/store';
+
 import * as fromGames from '../../state';
+import * as fromUser from '../../../user/state';
+
 import * as gameActions from '../../state/games.actions';
 import { Game } from 'app/domain/game';
 import { Team } from 'app/domain/team';
@@ -22,7 +25,6 @@ import {
   concatMap
 } from 'rxjs/operators';
 import * as moment from 'moment';
-import * as fromUser from '../../../user/state';
 import { User } from 'app/domain/user';
 
 @Component({
@@ -37,6 +39,7 @@ export class GamesShellComponent implements OnInit {
   filteredGames$: Observable<Game[]>;
   standings$: Observable<Standing[]>;
   teams: any;
+  user$ = this.userStore.pipe(select(fromUser.getCurrentUser)).subscribe(user => this.user = user);
   allGames$: Observable<Game[]>;
   errorMessage: any;
   // currentSeason$: Observable<Season>;
@@ -66,7 +69,9 @@ export class GamesShellComponent implements OnInit {
     private divisionService: DivisionService,
     private _teamService: TeamService,
     private _gameService: GameService,
-    private store: Store<fromGames.State>
+    private store: Store<fromGames.State>,
+    private userStore: Store<fromUser.State>
+
   ) {}
 
   ngOnInit() {
@@ -128,8 +133,11 @@ export class GamesShellComponent implements OnInit {
   divisionSelected(division: Division): void {
     this.store.dispatch(new gameActions.SetCurrentDivision(division));
     console.log(division);
+    console.log(this.user$);
     if (division !== undefined) {
       this.canEdit = this.getCanEdit(this.user, division.divisionID);
+      this.store.dispatch(new gameActions.SetCanEdit(this.canEdit));
+      console.log(this.canEdit);
     }
   }
   teamSelected(team: Team): void {
@@ -138,15 +146,17 @@ export class GamesShellComponent implements OnInit {
 
   getCanEdit(user: User, divisionId: number): boolean {
     console.log(divisionId);
+    console.log(user);
+    let canEdit = false;
     if (user) {
       user.divisions.forEach(element => {
         if (divisionId === element.divisionID) {
-          return true;
           console.log('found ' + divisionId);
+          canEdit = true;
         }
       });
     }
-    return false;
+    return canEdit;
   }
 
   setDivisionData(data: any[]): Division[] {

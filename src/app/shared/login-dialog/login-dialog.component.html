@@ -5,7 +5,6 @@
     [formGroup]="loginForm"
     (ngSubmit)="onSubmitClick()"
   >
-    <p>Login id</p>
     <mat-form-field>
       <input matInput formControlName="userName" placeholder="User Name" />
     </mat-form-field>
@@ -16,7 +15,6 @@
   </form>
 </div>
 <div mat-dialog-actions>
-  <button mat-raised-button (click)="onCancelClick()">Cancel</button>
   <button
     mat-raised-button
     mat-dialog-close
@@ -25,4 +23,5 @@
   >
     Ok
   </button>
+  <button mat-raised-button (click)="onCancelClick()">Cancel</button>
 </div>

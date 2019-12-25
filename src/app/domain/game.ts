@@ -8,11 +8,11 @@ export class Game {
         public location: string;
         public gameDate: Date;
         public gameTime: Date;
-        public homeTeam: string;
+        public homeTeamName: string;
         public homeTeamId: number;
-        public visitingTeam: string;
+        public visitingTeamName: string;
         public visitingTeamId: number;
-        public homeScore: number;
-        public visitorScore: number;
+        public homeTeamScore: number;
+        public visitingTeamScore: number;
     constructor() { }
 }
