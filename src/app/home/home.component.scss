@@ -1,13 +1,29 @@
 @import '../../../content/_variables';
+img {
+  // display: flex;
+  // justify-content: center;
+  max-width: 100%;
+  height: auto;
+  // background-image: url('img_flowers.jpg');
+  //background-repeat: no-repeat;
+  // background-size: contain;
+  object-fit: contain;
+}
 
 #logo {
-        display: flex;
-        justify-content: center;
-  }
+  display: flex;
+  justify-content: center;
+  max-width: 100%;
+  height: auto;
+  // background-image: url('img_flowers.jpg');
+  //background-repeat: no-repeat;
+  // background-size: contain;
+  object-fit: contain;
+}
 .panel-title {
-    font-size: 1.2em;
-    text-align: center;
-    background-color: #424242;
+  font-size: 1.2em;
+  text-align: center;
+  background-color: #424242;
 }
 em {
   text-align: right;
@@ -15,7 +31,7 @@ em {
 .manny {
   background-color: transparent;
   color: #ebf3c6;
-float: right;
+  float: right;
   text-align: right;
   font-size: 1.1em;
   font-weight: 600;

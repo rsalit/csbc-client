@@ -22,10 +22,10 @@
             <!-- <li fxFlex *ngIf="showAdminMenu">
                 <a routerLink="/admin">Admin</a>
             </li> -->
-            <li fxFlex >
+            <li fxFlex *ngIf="showAdminMenu">
                 <a routerLink="/admin">Admin</a>
             </li>
-            <li fxFlex>
+            <li fxFlex *ngIf="showAdminMenu">
                 <a routerLink="/dashboard">Dashboard</a>
             </li>
             <!--<li class="dropdown">

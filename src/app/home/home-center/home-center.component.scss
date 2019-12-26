@@ -1,3 +1,5 @@
+@import '../../../../content/_variables.scss';
+
 .panel-title {
     font-size: 1.2em;
     text-align: center;
@@ -10,6 +12,13 @@ height: 280px;
 
 h4 {
     padding-top: 14px;
-    padding-left: auto;
-    padding-right: auto;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+.tag-line {
+    color: $brand-color;
+    text-align: right;
+    font-weight: 800;
+    font-size: 1em;
+
 }

@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { CoreModule } from '../../core/core.module';
-import { MatTableDataSource, MatSort, MatPaginator, MatCard } from '@angular/material';
+import {
+  MatTableDataSource,
+  MatSort,
+  MatPaginator,
+  MatCard
+} from '@angular/material';
 
 import { Content } from '../../domain/content';
 import { ContentService } from '../../admin/content/content.service';
-
 
 @Component({
   selector: 'csbc-announcements',
@@ -27,19 +31,22 @@ export class CsbcAnnouncementsComponent implements OnInit {
 
   ngOnInit() {
     this.getWebContent();
-
   }
 
   getWebContent(): void {
-    this._webContentService.getContents()
-      .subscribe(webContents => this.activeWebContent = webContents,
-      error => this.errorMessage = <any>error);
+    this._webContentService.getContents().subscribe(
+      webContents => {
+        this.activeWebContent = webContents;
+        console.log(this.activeWebContent);
+      },
+      error => (this.errorMessage = <any>error)
+    );
   }
   showNews(): boolean {
     return this.latestNewsCount > 0;
   }
   showSeasonInfo(): boolean {
-    return (this.seasonInfoCount > 0);
+    return this.seasonInfoCount > 0;
   }
 
   setImageClass(): string {
@@ -50,21 +57,17 @@ export class CsbcAnnouncementsComponent implements OnInit {
     }
   }
   showSidebar(): boolean {
-    return (this.meetingNoticeCount > 0);
+    return this.meetingNoticeCount > 0;
   }
   setSeasonInfoClass() {
-    if (this.showNews()) {
-      return 'col-sm-12 col-sm-offset-0 col-xs-12';
-    } else {
-      return 'col-sm-12 col-sm-offset-0 col-xs-12';
-    }
+      return 'col-8 offset-4 col-xs-12';
   }
 
   setNewsClass(): string {
     if (this.showSeasonInfo() || this.latestNewsCount > 0) {
-      return 'col-sm-12 col-sm-offset-0 col-xs-12';
+      return 'col-sm-8 offset-sm-2 col-xs-12';
     } else {
-      return 'col-sm-12 col-sm-offset-0 col-xs-12';
+      return 'col-sm-8 offset-sm-2 col-xs-12';
     }
   }
   setSeasonListClass(): string {

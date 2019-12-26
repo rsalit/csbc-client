@@ -18,6 +18,7 @@ export class Content {
     public location: string;
     public dateAndTime: string;
     public expirationDate: Date;
+    public webContentTypeId
     constructor() {
     }
 }

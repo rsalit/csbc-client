@@ -9,10 +9,12 @@
   border-radius: 10px;
   background-color: $card-background-color;
   margin-bottom:10px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 .mat-card-title {
-  font-size: 1.4em;
+  font-size: 1.2em;
   font-weight: 720;
+  font-variant: small-caps;
   color: $navbar-color;
   text-align: center;
   padding-left: auto;
@@ -23,12 +25,21 @@
   text-align: center;
 }
 .mat-card-content {
-  font-size: 1.1em;
-  color: ghostwhite;
+  font-size: 1.0em;
+  color: $font-color-text;
   font-weight: 400;
 }
 .top-padding {
   margin-top: 24px;
   padding-left: auto;
   padding-right: auto;
+}
+.sub-title {
+  text-align: center;
+  color: #5254b9;
+  margin-left:auto;
+  margin-right: auto;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 1.1em;
 }
