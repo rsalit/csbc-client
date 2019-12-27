@@ -1,14 +1,15 @@
 <csbc-games-top-menu (selectedDivision)="divisionSelected($event)">
 </csbc-games-top-menu>
-<div class="season">{{ currentSeason$.description | async }}</div>
-<div>
-  <div fxLayout="row wrap" fxLayoutAlign="start" fxLayoutGap="10px">
-    <div fxFlex="100" style="margin-bottom:12px; padding-left:20px;">
-      <csbc-game-filter
+<!-- <csbc-game-filter
         [currentDivision]="selectedDivisionId$ | async"
         (selectedDivision)="divisionSelected($event)"
       >
-      </csbc-game-filter>
+      </csbc-game-filter> -->
+<!-- <div class="season">{{ seasonDescription }}</div> -->
+<div class="games-wrapper">
+  <div fxLayout="row wrap" fxLayoutAlign="start" fxLayoutGap="10px">
+    <div fxFlex="100" style="margin-bottom:12px; padding-left:20px;">
+      
     </div>
     <!-- <div fxFlex="100" style="margin-bottom:12px; padding-left:20px;">
     <csbc-game-filter

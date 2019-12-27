@@ -1,2 +1,12 @@
+<mat-sidenav-container>
+     <mat-sidenav #sidenav role="navigation">
+        <csbc-sidenav-list (sidenavClose) = "sidenav.close()"></csbc-sidenav-list>
+    </mat-sidenav>
 
-    <csbc-top-nav></csbc-top-nav>
+    <mat-sidenav-content fxFlexFill>
+      <csbc-top-nav (sidenavToggle)="sidenav.toggle()"></csbc-top-nav>
+       <router-outlet></router-outlet
+    ></mat-sidenav-content>
+  </mat-sidenav-container>
+  
+   

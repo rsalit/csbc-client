@@ -5,6 +5,7 @@ import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
 import { CoreModule } from 'app/core/core.module';
 
+
 @NgModule({
   imports: [CommonModule, FormsModule, CoreModule],
   exports: [CommonModule, FormsModule],

@@ -9,10 +9,17 @@
   color: white;
   margin-left: 20px;
   margin-right: 24px;
-  // border-radius: 10px;
-  // border-top: .5px solid white;
-  // border-bottom: .5px solid white;
   float: right;
+}
+.filter-divisions {
+  padding-left: 20px;
+  padding-right: 10px;
+  padding-bottom: 2px;
+  padding-top: 2px;
+  background-color: transparent;
+  color: white;
+  float: right;
+  font-size: .7em;
 }
 
 .mat-form-field-type-mat-select .mat-form-field-label {

@@ -1,4 +1,5 @@
 <mat-toolbar>
+  <span class="season">{{ seasonDescription }}</span>
   <div
     [formGroup]="menuForm"
     fxLayout="row"
@@ -24,17 +25,17 @@
       </mat-form-field>
     </div> -->
 
-    <div>
-      <a href="/games/schedule" mat-button>Schedule</a>
-    </div>
-    <div>
-      <a href="/games/standings" mat-button>Standings</a>
-    </div>
-    <div>
-      <a href="/games/scores" mat-button>Scores</a>
-    </div>
+    <a href="/games/schedule" mat-button>Schedule</a>
+    <a href="/games/standings" mat-button>Standings</a>
+    <a href="/games/scores" mat-button>Scores</a>
+
     <!-- <div>
       <a href="#" mat-button>Teams</a>
     </div> -->
   </div>
+  <span class="fill-space"></span>
+  <csbc-game-filter
+    [currentDivision]="selectedDivisionId$ | async"
+    (selectedDivision)="divisionSelected($event)"
+  ></csbc-game-filter>
 </mat-toolbar>

@@ -45,12 +45,15 @@ import {
   MatButtonModule,
   MAT_DIALOG_DEFAULT_OPTIONS
 } from '@angular/material';
+import { MatTabsModule, MatSidenavModule } from '@angular/material';
+
 import { AppEffects } from './app.effects';
 import { reducers, metaReducers } from './reducers';
 import { environment } from '../environments/environment';
 import { LoginDialogComponent } from './shared/login-dialog/login-dialog.component';
 import { SharedModule } from './shared/shared.module';
 import { UserModule } from './user/user.module';
+import { SidenavListComponent } from './shared/sidenav-list/sidenav-list.component';
 
 // import { ContentComponent } from './admin/content/content.component';
 // import { CsbcSeasonSelectComponent } from './shared/season-select/csbc-season-select.component';
@@ -61,6 +64,7 @@ import { UserModule } from './user/user.module';
   declarations: [
     AppComponent,
     TopNavComponent,
+    SidenavListComponent,
     CsbcPhotosComponent,
     CsbcContactsComponent,
     LoginComponent,
@@ -96,6 +100,8 @@ import { UserModule } from './user/user.module';
     MatMenuModule,
     MatIconModule,
     MatButtonModule,
+    MatTabsModule,
+    MatSidenavModule,
     StoreModule.forRoot({}),
     StoreDevtoolsModule.instrument({
       name: 'CSBC Site',

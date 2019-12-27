@@ -1,3 +1,5 @@
+@import '../../../../content/_variables';
+
 .shell {
   width: 80%;
   padding-top: 12px;
@@ -8,8 +10,9 @@
  
 }
 .games-wrapper {
-  border-radius: 10px;
+  background-color: $background-color;
 }
 .season {
   color: white;
+  background-color: $background-color;
 }

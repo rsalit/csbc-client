@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDialog } from '@angular/material';
 import { LoginDialogComponent } from '../login-dialog/login-dialog.component';
@@ -14,10 +14,14 @@ import { User } from 'app/domain/user';
   styleUrls: ['./top-nav.component.scss']
 })
 export class TopNavComponent implements OnInit {
+  @Output() public sidenavToggle= new EventEmitter();
   currentUser$: Observable<User>;
   userName = '';
   showAdminMenu = false;
   currentUser: User;
+  drawer: {
+    opened: false;
+  }
 
   constructor(public dialog: MatDialog, private store: Store<fromUser.State>) {}
 
@@ -42,5 +46,8 @@ export class TopNavComponent implements OnInit {
       console.log('The dialog was closed');
       // this.animal = result;
     });
+  }
+  public onToggleSidenav = () => {
+    this.sidenavToggle.emit();
   }
 }

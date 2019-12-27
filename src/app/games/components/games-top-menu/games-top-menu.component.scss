@@ -1,5 +1,18 @@
+@import '../../../../content/_variables.scss';
+
 a {
-    font-size: .9em;
-    font-variant-caps: small-caps;
-    font-weight: 600;
+  font-size: 0.9em;
+  font-variant-caps: small-caps;
+  font-weight: 600;
+}
+.fill-space {
+  flex: 1 1 auto;
+}
+.season {
+  color: $brand-color;
+  background-color: $background-color;
+  font-variant: small-caps;
+  font-size: .8em;
+  font-weight: 700;
+  width: 120px;
 }

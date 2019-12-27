@@ -6,8 +6,9 @@ import { Store, select } from '@ngrx/store';
 import * as fromGames from '../../state';
 import * as gameActions from '../../state/games.actions';
 import { catchError, tap } from 'rxjs/operators';
-import { Subject, EMPTY } from 'rxjs';
+import { Subject, EMPTY, Observable } from 'rxjs';
 import { GameService } from 'app/games/game.service';
+import { SeasonService } from 'app/services/season.service';
 
 @Component({
   selector: 'csbc-games-top-menu',
@@ -29,11 +30,15 @@ export class GamesTopMenuComponent implements OnInit {
   //     return EMPTY;
   //   })
   // );
-  
+  currentSeason$ = this.seasonService.currentSeason$.subscribe(season => this.seasonDescription = season.description);
+  seasonDescription: string;
+  selectedDivisionId$: Observable<number>;
+
   constructor(
     private fb: FormBuilder,
     private store: Store<fromGames.State>,
-    private gameService: GameService
+    private gameService: GameService,
+    private seasonService: SeasonService
   ) {}
 
   ngOnInit() {

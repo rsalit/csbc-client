@@ -53,7 +53,8 @@ export class GamesShellComponent implements OnInit {
   canEdit: boolean;
   user: User;
   games: Game[];
-  currentSeason$ = this.seasonService.currentSeason$;
+  currentSeason$: Observable<any>; // = this.seasonService.currentSeason$.subscribe(season => this.seasonDescription = season.description);
+  seasonDescription: string;
   divisions$ = this.divisionService.divisions$;
   games$ = this._gameService.games$;
   // TODO: this is a bug that needs to be fixed!

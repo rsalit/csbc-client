@@ -19,7 +19,8 @@ export class SeasonService {
   selectedSeason: Season;
   public selectedSeason$: Observable<Season>;
   seasons: Season[];
-  currentSeason$ = this._http.get<Season>(this._seasonUrl).pipe(
+  currentSeason$: Observable<Season> = this._http.get<Season>(this._seasonUrl).pipe(
+    map(season => season as Season),
     tap(data => console.log('All: ' + JSON.stringify(data))),
     catchError(this.dataService.handleError('getCurrentSeason', null))
   );
