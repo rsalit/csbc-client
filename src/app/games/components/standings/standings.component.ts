@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
 import { Standing } from 'app/domain/standing';
+import { GameService } from './../../game.service';
 
 @Component({
   selector: 'csbc-standings',
@@ -30,7 +31,7 @@ export class StandingsComponent implements OnInit {
     'streak',
   ];
   dataSource: MatTableDataSource<unknown>;
-  constructor() {
+  constructor(private gameService: GameService) {
     this.title = 'Standings';
     this.dataSource = new MatTableDataSource(this.standings);
   }
@@ -44,7 +45,10 @@ export class StandingsComponent implements OnInit {
   }
 
   getStandings() {
-    // let standings = this.gameService.getStandings();
+    this.gameService.getStandings().subscribe(standings => {
+      console.log(standings);
+      // this.standings = standings;
+    });
     // console.log(standings);
     return [
       {

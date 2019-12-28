@@ -23,7 +23,7 @@ import { LoginComponent } from './login.component';
 // import { CsbcGamesComponent} from './csbc-games/csbc-games.component';
 import { TopNavComponent } from './shared/top-nav/top-nav.component';
 import { CsbcPhotosComponent } from './photos/csbc-photos.component';
-import { CsbcContactsComponent } from './csbc-contacts/csbc-contacts.component';
+import { ContactsComponent } from './contacts/contacts.component';
 import { AdminModule } from './admin/admin.module';
 import { ComposeMessageComponent } from './compose-message.component';
 
@@ -66,13 +66,13 @@ import { SidenavListComponent } from './shared/sidenav-list/sidenav-list.compone
     TopNavComponent,
     SidenavListComponent,
     CsbcPhotosComponent,
-    CsbcContactsComponent,
+    ContactsComponent,
     LoginComponent,
     PageNotFoundComponent,
     ComposeMessageComponent,
     GamesPipe,
     CsbcNavComponent,
-    CsbcDashboardComponent
+    CsbcDashboardComponent,
     //    ContentComponent
 
     // CsbcSeasonSelectComponent

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CsbcContactsComponent } from '../csbc-contacts/csbc-contacts.component';
+import { ContactsComponent } from '../contacts/contacts.component';
 
 @Component({
   selector: 'csbc-dashboard',
@@ -8,7 +8,7 @@ import { CsbcContactsComponent } from '../csbc-contacts/csbc-contacts.component'
 })
 export class CsbcDashboardComponent {
   cards = [
-    { title: 'Card 1', cols: 2, rows: 1, content: CsbcContactsComponent },
+    { title: 'Card 1', cols: 2, rows: 1, content: ContactsComponent },
     { title: 'Test of another card', cols: 1, rows: 1, content: 'Content 4' },
     { title: 'Card 3', cols: 1, rows: 2, content: 'Content 3' },
     { title: 'Card 4', cols: 1, rows: 1, content: 'Content 4' }

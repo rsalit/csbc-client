@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { CsbcPhotosComponent } from './photos/csbc-photos.component';
-import { CsbcContactsComponent } from './csbc-contacts/csbc-contacts.component';
+import { ContactsComponent } from './contacts/contacts.component';
 import { CsbcClubDocsComponent } from './club-docs/csbc-club-docs.component';
 import { HomeComponent } from './home/home.component';
 import { GamesModule } from './games/games.module';
@@ -36,7 +36,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'contacts',
-    component: CsbcContactsComponent
+    component: ContactsComponent
   },
   {
     path: 'clubDocs',

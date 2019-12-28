@@ -123,7 +123,8 @@ export class ContentService {
       body: null,
       dateAndTime: null,
       location: null,
-      expirationDate: new Date()
+      expirationDate: new Date(),
+      webContentTypeId: 0
     };
   }
 }
