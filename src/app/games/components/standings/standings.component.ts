@@ -37,7 +37,7 @@ export class StandingsComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.teams = this.getStandings();
+    this.teams = this.getStandings();
 
     this.dataSource = new MatTableDataSource(this.standings);
     console.log(this.teams);
@@ -45,10 +45,11 @@ export class StandingsComponent implements OnInit {
   }
 
   getStandings() {
-    this.gameService.getStandings().subscribe(standings => {
-      console.log(standings);
-      // this.standings = standings;
-    });
+
+    // this.gameService.getStandingsByDivision()..subscribe(standings => {
+    //   console.log(standings);
+    //   this.standings = standings;
+    // });
     // console.log(standings);
     return [
       {

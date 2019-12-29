@@ -44,6 +44,19 @@
   background-color: $card-background-color;
   font: .9rem
 }
+@media screen and (max-width: 600px) {
+  .table-wrapper {
+    padding-left: 2px;
+    padding-right: 2px;
+    margin-left: 2px;
+    margin-right: 2px;  }
+
+    .location {
+      font-size:.7em;
+      font-weight: 500;
+      // width: 180px;   
+  }
+}
 .date {
   
   font-weight: 600;
@@ -70,7 +83,6 @@
 }
 
 .location {
-  
   font-weight: 500;
   // width: 180px;
   

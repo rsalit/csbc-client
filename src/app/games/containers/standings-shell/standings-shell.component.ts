@@ -32,10 +32,10 @@ export class StandingsShellComponent implements OnInit {
     console.log('ScheduleShell - set subscriptions');
     this.standings$ = this.store.pipe(select(fromGames.getStandings));
   }
-  divisionSelected(division: Division): void {
-    this.store.dispatch(new gameActions.SetCurrentDivision(division));
-    console.log(division);
-    this.store.dispatch(new gameActions.LoadStandings());
-  }
+  // divisionSelected(division: Division): void {
+  //   this.store.dispatch(new gameActions.SetCurrentDivision(division));
+  //   console.log(division);
+  //   this.store.dispatch(new gameActions.LoadStandings());
+  // }
 
 }

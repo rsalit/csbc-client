@@ -83,27 +83,9 @@ export class ScheduleShellComponent implements OnInit {
       this.user = user;
       console.log(this.user);
     });
-
-    this.store
-      .pipe(
-        select(fromGames.getCurrentDivision),
-        take(1)
-      )
-      .subscribe(division => {
-        this.division = division;
-        console.log(division);
-        if (division !== undefined && division !== null) {
-          this.filteredGames$ = this.gameService.filterGamesByDivision(
-            this.division.divisionID
-          );
-          // this.store.pipe(select(fromUser.getCurrentUser)).subscribe(user => {
-          //   this.canEdit = this.getCanEdit(this.user, division.divisionID);
-          // });
-        }
-      });
   }
   divisionSelected(division: Division): void {
-    this.store.dispatch(new gameActions.SetCurrentDivision(division));
+    // this.store.dispatch(new gameActions.SetCurrentDivision(division));
     console.log(division);
     console.log(this.user);
     this.canEdit = this.getCanEdit(this.user, division.divisionID);

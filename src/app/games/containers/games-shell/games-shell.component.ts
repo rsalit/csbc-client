@@ -125,6 +125,7 @@ export class GamesShellComponent implements OnInit {
     this.store.pipe(select(fromUser.getCurrentUser)).subscribe(user => {
       this.user = user;
     });
+    this.store.dispatch(new gameActions.LoadStandings());
   }
   public filterByDivision(divisionId: number): void {
     console.log(divisionId);
@@ -138,7 +139,8 @@ export class GamesShellComponent implements OnInit {
     if (division !== undefined) {
       this.canEdit = this.getCanEdit(this.user, division.divisionID);
       this.store.dispatch(new gameActions.SetCanEdit(this.canEdit));
-      console.log(this.canEdit);
+      // console.log(this.canEdit);
+      this.store.dispatch(new gameActions.LoadStandings());
     }
   }
   teamSelected(team: Team): void {
@@ -146,8 +148,8 @@ export class GamesShellComponent implements OnInit {
   }
 
   getCanEdit(user: User, divisionId: number): boolean {
-    console.log(divisionId);
-    console.log(user);
+    // console.log(divisionId);
+    // console.log(user);
     let canEdit = false;
     if (user) {
       user.divisions.forEach(element => {

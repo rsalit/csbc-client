@@ -1,32 +1,9 @@
 <csbc-games-top-menu (selectedDivision)="divisionSelected($event)">
 </csbc-games-top-menu>
-<!-- <csbc-game-filter
-        [currentDivision]="selectedDivisionId$ | async"
-        (selectedDivision)="divisionSelected($event)"
-      >
-      </csbc-game-filter> -->
-<!-- <div class="season">{{ seasonDescription }}</div> -->
 <div class="games-wrapper">
   <div fxLayout="row wrap" fxLayoutAlign="start" fxLayoutGap="10px">
-    <div fxFlex="100" style="margin-bottom:12px; padding-left:20px;">
-      
-    </div>
-    <!-- <div fxFlex="100" style="margin-bottom:12px; padding-left:20px;">
-    <csbc-game-filter
-      [divisions]="divisions$ | async"
-      [currentDivision]="selectedDivisionId$ | async"
-      [teams]="teams$ | async"
-      [currentTeam]="selectedTeam$ | async"
-      [showAllTeams]="showAllTeams"
-      (selectedDivision)="divisionSelected($event)"
-      (selectedTeam)="teamSelected($event)"
-    >
-    </csbc-game-filter>
-  </div> -->
+    <!-- <div fxFlex="100" style="margin-bottom:12px; padding-left:20px;"></div> -->
     <div fxFlex="100" class="shell">
-      <!-- <div fxFlex="100">
-      <csbc-schedule [games]="filteredGames$ | async"></csbc-schedule>
-    </div> -->
       <div class="game-wrapper">
         <router-outlet></router-outlet>
       </div>

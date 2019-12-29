@@ -55,7 +55,7 @@ export class GameService {
   );
 
   divisions$ = this.http.get<Division[]>(this.divisionUrl).pipe(
-    tap(data => console.log('Divisions', JSON.stringify(data))),
+    // tap(data => console.log('Divisions', JSON.stringify(data))),
     shareReplay(1),
     catchError(this.handleError)
   );
@@ -96,7 +96,10 @@ export class GameService {
   );
   selectedDivision$ = this.store.pipe(
     select(fromGames.getCurrentDivision),
-    map(division => (this.divisionId = division.divisionID)),
+    map(division => {
+      this.divisionId = division.divisionID;
+      this.getStandingsByDivision(division.divisionID);
+    }),
     tap(data => console.log('Division', JSON.stringify(data)))
   );
   divisionGames$ = this.games$.pipe(
@@ -237,10 +240,11 @@ export class GameService {
   //       return this.getStandingsByDivision(divisionId);
   //     });
   // }
-  getStandingsByDivision(divisionId: number): Observable<Standing[]> {
+  standingsByDivision$ = combineLatest([this.currentDivision$]).pipe();
+  getStandingsByDivision(divisionId: number) {
     return this.http.get<any[]>(this.standingsUrl + '/' + divisionId).pipe(
       map(response => (this.standing = response)),
-      tap(data => console.log('All: ' + JSON.stringify(data))),
+      // tap(data => console.log('All: ' + JSON.stringify(data))),
       catchError(this.dataService.handleError('getStandings', []))
     );
   }
@@ -298,7 +302,9 @@ export class GameService {
     const gameUrl = this.dataService.webUrl + '/api/games/updateScores';
     // + game;
     console.log(gameUrl);
-    let result = this.http.put(gameUrl, game, httpOptions).subscribe(x => console.log(x));
+    let result = this.http
+      .put(gameUrl, game, httpOptions)
+      .subscribe(x => console.log(x));
     // .pipe(
     //   tap(data => console.log(data)),
     //   catchError(this.dataService.handleError)

@@ -58,7 +58,7 @@ export class GameEffects {
     mergeMap(action =>
       this.seasonService.currentSeason$.pipe(
         map(season => new gameActions.SetCurrentSeason(season)),
-        tap( data => console.log(data)),
+        tap(data => console.log(data)),
         catchError(err => of(new gameActions.LoadDivisionsFail(err)))
       )
     )
@@ -147,24 +147,20 @@ export class GameEffects {
     ofType(gameActions.GameActionTypes.LoadStandings),
     concatMap(action =>
       of(action).pipe(
-        withLatestFrom(this.store.pipe(select(getCurrentDivision)))
+        withLatestFrom(this.store.pipe(select(getCurrentDivision))),
+        tap(([action, t]) => {
+          if (t) {
+            this.divisionId = t.divisionID;
+          } else {
+            this.divisionId = 0;
+          }
+        })
       )
     ),
-    tap(([action, t]) => {
-      console.log(action);
-      console.log(t);
-      if (t) {
-        this.divisionId = t.divisionID;
-      } else {
-        this.divisionId = 0;
-      }
-    }),
-    // tap(action => console.log(this.actions$)),
-
     switchMap(x =>
       this.gameService.getStandingsByDivision(this.divisionId).pipe(
         map(standings => new gameActions.LoadStandingsSuccess(standings)),
-        // tap(response => 'got Standings'),
+        tap(response => 'got Standings'),
         catchError(err => of(new gameActions.LoadStandingsFail(err)))
       )
     )

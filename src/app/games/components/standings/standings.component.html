@@ -1,23 +1,4 @@
-<!-- <table class="table table-responsive table-striped" style="width:98%;">
-  <thead>
-    <tr>
-      <th>Team</th>
-      <th>Wins</th>
-      <th>Losses</th>
-      <th>Pct</th>
-      <th>Games Behind</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor= "let team of standings" >
-      <td>{{team.teamName}}</td>
-      <td>{{team.won}}</td>
-      <td>{{team.lost}}</td>
-      <td>{{team.pct}}</td>
-      <td>{{team.streak}}</td>
-    </tr>
-  </tbody>
-</table> -->
+
 <div class="table-wrapper">
   <h4>Standings</h4>
   <table mat-table id="grdSchedule" [dataSource]="dataSource">

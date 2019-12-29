@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { GameActions } from "./../../state/games.actions";
+import { GameActions } from './../../state/games.actions';
 import { FormBuilder } from '@angular/forms';
 import { Game } from '../../../domain/game';
 import { Store, select } from '@ngrx/store';
@@ -13,6 +13,7 @@ import { from, zip, of } from 'rxjs';
 import * as moment from 'moment';
 import { User } from 'app/domain/user';
 import { GameScoreDialogComponent } from '../game-score-dialog/game-score-dialog.component';
+import { MediaObserver } from '@angular/flex-layout';
 
 @Component({
   selector: 'csbc-schedule',
@@ -24,6 +25,8 @@ export class ScheduleComponent implements OnInit {
   groupedGames: Game[];
   _gamesByDate: [Date, Game[]];
   divisionId: number;
+  flexMediaWatcher: any;
+  currentScreenWidth: any;
   get games() {
     return this._games;
   }
@@ -43,8 +46,7 @@ export class ScheduleComponent implements OnInit {
   errorMessage: string;
   public title: string;
   private user: User;
-  
-  
+
   displayedColumns = [
     'gameDate',
     'gameTime',
@@ -58,8 +60,15 @@ export class ScheduleComponent implements OnInit {
     private store: Store<fromGames.State>,
     private userStore: Store<fromUser.State>,
     public dialog: MatDialog,
+    private media: MediaObserver
   ) {
     this.title = 'Schedule!';
+    this.flexMediaWatcher = media.media$.subscribe(change => {
+      if (change.mqAlias !== this.currentScreenWidth) {
+        this.currentScreenWidth = change.mqAlias;
+        this.setupTable();
+      }
+    });
     console.log(this.games);
     this.dataSource = new MatTableDataSource(this.games);
   }
@@ -101,8 +110,7 @@ export class ScheduleComponent implements OnInit {
       // this.canEdit = this.gameService.getCanEdit(this.user, this.divisionId);
       this.dataSource.data = games;
     });
-    this.store.pipe(select(fromGames.getCanEdit))
-    .subscribe(canEdit => {
+    this.store.pipe(select(fromGames.getCanEdit)).subscribe(canEdit => {
       console.log('in Schedule');
       this.canEdit = canEdit;
       if (canEdit) {
@@ -117,6 +125,29 @@ export class ScheduleComponent implements OnInit {
 
       this.dataSource.data = games;
     });
+  }
+
+  setupTable() {
+    this.displayedColumns = [
+      'gameDate',
+      'gameTime',
+      'locationName',
+      'homeTeamName',
+      'visitingTeamName',
+      'homeTeamScore',
+      'visitingTeamScore'
+    ];
+    if (this.currentScreenWidth === 'xs') {
+      // only display internalId on larger screens
+      //this.displayedColumns.shift(); // remove 'internalId'
+      this.displayedColumns = [
+        'gameDate',
+        'gameTime',
+        'locationName',
+        'homeTeamName',
+        'visitingTeamName'
+      ];
+    }
   }
   groupByDate(games: Game[]) {
     const source = from(games);
@@ -136,14 +167,14 @@ export class ScheduleComponent implements OnInit {
     console.log(gamesByDate);
     return gamesByDate;
   }
-  editGame(game){
+  editGame(game) {
     this.store.dispatch(new gameActions.SetCurrentGame(game));
-      const dialogRef = this.dialog.open(GameScoreDialogComponent, {
-        width: '500px'
-      });
-  
-      dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
-      });
+    const dialogRef = this.dialog.open(GameScoreDialogComponent, {
+      width: '500px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 }

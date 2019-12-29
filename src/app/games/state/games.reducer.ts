@@ -48,7 +48,7 @@ const initialState: GameState = {
   teams: [],
   showAllteams: true,
   canEdit: false,
-  currentGame: null,
+  currentGame: null
 };
 
 export function reducer(state = initialState, action: GameActions): GameState {
@@ -113,23 +113,23 @@ export function reducer(state = initialState, action: GameActions): GameState {
         ...state,
         filteredGames: action.payload
       };
-      case GameActionTypes.LoadStandingsSuccess:
-        return {
-          ...state,
-          standings: action.payload
-        };
-        case GameActionTypes.SetCanEdit:
-          return {
-            ...state,
-            canEdit: action.payload
-          };
-          case GameActionTypes.SetCurrentGame:
-            return {
-              ...state,
-              currentGame: action.payload
-            };
-    
-        default: {
+    case GameActionTypes.LoadStandingsSuccess:
+      return {
+        ...state,
+        standings: action.payload
+      };
+    case GameActionTypes.SetCanEdit:
+      return {
+        ...state,
+        canEdit: action.payload
+      };
+    case GameActionTypes.SetCurrentGame:
+      return {
+        ...state,
+        currentGame: action.payload
+      };
+
+    default: {
       return state;
     }
   }

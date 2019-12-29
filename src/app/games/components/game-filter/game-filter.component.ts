@@ -97,14 +97,8 @@ export class GameFilterComponent implements OnInit {
     if (division === undefined) {
       division = this.divisions[0];
       this.store.dispatch(new gameActions.SetCurrentDivision(division));
-    console.log(division);
-    // console.log(this.user$);
-    // if (division !== undefined) {
-    //   this.canEdit = this.getCanEdit(this.user, division.divisionID);
-    //   this.store.dispatch(new gameActions.SetCanEdit(this.canEdit));
-    //   console.log(this.canEdit);
+      console.log(division);
     }
-    console.log(division);
     this.selectedDivision.emit(division);
   }
   teamSelected(team: Team): void {
