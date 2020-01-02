@@ -2,6 +2,7 @@ import { Component, OnInit, NgZone, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { MatSidenav } from '@angular/material';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 class MenuItem {
   routerLink: string;
@@ -23,12 +24,14 @@ export class AdminComponent  implements OnInit {
   private mediaMatcher: MediaQueryList = matchMedia(
     `(max-width: ${SMALL_WIDTH_BREAKPOINT}px)`
   );
+  options: FormGroup;
 
-  constructor(zone: NgZone, private router: Router) {
-    // this.mediaMatcher.addListener(mql =>
-    //   zone.run(() => (this.mediaMatcher = mql))
-    // );
-
+  constructor(zone: NgZone, private router: Router, fb: FormBuilder) {
+    this.options = fb.group({
+      bottom: 0,
+      fixed: false,
+      top: 0
+    });
   }
   ngOnInit() {
     // this.userService.isLoggedIn.subscribe(f => {

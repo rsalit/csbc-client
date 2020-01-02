@@ -4,7 +4,7 @@ import { MatTableDataSource } from '@angular/material';
 @Component({
   selector: 'csbc-director-list',
   templateUrl: './director-list.component.html',
-  styleUrls: ['./director-list.component.css']
+  styleUrls: ['./director-list.component.scss']
 })
 export class DirectorListComponent implements OnInit {
   _directors: any;

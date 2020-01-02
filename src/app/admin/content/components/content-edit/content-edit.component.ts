@@ -35,6 +35,9 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Content } from '../../../../domain/content';
 import { ContentService } from '../../content.service';
 import { pipe } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+
+import * as fromContent from '../../state';
 
 @Component({
   selector: 'csbc-content-edit',
@@ -44,7 +47,7 @@ import { pipe } from 'rxjs';
 export class ContentEditComponent implements OnInit {
   @ViewChildren(FormControlName, { read: ElementRef })
   @Inject(MAT_DIALOG_DATA)
-  formInputElements: ElementRef[];
+  // formInputElements: ElementRef[];
 
   // @Input()
   content: Content;
@@ -53,17 +56,20 @@ export class ContentEditComponent implements OnInit {
   errorMessage: string;
   pageTitle: string;
   hideId: boolean;
-  private baseUrl = 'api/products';
+  private baseUrl = 'api/contents';
   selectedRecord$ = this.contentService.selectedContent$;
+  selectedContent: Content;
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
+    private store: Store<fromContent.State>,
     // private http: Http,
     private contentService: ContentService
   ) {}
 
   ngOnInit(): void {
+    console.log('called edit routine');
     this.contentForm = this.fb.group({
       title: [
         '',
@@ -82,7 +88,7 @@ export class ContentEditComponent implements OnInit {
     //   console.log(id);
     //   this.getContent(id);
     // });
-    this.pageTitle = 'Initial';
+    this.pageTitle = 'Edit Web Content Messages';
     this.hideId = true;
     // this.contentService.selectedContent$.subscribe(data => console.log(data));
   }
@@ -99,12 +105,16 @@ export class ContentEditComponent implements OnInit {
     });
   }
   getContent(id: number): void {
-    this.contentService
-      .getContent(id)
-      .subscribe(
-        (content: Content) => this.onContentRetrieved(content),
-        (error: any) => (this.errorMessage = <any>error)
-      );
+    this.store.pipe(select(fromContent.getSelectedContent)).subscribe(
+      content => { this.selectedContent = content;
+      this.onContentRetrieved(content);
+    });
+    // this.contentService
+    //   .getContent(id)
+    //   .subscribe(
+    //     (content: Content) => this.onContentRetrieved(content),
+    //     (error: any) => (this.errorMessage = <any>error)
+    //   );
   }
   onContentRetrieved(content: Content): void {
     console.log(content);

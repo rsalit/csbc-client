@@ -1,11 +1,16 @@
-<div class="row">
-    <div class="col-sm-12">
-        <form novalidate (ngSubmit)="saveContent()" [formGroup]="contentForm">
-
+<div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="10px">
+    <div fxFlex="100">
+          <form novalidate (ngSubmit)="saveContent()" [formGroup]="contentForm">
             <h2>{{pageTitle}}</h2>
             <fieldset>
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Title" formControl='title'>
+                  </mat-form-field>
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Sub Title" formControl='sub-title'>
+                  </mat-form-field>
                 <div class="row">
-                    <div class="col-md-12">
+                    <!-- <div class="col-md-12">
                         <div class=form-group [ngClass]="{'has-error': (contentForm.get('title').touched || contentForm.get('title').dirty) && !contentForm.get('title').valid }">
                             <label class="control-label" for="title">Title</label>
                             <input id="title" class="form-control" type="text" placeholder="Title" formControlName="title" />
@@ -17,13 +22,13 @@
                                 Please include a title.
                             </span>
                             </span>
-                    </div>
-                    <div class="col-md-12">
+                    </div> -->
+                    <!-- <div class="col-md-12">
                         <div class=form-group [ngClass]="{'has-error': (contentForm.get('subTitle').touched || contentForm.get('subTitle').dirty) && !contentForm.get('subTitle').valid }">
                             <label class="control-label" for="subTitle">Sub-Title</label>
                             <input id="subTitle" class="form-control" type="text" placeholder="Sub-title" formControlName="subTitle" />
                         </div>
-                    </div>
+                    </div> -->
                     <div class="col-md-12">
                         <div class=form-group [ngClass]="{'has-error': (contentForm.get('body').touched || contentForm.get('body').dirty) && !contentForm.get('body').valid }">
                             <label class="control-label" for="body">Body</label>

@@ -17,7 +17,7 @@ fieldset {
 }
 
 nav.sidebar {
-  background-color: $card-background-color;
+  background-color: lighten($background-color, 12%);
   color: white;
   border:0;
   height: 100%;

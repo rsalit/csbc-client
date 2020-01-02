@@ -1,6 +1,5 @@
 $sidebar-background-color: #232323;
 $sidebar-color: orange;
-// $background-color: #303030;
 $background-color: black;
 $sidebar-pill-background: orange;
 $panel-default-heading-background: #000000;
@@ -11,7 +10,7 @@ $table-font-color: #fce9cd;
 $navbar-background-color: #212121;
 
 $navbar-color: #d17b00;
-
+$sidebar-menu: lighten( black, 12%);
 $card-background-color: darken(#424242, 14%);
 $status-bar-background: #000000;
 $app-bar-background: #212121;

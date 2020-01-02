@@ -1,54 +1,28 @@
-<div fxLayout="row wrap" fxLayoutAlign="start" fxLayoutGap="10px" style="margin-top:20px;">
-  <div fxFlex="20" style="margin-bottom:12px;">
+<!-- <div class="container"> -->
+  <div class="flex-container" fxLayout="row" fxLayoutGap="10px" style="margin-top:20px;">
+  <div fxFlex="25" style="margin-bottom:12px;">
     <mat-sidenav-container class="admin-container">
-      <mat-sidenav
-        #sidenav
-        mode="side"
-        [(opened)]="opened"
-        (opened)="events.push('open!')"
-        (closed)="events.push('close!')"
-      >
-        Sidenav content
-      </mat-sidenav>
-
       <mat-sidenav-content>
         <mat-nav-list>
-          
-          <a mat-list-item routerLink="/admin/dashboard"
-            >Dashboard<span
-              class="pull-right hidden-xs showopacity glyphicon glyphicon-home"
-            ></span>
+          <a mat-list-item routerLink="/admin/dashboard">Dashboard
+            <span class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span>
           </a>
-
-          <a mat-list-item routerLink="/admin/seasons" routerLinkActive="active"
-            >Seasons</a
-          >
-          <li class="subheading">Season Info</li>
-          <a mat-list-item routerLink="/admin/division" style="color:'white';"
-            >Divisions</a
-          >
-          <a mat-list-item routerLink="/admin/teams" routerLinkActive="active"
-            >Teams</a
-          >
-          <a mat-list-item routerLink="/admin/games" routerLinkActive="active"
-            >Games</a
-          >
-          <li class="subheading">Site Info</li>
-          <a mat-list-item routerLink="/admin/content" routerLinkActive="active"
-            >Content</a
-          >
-         
-          <a mat-list-item routerLink="/admin/director" routerLinkActive="active"
-            >Directors</a
-          >
+          <mat-divider></mat-divider>
+          <a mat-list-item routerLink="/admin/seasons" routerLinkActive="active">Seasons</a>
+          <!-- <a mat-list-item routerLink="/admin/division" style="color:'white';">Divisions</a>
+          <a mat-list-item routerLink="/admin/teams" routerLinkActive="active">Teams</a>
+          <a mat-list-item routerLink="/admin/games" routerLinkActive="active">Games</a> -->
+          <mat-divider></mat-divider>
+          <a mat-list-item routerLink="./content" routerLinkActive="active">Content</a>      
+          <!-- <a mat-list-item routerLink="./director" routerLinkActive="active">Directors</a> -->
         </mat-nav-list>
-
         <!-- <p><button mat-button (click)="sidenav.toggle()">sidenav.toggle()</button></p>
     <p>Events:</p> -->
       </mat-sidenav-content>
     </mat-sidenav-container>
   </div>
-  <div fxFlex="75" style="padding-left:20px;">
+  <div fxFlex="75" >
     <router-outlet></router-outlet>
   </div>
 </div>
+<!-- </div> -->

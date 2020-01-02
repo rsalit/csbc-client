@@ -1,12 +1,7 @@
 @import '../../../content/_variables';
 img {
-  // display: flex;
-  // justify-content: center;
   max-width: 100%;
   height: auto;
-  // background-image: url('img_flowers.jpg');
-  //background-repeat: no-repeat;
-  // background-size: contain;
   object-fit: contain;
 }
 
@@ -15,9 +10,6 @@ img {
   justify-content: center;
   max-width: 100%;
   height: auto;
-  // background-image: url('img_flowers.jpg');
-  //background-repeat: no-repeat;
-  // background-size: contain;
   object-fit: contain;
 }
 .panel-title {
@@ -30,7 +22,7 @@ em {
 }
 .manny {
   background-color: transparent;
-  color: #ebf3c6;
+  color: darken(#ebf3c6, 10%);
   float: right;
   text-align: right;
   font-size: 1.1em;

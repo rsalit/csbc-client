@@ -12,17 +12,17 @@ import { CoreModule } from 'app/core/core.module';
 import { StoreModule } from '@ngrx/store';
 import { reducer } from './state/content.reducer';
 
-
 @NgModule({
-  imports: [CommonModule,
+  imports: [
+    CommonModule,
     ReactiveFormsModule,
-    // BrowserModule,
     FormsModule,
     SharedModule,
     CoreModule,
-ContentRoutingModule,
-StoreModule.forFeature('content', reducer),
-],
+    ContentRoutingModule,
+    StoreModule.forFeature('content', reducer)
+  ],
+  exports: [ContentRoutingModule],
   declarations: [
     ContentShellComponent,
     ContentListComponent,

@@ -32,7 +32,7 @@ import { DivisionService } from './services/division.service';
 import { TeamService } from './services/team.service';
 import { GameService } from './services/game.service';
 import { DataService } from './services/data.service';
-import { PageNotFoundComponent } from './app.not-found.component';
+// import { PageNotFoundComponent } from './app.not-found.component';
 import { GamesPipe } from './games.pipe';
 import { CsbcNavComponent } from './csbc-nav/csbc-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -55,11 +55,6 @@ import { SharedModule } from './shared/shared.module';
 import { UserModule } from './user/user.module';
 import { SidenavListComponent } from './shared/sidenav-list/sidenav-list.component';
 
-// import { ContentComponent } from './admin/content/content.component';
-// import { CsbcSeasonSelectComponent } from './shared/season-select/csbc-season-select.component';
-// import { DivisionSelectComponent } from './division-select/division-select.component';
-// import { GamesListComponent } from './games-list/games-list.component';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -68,16 +63,10 @@ import { SidenavListComponent } from './shared/sidenav-list/sidenav-list.compone
     CsbcPhotosComponent,
     ContactsComponent,
     LoginComponent,
-    PageNotFoundComponent,
     ComposeMessageComponent,
     GamesPipe,
     CsbcNavComponent,
     CsbcDashboardComponent,
-    //    ContentComponent
-
-    // CsbcSeasonSelectComponent
-    // DivisionSelectComponent,
-    // GamesListComponent
   ],
   imports: [
     BrowserModule,
@@ -114,7 +103,7 @@ import { SidenavListComponent } from './shared/sidenav-list/sidenav-list.compone
       maxAge: 25,
       logOnly: environment.production
     })
-    //  ContentComponent
+
   ],
 
   providers: [

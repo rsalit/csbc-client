@@ -14,28 +14,27 @@ import { GameEffects } from './state/game.effects';
 import { GameFilterComponent } from './components/game-filter/game-filter.component';
 import { GamesShellComponent } from './containers/games-shell/games-shell.component';
 import { EffectsModule } from '@ngrx/effects';
-import { GameService} from './game.service';
+import { GameService } from './game.service';
 import { GameSortPipe } from './game-sort.pipe';
 import { GamesTopMenuComponent } from './components/games-top-menu/games-top-menu.component';
 import { ScheduleShellComponent } from './containers/schedule-shell/schedule-shell.component';
 import { ScoresComponent } from './components/scores/scores.component';
 import { StandingsShellComponent } from './containers/standings-shell/standings-shell.component';
 import { GameScoreDialogComponent } from './components/game-score-dialog/game-score-dialog.component';
-
+import { AppModule } from 'app/app.module';
 
 @NgModule({
   imports: [
-  CommonModule,
+    // CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    // AppModule,
     // BrowserAnimationsModule,
     CoreModule,
     SharedModule,
     GamesRoutingModule,
     StoreModule.forFeature('games', reducer),
-    EffectsModule.forFeature(
-      [ GameEffects ]
-    ),
+    EffectsModule.forFeature([GameEffects])
   ],
   exports: [GamesRoutingModule],
   declarations: [
@@ -51,7 +50,7 @@ import { GameScoreDialogComponent } from './components/game-score-dialog/game-sc
     ScheduleShellComponent,
     ScoresComponent,
     StandingsShellComponent,
-    GameScoreDialogComponent,
+    GameScoreDialogComponent
   ],
   entryComponents: [GameScoreDialogComponent],
 

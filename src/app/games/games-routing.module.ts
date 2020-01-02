@@ -7,6 +7,7 @@ import { ScheduleCardViewComponent } from './components/schedule-card-view/sched
 import { ScheduleShellComponent } from './containers/schedule-shell/schedule-shell.component';
 import { ScoresComponent } from './components/scores/scores.component';
 import { StandingsShellComponent } from './containers/standings-shell/standings-shell.component';
+import { PageNotFoundComponent } from 'app/app.not-found.component';
 
 
 const gamesRoutes: Routes = [
@@ -16,17 +17,17 @@ const gamesRoutes: Routes = [
          children: [
              { path: '', component: ScheduleShellComponent },
              { path: 'schedule', component: ScheduleShellComponent },
-             { path: 'list', component: ScheduleComponent },
+            //  { path: 'list', component: ScheduleComponent },
              { path: 'standings', component: StandingsShellComponent },
              { path: 'card', component: ScheduleCardViewComponent },
              { path: 'scores', component: ScoresComponent },
-             { path: '**', redirectTo: 'welcome', pathMatch: 'full' }
+             { path: '**', component:  PageNotFoundComponent }
          ]
 }];
 
 @NgModule({
     imports: [
-        RouterModule.forChild(gamesRoutes)
+       RouterModule.forChild(gamesRoutes)
     ],
     exports: [
         RouterModule

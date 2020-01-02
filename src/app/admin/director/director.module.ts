@@ -10,20 +10,25 @@ import { DirectorEditComponent } from './component/director-edit/director-edit.c
 import { EffectsModule } from '@ngrx/effects';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from '../../core/core.module';
+import { SharedModule } from 'app/shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    // BrowserAnimationsModule,
+    SharedModule,
     CoreModule,
     DirectorRoutingModule,
-    StoreModule.forFeature('director', reducer),
+    StoreModule.forFeature('director', reducer)
     // EffectsModule.forFeature(
     //  [ GameEffects ]
     // ),
   ],
-  declarations: [DirectorShellComponent, DirectorListComponent, DirectorEditComponent]
+  declarations: [
+    DirectorShellComponent,
+    DirectorListComponent,
+    DirectorEditComponent
+  ]
 })
-export class DirectorModule { }
+export class DirectorModule {}
