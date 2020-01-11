@@ -6,4 +6,12 @@ div {
 .sectionTitle {
     font-size: 1.2em;
     font-weight: 700px;
+    border-radius: 5px;
+    padding-left: 20px;
+    padding-top:12px;
+    padding-bottom:12px;
+    background-color: $card-background-color;
+}
+.content-wrapper {
+    margin-right: 12px;
 }

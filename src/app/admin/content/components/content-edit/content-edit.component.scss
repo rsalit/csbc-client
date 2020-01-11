@@ -5,6 +5,8 @@ fieldset {
   border-radius: 10px;
   padding-left: 20px;
   padding-right: 20px;
+  padding-top: 16px;
+  padding-bottom: 16px;
 }
 h2 {
   color: white;
@@ -12,6 +14,20 @@ h2 {
   padding-bottom: 6px;
   padding-left: 12px;
 }
-input {
-  // background-color: $color;
+input, textarea {
+  background-color: transparent;
+}
+.standard-field-width {
+  padding-right: 12px;
+}
+.full-width {
+  width: 98%;
+}
+button {
+  padding-right: 12px;
+
+}
+.mat-card {
+  background-color: $card-background-color;
+  color: $card-color;
 }

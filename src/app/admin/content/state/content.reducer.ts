@@ -7,6 +7,7 @@ import { Content } from 'app/domain/content';
 export interface ContentState {
   currentContentId: number;
   selectedContent: Content;
+
 }
 
 const initialState: ContentState = {

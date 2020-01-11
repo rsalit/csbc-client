@@ -48,11 +48,14 @@ export class ContentListComponent implements OnInit {
    //  this.selectedContent = content;
   }
 
-  addContent() {}
+  addContent() {
+    const content = new Content();
+    this.store.dispatch(new contentActions.SetSelectedContent(content));
+    this.router.navigate(['./admin/content/edit']);
+  }
   editContent(content: any) {
     console.log(content);
     this.store.dispatch(new contentActions.SetSelectedContent(content));
-    // this.selectedContent.emit(content);
     this.router.navigate(['./admin/content/edit']);
     // this._contentService.selectedContent = content;
   }

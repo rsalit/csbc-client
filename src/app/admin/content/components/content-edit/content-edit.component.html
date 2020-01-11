@@ -1,16 +1,67 @@
-<div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="10px">
-    <div fxFlex="100">
-          <form novalidate (ngSubmit)="saveContent()" [formGroup]="contentForm">
-            <h2>{{pageTitle}}</h2>
-            <fieldset>
-                <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Title" formControl='title'>
-                  </mat-form-field>
-                  <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Sub Title" formControl='sub-title'>
-                  </mat-form-field>
-                <div class="row">
-                    <!-- <div class="col-md-12">
+<section fxLayout="row" fxLayoutAlign="start" fxLayoutGap="10px">
+  <mat-card fxFlex="98">
+    <mat-card-title>{{ pageTitle }}</mat-card-title>
+    <form novalidate (ngSubmit)="saveContent()" [formGroup]="contentForm">
+      <mat-card-content>
+        <fieldset>
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Title" formControlName="title" />
+            <mat-hint>Not more then 50 characters long.</mat-hint>
+            <mat-error *ngIf="hasError('title', 'required')">Name is required</mat-error>
+            <mat-error *ngIf="hasError('title', 'maxlength')">You have more than 50 characters</mat-error>
+        </mat-form-field>
+
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              placeholder="Sub Title"
+              formControlName="subTitle"
+            />
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <textarea
+              matInput
+              type="text"
+              placeholder="Body"
+              rows="4"
+              formControlName="body"
+            ></textarea>
+          </mat-form-field>
+          <mat-form-field class="standard-field-width">
+            <input matInput placeholder="location" formControlName="location" />
+          </mat-form-field>
+          <mat-form-field class="standard-field-width">
+            <input
+              matInput
+              placeholder="Date and Time"
+              formControlName="dateAndTime"
+            />
+          </mat-form-field>
+          <mat-form-field type="date" class="standard-field-width">
+            <!-- <input matInput placeholder="Expiration Date" > -->
+            <input
+              matInput
+              [matDatepicker]="picker"
+              placeholder="Choose a date"
+              formControlName="expirationDate"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <input
+            id="webContentId"
+            class="form-control"
+            [hidden]="hideId"
+            type="text"
+            placeholder=""
+            formControlName="webContentId"
+          />
+
+          <!-- <div class="row"> -->
+          <!-- <div class="col-md-12">
                         <div class=form-group [ngClass]="{'has-error': (contentForm.get('title').touched || contentForm.get('title').dirty) && !contentForm.get('title').valid }">
                             <label class="control-label" for="title">Title</label>
                             <input id="title" class="form-control" type="text" placeholder="Title" formControlName="title" />
@@ -23,13 +74,13 @@
                             </span>
                             </span>
                     </div> -->
-                    <!-- <div class="col-md-12">
+          <!-- <div class="col-md-12">
                         <div class=form-group [ngClass]="{'has-error': (contentForm.get('subTitle').touched || contentForm.get('subTitle').dirty) && !contentForm.get('subTitle').valid }">
                             <label class="control-label" for="subTitle">Sub-Title</label>
                             <input id="subTitle" class="form-control" type="text" placeholder="Sub-title" formControlName="subTitle" />
                         </div>
                     </div> -->
-                    <div class="col-md-12">
+          <!-- <div class="col-md-12">
                         <div class=form-group [ngClass]="{'has-error': (contentForm.get('body').touched || contentForm.get('body').dirty) && !contentForm.get('body').valid }">
                             <label class="control-label" for="body">Body</label>
                             <textarea rows="4" id="body" class="form-control" placeholder="Body" formControlName="body"></textarea>
@@ -63,19 +114,33 @@
                         </div>
                     </div>
                     
-                </div>
-                <div class="row">
-                    <div class="input-group-btn">
-                        <button type="button" class="btn btn-default" type="submit" style="width:80px;margin-right:10px" [disabled]='!contentForm.valid'>Save</button>
-                        <button type="button" class="btn btn-default" style="width:120px;margin-right:10px">Save and New</button>
-                        <button type="button" class="btn btn-default" style="width:80px" [routerLink]="['/admin/content']">Cancel</button>
-                    </div>
-                </div>
-            </fieldset>
-
-        </form>
-    </div>
-</div>
+                </div> -->
+        </fieldset>
+      </mat-card-content>
+      <mat-card-actions>
+        <div class="input-group-btn">
+          <button
+            type="button"
+            mat-raised-button
+            type="submit"
+            [disabled]="!contentForm.valid"
+            color="primary"
+          >
+            Save
+          </button>
+          <button type="button" mat-raised-button>Save and New</button>
+          <button
+            type="button"
+            mat-raised-button
+            [routerLink]="['/admin/content']"
+          >
+            Cancel
+          </button>
+        </div>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+</section>
 <!--
     <div class="col-sm-4 col-sm-offset-3">
 <div class="panel panel-default">

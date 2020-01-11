@@ -5,11 +5,12 @@
 }
 .mat-table {
   background-color: black;
-  font-size: 1.1em;
+  font-size: 1em;
 }
 th {
   background-color: $card-background-color;
   color: white;
+  font-weight: 800;
 }
 tbody {
   color: white;

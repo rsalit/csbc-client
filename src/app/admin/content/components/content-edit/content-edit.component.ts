@@ -69,7 +69,6 @@ export class ContentEditComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log('called edit routine');
     this.contentForm = this.fb.group({
       title: [
         '',
@@ -81,7 +80,7 @@ export class ContentEditComponent implements OnInit {
       dateAndTime: '',
       webContentTypeId: '',
       webContentId: '',
-      expirationDate: ''
+      expirationDate: new Date()
     });
     // this.sub = this.route.params.subscribe(params => {
     //   let id = +params['webContentId'];
@@ -90,6 +89,7 @@ export class ContentEditComponent implements OnInit {
     // });
     this.pageTitle = 'Edit Web Content Messages';
     this.hideId = true;
+    this.getContent();
     // this.contentService.selectedContent$.subscribe(data => console.log(data));
   }
 
@@ -104,7 +104,7 @@ export class ContentEditComponent implements OnInit {
       webContentId: this.content.webContentId
     });
   }
-  getContent(id: number): void {
+  getContent(): void {
     this.store.pipe(select(fromContent.getSelectedContent)).subscribe(
       content => { this.selectedContent = content;
       this.onContentRetrieved(content);
@@ -121,24 +121,29 @@ export class ContentEditComponent implements OnInit {
     if (this.contentForm) {
       this.contentForm.reset();
     }
-    this.content = content;
-    console.log(this.content);
-    if (this.content.webContentId === 0) {
+    // this.content = content;
+    //console.log(this.content);
+    if (content.webContentId === 0) {
       this.pageTitle = 'Add Content';
     } else {
-      this.pageTitle = `Edit Content: ${this.content.title}`;
+      this.pageTitle = `Edit Content: ${content.title}`;
     }
 
     // // Update the data on the form
     this.contentForm.patchValue({
-      title: this.content.title,
-      subTitle: this.content.subTitle,
-      body: this.content.body,
-      dateAndTime: this.content.dateAndTime,
-      location: this.content.location,
-      expirationDate: this.content.expirationDate,
-      webContentId: this.content.webContentId
+      title: content.title,
+      subTitle: content.subTitle,
+      body: content.body,
+      dateAndTime: content.dateAndTime,
+      location: content.location,
+      expirationDate: content.expirationDate,
+      webContentId: content.webContentId
     });
   }
-  saveContent() {}
+  saveContent() {
+    this.contentService.saveContent(this.contentForm.value);
+  }
+  public hasError = (controlName: string, errorName: string) =>{
+    return this.contentForm.controls[controlName].hasError(errorName);
+  }
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { map, tap } from 'rxjs/operators';
 import { catchError } from 'rxjs/operators';
-import { HttpClient, HttpResponse, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/Observable/of';
 import { Subject } from 'rxjs/Subject';
@@ -13,7 +13,12 @@ import { ConditionalExpr } from '@angular/compiler';
 
 @Injectable()
 export class ContentService {
-  private baseUrl = 'http://svc.csbchoops.net/api/WebContent';
+  // private baseUrl = 'http://svc.csbchoops.net/api/WebContent';
+  baseUrl = this.data.webUrl;
+
+  getUrl = this.baseUrl + '/CurrentWebContent';
+  postUrl = this.baseUrl + '/api/webcontent';
+  putUrl = this.baseUrl + '/api/webcontent';
   private _selectedContent: any;
   selectedContent$: Observable<any>;
   public get selectedContent(): any {
@@ -25,12 +30,10 @@ export class ContentService {
     console.log(value);
   }
 
-  constructor(private http: HttpClient, public data: DataService) {
-    this.baseUrl = this.data.webUrl + '/CurrentWebContent';
-  }
+  constructor(private http: HttpClient, public data: DataService) {}
 
   getContents(): Observable<Content[]> {
-    return this.http.get<Content[]>(this.baseUrl).pipe(
+    return this.http.get<Content[]>(this.getUrl).pipe(
       // map((response: Response) => <Content[]>),
       tap(data => console.log('All: ' + JSON.stringify(data))),
       catchError(this.data.handleError('getContents', []))
@@ -46,8 +49,7 @@ export class ContentService {
       //     observer.complete();
       // });
     }
-    const url = `${this.baseUrl}?key=${webContentId}`;
-    return this.http.get(url).pipe(
+    return this.http.get(this.getUrl).pipe(
       map(this.extractData),
       tap(data => console.log('getContent: ' + JSON.stringify(data))),
       catchError(this.data.handleError('getContent', []))
@@ -69,6 +71,7 @@ export class ContentService {
   // }
 
   saveContent(content: Content) {
+    console.log(content);
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = { headers: new HttpParams() };
 
@@ -76,7 +79,7 @@ export class ContentService {
       // return this.createContent(content, options.headers);
     }
 
-    // return this.updateContent(content, options.headers);
+    return this.updateContent(content, options.headers);
   }
 
   // private createContent(
@@ -93,19 +96,24 @@ export class ContentService {
   //     );
   // }
 
-  // private updateContent(
-  //   content: Content,
-  //   options: HttpParams
-  // ): Observable<Content> {
-  //   const url = `${this.baseUrl}/${content.webContentId}`;
-  //   return this.http
-  //     .put(url, content) //, options)
-  //       .pipe(
-  //           map(() => content),
-  //     tap(data => console.log('updateContent: ' + JSON.stringify(data))),
-  //       catchError(this.data.handleError('updateContent', []))
-  //       );
-  // }
+  private updateContent(content: Content, options: HttpParams) {
+    // const url = `${this.baseUrl}/${content.webContentId}`;
+    console.log('Updating');
+    console.log(this.putUrl);
+    content.webContentTypeId = 1;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
+    return this.http
+      .put(this.postUrl, content, httpOptions).subscribe(x => {});
+      // .pipe(
+      //  //  map(() => content),
+      //   tap(data => console.log('updateContent: ' + JSON.stringify(data))),
+      //   catchError(this.data.handleError('updateContent', []))
+      // );
+  }
 
   private extractData(response: Response) {
     let body = ''; // response.json();
