@@ -21,7 +21,7 @@ export class AdminEffects {
   loadSeasons$: Observable<Action> = this.actions$.pipe(
     ofType(adminActions.AdminActionTypes.LoadSeasons),
     mergeMap(action =>
-        this.seasonService.getSeasons().pipe(
+        this.seasonService.seasons$.pipe(
         map(seasons => (new adminActions.LoadSeasonsSuccess(seasons))),
         catchError(err => of(new adminActions.LoadSeasonsFail(err)))
       )

@@ -10,7 +10,7 @@ import * as adminActions from '../../state/admin.actions';
 @Component({
   selector: 'csbc-admin-season-shell',
   templateUrl: './admin-season-shell.component.html',
-  styleUrls: ['./admin-season-shell.component.css']
+  styleUrls: ['./admin-season-shell.component.scss']
 })
 export class AdminSeasonShellComponent implements OnInit {
   currentSeason$: Observable<Season>;

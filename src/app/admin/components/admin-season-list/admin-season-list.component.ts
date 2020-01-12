@@ -7,7 +7,6 @@ import * as fromAdmin from '../../state';
 import * as adminActions from '../../state/admin.actions';
 import { Observable } from 'rxjs';
 
-
 @Component({
   selector: 'csbc-admin-season-list',
   templateUrl: './admin-season-list.component.html',
@@ -32,7 +31,11 @@ export class AdminSeasonListComponent implements OnInit {
     this.setDisplayColumns();
 
     this.store.dispatch(new adminActions.LoadSeasons());
-    this.dataSource.data = this.seasons;
+    this.store.select(fromAdmin.getSeasons).subscribe(seasons => {
+      this.seasons = seasons;
+      console.log(seasons);
+      this.dataSource.data = seasons;
+    });
   }
   setDisplayColumns() {
     this.displayColumns = [];

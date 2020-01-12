@@ -74,8 +74,8 @@ export class ScheduleComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.games);
-    console.log(this.displayedColumns.find(t => t === 'actions'));
+    // console.log(this.games);
+    // console.log(this.displayedColumns.find(t => t === 'actions'));
     if (this.canEdit === true) {
       this.displayedColumns.push('actions');
     }
@@ -104,14 +104,10 @@ export class ScheduleComponent implements OnInit {
       });
     // this.dataSource = new MatTableDataSource(this.games);
     this.store.pipe(select(fromGames.getFilteredGames)).subscribe(games => {
-      // console.log(games);
       this.games = games;
-      // this.canEdit = true;
-      // this.canEdit = this.gameService.getCanEdit(this.user, this.divisionId);
       this.dataSource.data = games;
     });
     this.store.pipe(select(fromGames.getCanEdit)).subscribe(canEdit => {
-      console.log('in Schedule');
       this.canEdit = canEdit;
       if (canEdit) {
         this.displayedColumns.push('actions');
@@ -120,9 +116,7 @@ export class ScheduleComponent implements OnInit {
 
     this.dataSource = new MatTableDataSource(this.games);
     this.store.pipe(select(fromGames.getFilteredGames)).subscribe(games => {
-      // console.log(games);
       this.games = games;
-
       this.dataSource.data = games;
     });
   }

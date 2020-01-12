@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { map, tap } from 'rxjs/operators';
+import { map, tap, shareReplay } from 'rxjs/operators';
 import { catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
@@ -19,13 +19,19 @@ export class SeasonService {
   selectedSeason: Season;
   public selectedSeason$: Observable<Season>;
   seasons: Season[];
-  currentSeason$: Observable<Season> = this._http.get<Season>(this._seasonUrl).pipe(
+  seasons$ = this.http.get<Season[]>(this._seasonsUrl).pipe(
+    tap(data => console.log('All seasons: ' + JSON.stringify(data))),
+    shareReplay(1),
+    catchError(this.dataService.handleError)
+  );
+
+  currentSeason$: Observable<Season> = this.http.get<Season>(this._seasonUrl).pipe(
     map(season => season as Season),
     tap(data => console.log('All: ' + JSON.stringify(data))),
     catchError(this.dataService.handleError('getCurrentSeason', null))
   );
 
-  constructor(private _http: HttpClient, public dataService: DataService) {
+  constructor(private http: HttpClient, public dataService: DataService) {
     
     // .currentSeason = this.getCurrent();
     this.selectedSeason$ = this.currentSeason;
@@ -38,7 +44,7 @@ export class SeasonService {
     this.selectedSeason$ = season;
   }
   getSeasons(): Observable<Season[]> {
-    return this._http.get<Season[]>(this._seasonsUrl).pipe(
+    return this.http.get<Season[]>(this._seasonsUrl).pipe(
       map(response => this.seasons),
       //     tap(data => console.log('All: ' + JSON.stringify(data))),
       catchError(this.dataService.handleError('getSeasons', []))
@@ -52,7 +58,7 @@ export class SeasonService {
   }
 
   getCurrent(): Observable<Season> {
-    return this._http.get<Season>(this._seasonUrl).pipe(
+    return this.http.get<Season>(this._seasonUrl).pipe(
       //  map(response => {
       //    this.selectedSeason = response;
       //    console.log(response);
