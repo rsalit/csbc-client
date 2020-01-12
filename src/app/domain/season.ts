@@ -1,4 +1,4 @@
-
+on
 export class Season  {
     public seasonID: number;
     public description: string;

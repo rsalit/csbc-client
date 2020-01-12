@@ -21,6 +21,8 @@ export class ContentService {
   putUrl = this.baseUrl + '/api/webcontent';
   private _selectedContent: any;
   selectedContent$: Observable<any>;
+  standardNotice = 1;
+
   public get selectedContent(): any {
     return this._selectedContent;
   }
@@ -75,32 +77,38 @@ export class ContentService {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = { headers: new HttpParams() };
 
-    if (content.webContentId === 0) {
-      // return this.createContent(content, options.headers);
+    if (content.webContentId === undefined) {
+      return this.createContent(content, options.headers);
     }
 
     return this.updateContent(content, options.headers);
   }
 
-  // private createContent(
-  //   content: Content,
-  //   options: HttpParams
-  // ): Observable<Content> {
-  //   content.webContentId = undefined;
-  //   return this.http
-  //     .post(this.baseUrl, content) // , options)
-  //     .pipe(
-  //       map(this.extractData),
-  //       tap(data => console.log('createContent: ' + JSON.stringify(data))),
-  //       catchError(this.data.handleError('postContent', []))
-  //     );
-  // }
+  private createContent(
+    content: Content,
+    options: HttpParams
+  ){
+    content.webContentId = this.standardNotice;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
+    return this.http
+      .post(this.postUrl, content, httpOptions).subscribe(x => {});
+    // return this.http
+    //   .post(this.baseUrl, content) // , options)
+    //   .pipe(
+    //     map(this.extractData),
+    //     tap(data => console.log('createContent: ' + JSON.stringify(data))),
+    //     catchError(this.data.handleError('postContent', []))
+    //   );
+  }
 
   private updateContent(content: Content, options: HttpParams) {
     // const url = `${this.baseUrl}/${content.webContentId}`;
-    console.log('Updating');
     console.log(this.putUrl);
-    content.webContentTypeId = 1;
+    // content.webContentTypeId = 1;
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json'
@@ -123,16 +131,17 @@ export class ContentService {
   }
 
   initializeContent(): Content {
-    // Return an initialized object
     return {
       webContentId: 0,
+      companyId:1,
       title: null,
       subTitle: null,
       body: null,
       dateAndTime: null,
       location: null,
       expirationDate: new Date(),
-      webContentTypeId: 0
+      webContentTypeId: 0,
+      contentSequence: 1,
     };
   }
 }

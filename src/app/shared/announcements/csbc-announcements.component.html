@@ -1,5 +1,5 @@
 <div id="contentText" class="row">
-  <div [ngClass]="setSeasonInfoClass()" [hidden]="!showSeasonInfo()">
+  <!-- <div [ngClass]="setSeasonInfoClass()" [hidden]="!showSeasonInfo()">
     <div
       *ngFor="let info of activeWebContent"
       id="showSeasonList"
@@ -28,11 +28,12 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
+    </div> -->
+  <!-- </div> -->
   <div [ngClass]="setNewsClass()">
     <div *ngFor="let info of activeWebContent" class="announcements">
-      <div *ngIf="info.webContentTypeId == 1">
+      <div > 
+        <!-- *ngIf="info.webContentTypeId == 1"> -->
         <mat-card>
           <mat-card-header>
             <mat-card-title>{{ info.title }}</mat-card-title>

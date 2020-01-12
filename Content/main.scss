@@ -1,11 +1,15 @@
 ﻿@import '_variables';
 
 /* -------    Page Layout ----------*/
+html {
+    font-size: 100%;
+    font-family: 'Roboto, Open Sans, Arial, Helvetica, sans-serif';
+}
 
 body {
     padding: 0 0px 0px 0px;
     margin: 0px;
-    font: 12px/18px Arial, Helvetica, sans-serif;
+    
     color: #495257;
     background: $background-color;
 }
@@ -242,11 +246,6 @@ th {
 .navbar-inverse .navbar-nav .active:hover > a{
     background-color: #ff5600;
     color:white;
-}
-
-
-#menuHeader {
-    /*margin-top: 52px;*/
 }
 
 #mainCol {

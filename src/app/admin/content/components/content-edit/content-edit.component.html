@@ -27,18 +27,30 @@
               formControlName="body"
             ></textarea>
           </mat-form-field>
-          <mat-form-field class="standard-field-width">
+          <mat-form-field class="full-width">
             <input matInput placeholder="location" formControlName="location" />
           </mat-form-field>
-          <mat-form-field class="standard-field-width">
+          <mat-form-field class="full-width">
             <input
               matInput
               placeholder="Date and Time"
               formControlName="dateAndTime"
             />
           </mat-form-field>
+          <mat-divider></mat-divider>
           <mat-form-field type="date" class="standard-field-width">
-            <!-- <input matInput placeholder="Expiration Date" > -->
+            <!-- <mat-label>Select an option:</mat-label> -->
+            <input
+              matInput
+              placeholder="Notice Type"
+              formControlName="webContentTypeId"
+            />
+            <mat-select formControlName="webContentTypeId">
+              <mat-option value=1>Season Info</mat-option>
+              <mat-option value=2>Meeting Notice</mat-option>
+              </mat-select>
+          </mat-form-field>
+          <mat-form-field>
             <input
               matInput
               [matDatepicker]="picker"
@@ -50,6 +62,14 @@
               [for]="picker"
             ></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              placeholder="NoticeSequence"
+              formControlName="contentSequence"
+              type="number"
+            />
           </mat-form-field>
           <input
             id="webContentId"
@@ -128,7 +148,7 @@
           >
             Save
           </button>
-          <button type="button" mat-raised-button>Save and New</button>
+          <!-- <button type="button" mat-raised-button>Save and New</button> -->
           <button
             type="button"
             mat-raised-button

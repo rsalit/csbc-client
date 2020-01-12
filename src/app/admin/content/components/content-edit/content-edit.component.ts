@@ -78,19 +78,14 @@ export class ContentEditComponent implements OnInit {
       body: '',
       location: '',
       dateAndTime: '',
-      webContentTypeId: '',
       webContentId: '',
+      webContentTypeId: 1,
+      contentSequence: 1,
       expirationDate: new Date()
     });
-    // this.sub = this.route.params.subscribe(params => {
-    //   let id = +params['webContentId'];
-    //   console.log(id);
-    //   this.getContent(id);
-    // });
     this.pageTitle = 'Edit Web Content Messages';
     this.hideId = true;
     this.getContent();
-    // this.contentService.selectedContent$.subscribe(data => console.log(data));
   }
 
   update(): void {
@@ -142,6 +137,7 @@ export class ContentEditComponent implements OnInit {
   }
   saveContent() {
     this.contentService.saveContent(this.contentForm.value);
+    this.router.navigate(['/admin/content']);
   }
   public hasError = (controlName: string, errorName: string) =>{
     return this.contentForm.controls[controlName].hasError(errorName);
