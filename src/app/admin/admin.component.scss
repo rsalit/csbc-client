@@ -158,3 +158,52 @@ table .table .table-responsive .table-condensed {
     padding-left: 15px;
   }
   
+  div {
+      color: $brand-color;
+  }
+  .sectionTitle {
+      font-size: 1.2em;
+      font-weight: 700px;
+      border-radius: 5px;
+      padding-left: 20px;
+      padding-top:12px;
+      padding-bottom:12px;
+      background-color: $card-background-color;
+  }
+  .content-wrapper {
+      margin-right: 12px;
+  }
+  .mat-table {
+    background-color: black;
+    font-size: 1em;
+  }
+  th {
+    background-color: $card-background-color;
+    color: white;
+    font-weight: 600;
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+  tbody {
+    color: white;
+  }
+  
+  table .table .table-responsive .table-condensed {
+    border-radius: 5px;
+  }
+  div {
+    color: $brand-color;
+  }
+  .mat-raised-button {
+    background-color: $brand-color;
+    color: $card-background-color;
+  }
+  .mat-cell,
+  .mat-header-cell {
+    font-size: 1.1em;
+  }
+  .mat-cell {
+    // display:block; // flex prevents padding from working
+    // min-height:auto; // overrides the 'inherit' that set the min height of the row
+    padding: 12px 8px 12px 4px;
+  }

@@ -10,7 +10,10 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'csbc-admin-season-list',
   templateUrl: './admin-season-list.component.html',
-  styleUrls: ['./admin-season-list.component.css']
+  styleUrls: [
+    './admin-season-list.component.scss',
+    '../../admin.component.scss'
+  ]
 })
 export class AdminSeasonListComponent implements OnInit {
   private _seasons: Season[];

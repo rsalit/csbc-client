@@ -8,7 +8,8 @@ export enum AdminActionTypes {
   Load = '[Admin] Load',
   LoadSeasons = '[Admin] Load Seasons',
   LoadSeasonsSuccess = '[Admin] Load Seasons Success',
-  LoadSeasonsFail = '[Admin] Load Seasons Fail'
+  LoadSeasonsFail = '[Admin] Load Seasons Fail',
+  GetCurrentSeason = '[Admin] Get Current Seaosn'
 }
 export class Load implements Action {
   readonly type = AdminActionTypes.Load;
@@ -27,9 +28,14 @@ export class LoadSeasonsFail implements Action {
   readonly type = AdminActionTypes.LoadSeasonsFail;
   constructor(public payload: string) {}
 }
+export class GetCurrentSeason implements Action {
+  readonly type = AdminActionTypes.GetCurrentSeason;
+  constructor(public payload: Season) {}
+}
 
 export type AdminActions =
   | Load
   | LoadSeasons
   | LoadSeasonsSuccess
-  | LoadSeasonsFail;
+  | LoadSeasonsFail
+  | GetCurrentSeason;
