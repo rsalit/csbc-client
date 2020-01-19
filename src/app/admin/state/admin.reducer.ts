@@ -3,6 +3,7 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { AdminActions, AdminActionTypes } from './admin.actions';
 import * as fromRoot from '../../state/app.state';
 import { Season } from 'app/domain/season';
+import { Division } from 'app/domain/division';
 
 export interface AdminState {
   currentSeasonId: number | null;
@@ -10,6 +11,7 @@ export interface AdminState {
   currentTeamId: number | null;
   seasons: Season[];
   currentSeason: Season;
+  divisions: Division[];
 }
 
 const initialState: AdminState = {
@@ -17,7 +19,8 @@ const initialState: AdminState = {
   currentSeasonId: 2193,
   currentDivisionId: null,
   currentTeamId: null,
-  seasons: []
+  seasons: [],
+  divisions: []
 };
 
 export function reducer(
@@ -30,7 +33,12 @@ export function reducer(
         ...state,
         seasons: action.payload
       };
-    default: {
+      case AdminActionTypes.LoadDivisionsSuccess:
+        return {
+          ...state,
+          divisions: action.payload
+        };
+      default: {
       return state;
     }
   }

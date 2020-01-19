@@ -10,6 +10,10 @@ import { MatTableDataSource } from '@angular/material';
 import { Store, select } from '@ngrx/store';
 // import { CsbcSeasonSelectComponent } from '../../shared/season-select/csbc-season-select.component';
 import * as fromAdmin from '../state';
+import * as adminActions from '../state/admin.actions';
+
+import { LoadDivisions } from './../state/admin.actions';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'csbc-division-list',
@@ -34,20 +38,20 @@ export class DivisionListComponent implements OnInit, OnChanges {
   errorMessage: string;
   selectedDivision: Division;
   seasonId: number;
-  displayedColumns = ['div_Desc', 'divisionID'];
+  displayedColumns = ['divisionID', 'div_Desc', 'minDate', 'maxDate'];
   dataSource: MatTableDataSource<unknown>;
+  divisions$: Observable<Division[]>;
   constructor(
     private _divisionService: DivisionService,
     public seasonService: SeasonService,
     private store: Store<fromAdmin.State>
   ) {
-    //  seasonService.selectedSeason$.subscribe(
-    //      season => {
-    //          this._divisionService.getSeasonDivisions(season).subscribe(
-    //          (divisions) => this.divisions = divisions);
-    //          console.log(season);
-    //      }
-    //  );
+    // this.store
+    //   .pipe(select(fromAdmin.getSeasonDivisions))
+    //   .subscribe(divisions => {
+    //     console.log(divisions);
+    //     this.dataSource = new MatTableDataSource(divisions);
+    //   });
   }
 
   ngOnInit() {
@@ -56,18 +60,13 @@ export class DivisionListComponent implements OnInit, OnChanges {
       .subscribe(seasonId => {
         this.seasonId = seasonId;
         console.log(this.seasonId);
-        //this.setDivisionData()
-        // this.store.pipe(select(fromAdmin..divisions)).subscribe(
-        //   divisions => this.divisions = divisions);
-        if (this.seasonId !== undefined) {
-          this._divisionService
-            .getDivisions(this.seasonId)
-            .subscribe(divisions => {
-              this.divisions = divisions;
-              console.log(divisions);
-              this.dataSource = new MatTableDataSource(this.divisions);
-            });
-        }
+        this._divisionService.getDivisions(seasonId).subscribe(divisions => {
+          this.divisions = divisions;
+          this.dataSource = new MatTableDataSource(divisions);
+
+          //turn this to effect or load into store
+          //this.store.dispatch(new adminActions.)
+        });
       });
   }
   ngOnChanges(): void {

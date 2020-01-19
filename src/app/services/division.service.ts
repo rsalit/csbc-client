@@ -11,6 +11,9 @@ import { SeasonService } from './season.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
+import { select, Store } from '@ngrx/store';
+
+import * as fromAdmin from '../admin/state';
 
 @Injectable()
 export class DivisionService {
@@ -27,9 +30,10 @@ export class DivisionService {
     this._seasonId = seasonId;
   }
   // divisions: Division[];
+  private selectedSeason$ = this.store.pipe(select(fromAdmin.getSeasons));
 
   private _divisions$ = this._http
-    .get<Division[]>(this.divisionUrl + 2193)
+    .get<Division[]>(this.divisionUrl + this.selectedSeason$)
     .pipe(
       map(divisions =>
         divisions.map(
@@ -48,11 +52,11 @@ export class DivisionService {
   public set divisions$(value) {
     this._divisions$ = value;
   }
-
   constructor(
     private _http: HttpClient,
     public dataService: DataService,
-    public seasonService: SeasonService
+    public seasonService: SeasonService,
+    private store: Store<fromAdmin.State>
   ) {
     //      SeasonService.getCurrent().subscribe(season => (this.season = season));
     //  SeasonService.selectedSeason..currentSeason.subscribe(
@@ -71,11 +75,11 @@ export class DivisionService {
     }
     this._divisionUrl =
       this.dataService.webUrl + '/api/division/GetSeasonDivisions/' + seasonId;
-      return this._http.get<Division[]>(this._divisionUrl).pipe(
-        // map((response: Response) => <Division[]>),
-        tap(data => console.log('All: ' + JSON.stringify(data))),
-        catchError(this.dataService.handleError('getSeasonDivisions', []))
-      );
+    return this._http.get<Division[]>(this._divisionUrl).pipe(
+      // map((response: Response) => <Division[]>),
+      tap(data => console.log('All: ' + JSON.stringify(data))),
+      catchError(this.dataService.handleError('getSeasonDivisions', []))
+    );
   }
 
   getSeasonDivisions(season: Observable<Season>): Observable<Division[]> {
@@ -109,6 +113,13 @@ export class DivisionService {
       tap(data => console.log('All: ' + JSON.stringify(data))),
       catchError(this.dataService.handleError('getSeasonDivisions', []))
     );
+  }
+  getSelectedSeasonDivisions() {
+    this.selectedSeason$.subscribe(season => {
+      return this._http.get<Division[]>(this.divisionUrl + season);
+      tap(data => console.log('All: ' + JSON.stringify(data))),
+        catchError(this.dataService.handleError('getSeasonDivisions', null));
+    });
   }
   division(id: number): Observable<Division> {
     console.log('Getting divisions');

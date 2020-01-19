@@ -1,24 +1,38 @@
 <div class="table-wrapper">
     <h4>Divisions</h4>
     <table mat-table id="grd" [dataSource]="dataSource">
-      <ng-container matColumnDef="div_Desc">
-        <th mat-header-cell *matHeaderCellDef>Division</th>
-        <td mat-cell *matCellDef="let game" class="teamName">
-          {{ game.div_Desc }}
-        </td>
-      </ng-container>
       <ng-container matColumnDef="divisionID">
         <th mat-header-cell *matHeaderCellDef>ID</th>
         <td mat-cell *matCellDef="let game" class="teamName">
           {{ game.divisionID }}
         </td>
       </ng-container>
+      <ng-container matColumnDef="div_Desc">
+        <th mat-header-cell *matHeaderCellDef>Division</th>
+        <td mat-cell *matCellDef="let game" class="teamName">
+          {{ game.div_Desc }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="minDate">
+        <th mat-header-cell *matHeaderCellDef>Min Date</th>
+        <td mat-cell *matCellDef="let game" class="teamName">
+          {{ game.minDate | date:'MM/dd/yyyy'}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="maxDate">
+        <th mat-header-cell *matHeaderCellDef>Max Date</th>
+        <td mat-cell *matCellDef="let game" class="teamName">
+          {{ game.maxDate | date:'MM/dd/yyyy'}}
+        </td>
+      </ng-container>
+
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
   </div>
   
-<div id="panelSeason" class="row">
+<!-- <div id="panelSeason" class="row">
     <div class="panel panel-primary">
         <div>
             <table id="grdDivision" class="table table-responsive table-condensed">
@@ -39,7 +53,7 @@
             </table>
         </div>
     </div>
-</div>
+</div> -->
 
 
 <div class="col-sm-8">

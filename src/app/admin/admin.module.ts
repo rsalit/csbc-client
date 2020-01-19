@@ -32,6 +32,7 @@ import { AdminDivisionShellComponent } from './containers/admin-division-shell/a
 import { ContentModule } from './content/content.module';
 import { DirectorModule } from './director/director.module';
 import { ImportScheduleComponent } from './import-schedule/import-schedule.component';
+import { SeasonSelectComponent } from './components/season-select/season-select.component';
 
 @NgModule({
   imports: [
@@ -65,7 +66,8 @@ import { ImportScheduleComponent } from './import-schedule/import-schedule.compo
     AdminDivisionListComponent,
     AdminTeamListComponent,
     AdminDivisionShellComponent,
-    ImportScheduleComponent
+    ImportScheduleComponent,
+    SeasonSelectComponent
   ]
 })
 export class AdminModule {}
