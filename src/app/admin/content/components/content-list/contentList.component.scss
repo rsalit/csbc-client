@@ -24,10 +24,6 @@ table .table .table-responsive .table-condensed {
 div {
   color: $brand-color;
 }
-.mat-raised-button {
-  background-color: $brand-color;
-  color: $card-background-color;
-}
 .mat-cell,
 .mat-header-cell {
   font-size: 1.1em;
@@ -36,8 +32,4 @@ div {
   // display:block; // flex prevents padding from working
   // min-height:auto; // overrides the 'inherit' that set the min height of the row
   padding: 12px 8px 12px 4px;
-}
-.mat-checkbox {
-  background-color: $card-background-color;
-  color: $brand-color;
 }

@@ -100,10 +100,12 @@ export class ContentEditComponent implements OnInit {
     });
   }
   getContent(): void {
-    this.store.pipe(select(fromContent.getSelectedContent)).subscribe(
-      content => { this.selectedContent = content;
-      this.onContentRetrieved(content);
-    });
+    this.store
+      .pipe(select(fromContent.getSelectedContent))
+      .subscribe(content => {
+        this.selectedContent = content;
+        this.onContentRetrieved(content);
+      });
     // this.contentService
     //   .getContent(id)
     //   .subscribe(
@@ -132,14 +134,19 @@ export class ContentEditComponent implements OnInit {
       dateAndTime: content.dateAndTime,
       location: content.location,
       expirationDate: content.expirationDate,
-      webContentId: content.webContentId
+      webContentId: content.webContentId,
+      webContentTypeId:
+        content.webContentTypeId === null ? 1 : content.webContentTypeId
     });
   }
   saveContent() {
-    this.contentService.saveContent(this.contentForm.value);
-    this.router.navigate(['/admin/content']);
+    console.log(this.contentForm.value);
+    if (this.contentForm.dirty) {
+      this.contentService.saveContent(this.contentForm.value);
+      this.router.navigate(['/admin/content']);
+    }
   }
-  public hasError = (controlName: string, errorName: string) =>{
+  public hasError = (controlName: string, errorName: string) => {
     return this.contentForm.controls[controlName].hasError(errorName);
-  }
+  };
 }

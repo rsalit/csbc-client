@@ -38,7 +38,14 @@ export class DivisionListComponent implements OnInit, OnChanges {
   errorMessage: string;
   selectedDivision: Division;
   seasonId: number;
-  displayedColumns = ['divisionID', 'div_Desc', 'minDate', 'maxDate'];
+  displayedColumns = [
+    'divisionID',
+    'div_Desc',
+    'minDate',
+    'maxDate',
+    'actions',
+    'viewActions'
+  ];
   dataSource: MatTableDataSource<unknown>;
   divisions$: Observable<Division[]>;
   constructor(
@@ -105,5 +112,14 @@ export class DivisionListComponent implements OnInit, OnChanges {
       console.log(divisions);
     }
     return divisions;
+  }
+  addDivision() {
+    console.log('Add Division');
+  }
+  viewTeams(division) {
+    console.log(division);
+  }
+  getRecord(division) {
+    console.log(division);
   }
 }

@@ -194,7 +194,7 @@ table .table .table-responsive .table-condensed {
   div {
     color: $brand-color;
   }
-  .mat-raised-button {
+  .mat-raised-button .mat-button {
     background-color: $brand-color;
     color: $card-background-color;
   }
@@ -223,3 +223,13 @@ table .table .table-responsive .table-condensed {
   .ng-star-inserted {
     color: $basketball-color;
   }
+  .mat-checkbox {
+    background-color: $card-background-color;
+    color: $brand-color;
+  }
+  .mat-raised-button {
+    background-color: $brand-color;
+    color: $card-background-color;
+  }
+  
+  

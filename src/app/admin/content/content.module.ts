@@ -11,6 +11,7 @@ import { CoreModule } from 'app/core/core.module';
 
 import { StoreModule } from '@ngrx/store';
 import { reducer } from './state/content.reducer';
+import { ContentListToolbarComponent } from './components/content-list-toolbar/content-list-toolbar.component';
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import { reducer } from './state/content.reducer';
   declarations: [
     ContentShellComponent,
     ContentListComponent,
-    ContentEditComponent
+    ContentEditComponent,
+    ContentListToolbarComponent
   ]
 })
 export class ContentModule {}

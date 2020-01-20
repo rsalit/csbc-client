@@ -22,3 +22,11 @@ export const getSelectedContent = createSelector(
   getContentFeatureState,
   state => state.selectedContent
 );
+export const getContentList = createSelector(
+  getContentFeatureState,
+  state => state.contentList
+);
+export const getIsActiveOnly = createSelector(
+  getContentFeatureState,
+  state => state.isActiveOnly
+)

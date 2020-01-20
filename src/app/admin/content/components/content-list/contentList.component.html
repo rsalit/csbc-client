@@ -1,19 +1,7 @@
 <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="10px">
   <div fxFlex="100">
     <div id="panelContent">
-      <mat-toolbar>
-        <mat-toolbar-row>
-          <div fxFlex="25%">
-            <button mat-raised-button (click)="addContent()">
-              New
-            </button>
-            <span fxFlex></span>
-            <div fxFlex="35%">
-              <mat-checkbox>Active only</mat-checkbox>
-            </div>
-          </div>
-        </mat-toolbar-row>
-      </mat-toolbar>
+      <content-list-toolbar></content-list-toolbar>
       <div class="table-wrapper">
         <table mat-table id="grdSchedule" [dataSource]="dataSource">
           <ng-container matColumnDef="title">

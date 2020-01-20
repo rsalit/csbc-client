@@ -11,6 +11,9 @@ import { Content } from '../../domain/content';
 import { DataService } from '../../services/data.service';
 import { ConditionalExpr } from '@angular/compiler';
 
+import * as fromContent from '../../admin/content/state';
+import { Store } from '@ngrx/store';
+
 @Injectable()
 export class ContentService {
   // private baseUrl = 'http://svc.csbchoops.net/api/WebContent';
@@ -32,16 +35,19 @@ export class ContentService {
     console.log(value);
   }
 
-  constructor(private http: HttpClient, public data: DataService) {}
+  constructor(private http: HttpClient, 
+    public data: DataService,
+    private store: Store<fromContent.State>) {}
 
   getContents(): Observable<Content[]> {
     return this.http.get<Content[]>(this.getUrl).pipe(
-      // map((response: Response) => <Content[]>),
       tap(data => console.log('All: ' + JSON.stringify(data))),
       catchError(this.data.handleError('getContents', []))
     );
   }
-
+getActiveContent() {
+this.store.select(fromContent.getContentList);
+}
   getContent(webContentId: number) {
     console.log(webContentId);
     if (webContentId === 0) {
@@ -140,8 +146,10 @@ export class ContentService {
       dateAndTime: null,
       location: null,
       expirationDate: new Date(),
-      webContentTypeId: 0,
+      webContentTypeId: 1,
       contentSequence: 1,
     };
   }
+  
+
 }
