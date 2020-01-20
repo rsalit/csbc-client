@@ -33,11 +33,22 @@ export function reducer(
         ...state,
         seasons: action.payload
       };
-      case AdminActionTypes.LoadDivisionsSuccess:
+    case AdminActionTypes.LoadDivisionsSuccess:
+      return {
+        ...state,
+        divisions: action.payload
+      };
+    case AdminActionTypes.SetSelectedSeason:
+      return {
+        ...state,
+        currentSeason: action.payload
+      };
+      case AdminActionTypes.SetSelectedSeasonId:
         return {
           ...state,
-          divisions: action.payload
+          currentSeasonId: action.payload
         };
+  
       default: {
       return state;
     }

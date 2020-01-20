@@ -207,3 +207,19 @@ table .table .table-responsive .table-condensed {
     // min-height:auto; // overrides the 'inherit' that set the min height of the row
     padding: 12px 8px 12px 4px;
   }
+  .mat-select {
+    color: $basketball-color;
+  }
+  .map-select-arrow-wrapper {
+    color: $basketball-color;
+  }
+  .mat-form-field {
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 8px;
+    color: $basketball-color;
+    background-color: $card-background-color;
+  }
+  .ng-star-inserted {
+    color: $basketball-color;
+  }
