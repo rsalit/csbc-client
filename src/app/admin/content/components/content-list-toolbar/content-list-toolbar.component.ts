@@ -12,7 +12,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 @Component({
   selector: 'content-list-toolbar',
   templateUrl: './content-list-toolbar.component.html',
-  styleUrls: ['./content-list-toolbar.component.css']
+  styleUrls: ['./content-list-toolbar.component.scss']
 })
 export class ContentListToolbarComponent implements OnInit {
   filterForm: FormGroup;
@@ -27,6 +27,8 @@ export class ContentListToolbarComponent implements OnInit {
     this.filterForm = this.fb.group({
       activeContent: true
     });
+    this.store.dispatch(new contentActions.SetIsActiveOnly(true));
+    this.store.dispatch(new contentActions.SetActiveContent());
   }
   addContent() {
     const content = new Content();
@@ -37,8 +39,10 @@ export class ContentListToolbarComponent implements OnInit {
     ]);
   }
   filterContent() {
-    console.log('getting info');
-    console.log(this.filterForm.value);
-    // console.log(this.fb.filterForm.control)
+    const isActive = this.filterForm.value.activeContent !== true;
+    this.store.dispatch(new contentActions.SetIsActiveOnly(isActive));
+    isActive
+      ? this.store.dispatch(new contentActions.SetActiveContent())
+      : this.store.dispatch(new contentActions.SetAllContent());
   }
 }

@@ -42,7 +42,7 @@ export enum GameActionTypes {
 // Action Creators
 export class ToggleActionList implements Action {
   readonly type = GameActionTypes.ToggleGameCode;
-  constructor(public payload: boolean) {}
+  constructor(public pay: boolean) {}
 }
 export class LoadCurrentSeason implements Action {
   readonly type = GameActionTypes.LoadCurrentSeason;

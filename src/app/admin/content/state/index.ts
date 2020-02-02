@@ -29,4 +29,10 @@ export const getContentList = createSelector(
 export const getIsActiveOnly = createSelector(
   getContentFeatureState,
   state => state.isActiveOnly
-)
+);
+export const getfilteredList = createSelector(
+  getContentFeatureState,
+  state => state.filteredList
+);
+
+

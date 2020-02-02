@@ -12,6 +12,8 @@ import { CoreModule } from 'app/core/core.module';
 import { StoreModule } from '@ngrx/store';
 import { reducer } from './state/content.reducer';
 import { ContentListToolbarComponent } from './components/content-list-toolbar/content-list-toolbar.component';
+import { ContentEffects } from './state/content.effect';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   imports: [
@@ -21,7 +23,8 @@ import { ContentListToolbarComponent } from './components/content-list-toolbar/c
     SharedModule,
     CoreModule,
     ContentRoutingModule,
-    StoreModule.forFeature('content', reducer)
+    StoreModule.forFeature('content', reducer),
+    EffectsModule.forFeature([ContentEffects])
   ],
   exports: [ContentRoutingModule],
   declarations: [

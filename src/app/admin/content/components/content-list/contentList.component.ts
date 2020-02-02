@@ -21,7 +21,6 @@ export class ContentListComponent implements OnInit {
   @Output() selectedContent = new EventEmitter<Content>();
   contents$: Observable<Content[]>;
   errorMessage: string;
-  // selectedContent: Content;
   pageTitle: string;
   public dialog: MatDialog;
   displayedColumns = ['title', 'expirationDate', 'dateAndTime', 'actions'];
@@ -34,21 +33,26 @@ export class ContentListComponent implements OnInit {
 
   ngOnInit() {
     this.pageTitle = 'Web Site Messages';
-    this._contentService.getContents().subscribe(data => {
+
+    // this.store.select(fromContent.getIsActiveOnly).subscribe(isActive => {
+    //   if (isActive) {
+    //     this.store.dispatch(new contentActions.SetActiveContent());
+    //   } else {
+    //     this.store.dispatch(new contentActions.SetAllContent());
+    //   }
+    // });
+
+    this.store.select(fromContent.getfilteredList).subscribe(data => {
       console.log(data);
       this.dataSource = new MatTableDataSource(data);
     });
-
-    // .subscribe(contents => this.contents = contents,
-    // error => this.errorMessage = <any>error);
   }
 
   onSelect(content: Content): void {
     console.log(content);
-   //  this.selectedContent = content;
+    //  this.selectedContent = content;
   }
 
-  
   editContent(content: any) {
     console.log(content);
     this.store.dispatch(new contentActions.SetSelectedContent(content));

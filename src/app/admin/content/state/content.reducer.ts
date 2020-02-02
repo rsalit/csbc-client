@@ -1,7 +1,11 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 import * as fromRoot from '../../../state/app.state';
-import { ContentActions, ContentActionTypes } from './content.actions';
+import {
+  ContentActions,
+  ContentActionTypes,
+  SetActiveContentSuccess
+} from './content.actions';
 import { Content } from 'app/domain/content';
 
 export interface ContentState {
@@ -9,13 +13,15 @@ export interface ContentState {
   selectedContent: Content;
   contentList: Content[];
   isActiveOnly: boolean;
+  filteredList: Content[];
 }
 
 const initialState: ContentState = {
   currentContentId: null,
   selectedContent: null,
   contentList: [],
-  isActiveOnly: true
+  isActiveOnly: true,
+  filteredList: []
 };
 
 export function reducer(
@@ -28,21 +34,27 @@ export function reducer(
         ...state,
         selectedContent: action.payload
       };
-    case ContentActionTypes.SetAllContent:
+    case ContentActionTypes.SetAllContentSuccess:
+      return {
+        ...state,
+        filteredList: action.payload
+      };
+    case ContentActionTypes.SetIsActiveOnly:
+      return {
+        ...state,
+        isActiveOnly: action.payload
+      };
+    case ContentActionTypes.LoadSuccess:
       return {
         ...state,
         contentList: action.payload
       };
-    case ContentActionTypes.SetActiveContent:
+    case ContentActionTypes.SetActiveContentSuccess:
       return {
         ...state,
-        contentList: action.payload
+        filteredList: action.payload
       };
-case ContentActionTypes.SetIsActiveOnly:
-  return {
-    ...state,
-    isActiveOnly: action.payload
-  };
+
     default: {
       return state;
     }
