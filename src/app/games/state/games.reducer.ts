@@ -28,9 +28,9 @@ export interface GameState {
 
 const initialState: GameState = {
   showListView: true,
-  currentSeasonId: 2192,
+  currentSeasonId: null,
   currentSeason: {
-    seasonID: 2192,
+    seasonID: null,
     description: 'Summer Season',
     currentSeason: true,
     currentSchedule: true,

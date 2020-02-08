@@ -63,13 +63,12 @@ export class ScheduleShellComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.setStateSubscriptions();
+    // this.setStateSubscriptions();
   }
 
   setStateSubscriptions() {
     this.gameService.getGames().subscribe(games => {
       console.log(games);
-
       this.filteredGames$ = this.store.pipe(select(fromGames.getFilteredGames));
       //this.filteredGames$.subscribe(g => {
       this.groupByDate(games);
@@ -85,12 +84,8 @@ export class ScheduleShellComponent implements OnInit {
     });
   }
   divisionSelected(division: Division): void {
-    // this.store.dispatch(new gameActions.SetCurrentDivision(division));
     console.log(division);
-    console.log(this.user);
     this.canEdit = this.getCanEdit(this.user, division.divisionID);
-    // this.store.dispatch(new gameActions.LoadFilteredGames());
-    // this.store.dispatch(new gameActions.LoadStandings());
   }
   groupByDate(games: Game[]) {
     // console.log(games);

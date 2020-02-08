@@ -77,20 +77,23 @@ export class GameFilterComponent implements OnInit {
   }
 
   setStateSubscriptions() {
-    this.divisionService.divisions$.subscribe(divisions => {
-      console.log(divisions);
-      // this.divisions = divisions;
-      const defaultDivision = divisions[0];
-      this.criteriaForm.get('divisions').setValue(defaultDivision);
-      // console.log(defaultDivision);
-      this.store.dispatch(new gameActions.SetCurrentDivision(defaultDivision));
-      this.divisionSelected(defaultDivision);
-      // });
-      // const d = this.store.pipe(select(fromGames.divisions));
-      // this.store.pipe(select(fromGames.getTeams)).subscribe(teams => {
-      //   console.log(teams);
-      //   this.teams = teams;
-      // });
+    this.store.select(fromGames.getCurrentSeason).subscribe(currentSeason => {
+      this.divisionService.divisions$.subscribe(divisions => {
+        console.log(divisions);
+        const defaultDivision = divisions[0];
+        this.criteriaForm.get('divisions').setValue(defaultDivision);
+        // console.log(defaultDivision);
+        this.store.dispatch(
+          new gameActions.SetCurrentDivision(defaultDivision)
+        );
+        this.divisionSelected(defaultDivision);
+        // });
+        // const d = this.store.pipe(select(fromGames.divisions));
+        // this.store.pipe(select(fromGames.getTeams)).subscribe(teams => {
+        //   console.log(teams);
+        //   this.teams = teams;
+        // });
+      });
     });
   }
   divisionSelected(division: Division): void {

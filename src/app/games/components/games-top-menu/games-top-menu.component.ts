@@ -62,11 +62,7 @@ export class GamesTopMenuComponent implements OnInit {
     });
   }
   setStateSubscriptions() {
-//     this.divisions$ = this.store.pipe(select(fromGames.2192isions)); 
-    // .subscribe(divisions => {
-      // console.log(divisions);
-      // this.divisions = divisions;
-   // });
+
   }
   divisionSelected(division: Division): void {
     console.log(division);

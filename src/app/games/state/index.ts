@@ -40,7 +40,7 @@ export const getGames = createSelector(
   state => state.games
 );
 
-export const divisions = createSelector(
+export const getDivisions = createSelector(
   getGameFeatureState,
   state => state.divisions
 );

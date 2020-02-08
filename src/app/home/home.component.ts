@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { Content } from '../domain/content';
 import { ContentService } from '../admin/content/content.service';
 import { SeasonService } from '../services/season.service';
+import * as fromContent from '../admin/content/state';
+import * as contentActions from '../admin/content/state/content.actions';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'csbc-home',
@@ -26,7 +29,8 @@ export class HomeComponent implements IHomeComponent, OnInit {
 
     static $inject = ['datacontext', 'common'];
 
-    constructor(private _contentService: ContentService, private seasonService: SeasonService) {
+    constructor(private _contentService: ContentService, private seasonService: SeasonService,     private store: Store<fromContent.State>
+        ) {
         this.seasonInfoCount = 1;
         this.latestNewsCount = 0;
         this.meetingNoticeCount = 0;
@@ -37,6 +41,8 @@ export class HomeComponent implements IHomeComponent, OnInit {
 
     ngOnInit (): void {
         this.seasonService.getCurrent();
+        this.store.dispatch(new contentActions.Load());
+
         this._contentService.getContents()
                 .subscribe(webContents => this.webContents = webContents,
                            error => this.errorMessage = <any>error);

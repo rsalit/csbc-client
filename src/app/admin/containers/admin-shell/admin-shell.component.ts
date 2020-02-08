@@ -14,7 +14,7 @@ export class AdminShellComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.store.dispatch(new contentActions.Load());
+    // this.store.dispatch(new contentActions.Load());
 
   }
 

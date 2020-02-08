@@ -21,6 +21,9 @@ import { TeamService } from 'app/services/team.service';
 import { getCurrentDivision } from './';
 import { SeasonService } from 'app/services/season.service';
 import { DivisionService } from 'app/services/division.service';
+import { HttpClient } from '@angular/common/http';
+import { DataService } from 'app/services/data.service';
+import { Game } from 'app/domain/game';
 
 @Injectable()
 export class GameEffects {
@@ -29,13 +32,19 @@ export class GameEffects {
   currentSeasonId = 2190;
   divisionId$: Observable<number>;
   divisionId: number;
+  private gameUrl =
+  this.dataService.webUrl + '/api/games/getSeasonGames/';
+
 
   constructor(
     private actions$: Actions,
+    private http: HttpClient,
     private seasonService: SeasonService,
-    private divisionService: DivisionService,
+    private divisionService: GameService,
     private gameService: GameService,
     private teamService: TeamService,
+    private dataService: DataService,
+
     private store: Store<fromGames.State>
   ) {}
 
@@ -43,9 +52,24 @@ export class GameEffects {
   @Effect()
   loadGames$: Observable<Action> = this.actions$.pipe(
     ofType(gameActions.GameActionTypes.Load),
+    concatMap(action =>
+      of(action).pipe(
+        withLatestFrom(this.store.pipe(select(fromGames.getCurrentSeason))),
+        tap(divisions => console.log(divisions))
+      )
+    ),
+    tap(([action, t]) => {
+      if (t) {
+        this.seasonId = t.seasonID;
+      } else {
+        this.seasonId = 0;
+      }
+    }),
+    
     mergeMap(action =>
-      this.gameService.games$.pipe(
-        map(games => new gameActions.LoadSuccess(games)),
+      this.http.get<Game[]>(this.gameUrl+this.seasonId).pipe(
+        // tap(data => console.log('All games: ' + JSON.stringify(data))),
+        shareReplay(1),  map(games => new gameActions.LoadSuccess(games)),
         tap(games => console.log(games)),
         catchError(err => of(new gameActions.LoadFail(err)))
       )
@@ -68,24 +92,24 @@ export class GameEffects {
   @Effect()
   loadDivisions$: Observable<Action> = this.actions$.pipe(
     ofType(gameActions.GameActionTypes.LoadDivisions),
-    concatMap(action =>
-      of(action).pipe(
-        withLatestFrom(this.store.pipe(select(fromGames.getCurrentSeason))),
-        tap(divisions => console.log(divisions))
-      )
-    ),
-    tap(([action, t]) => {
-      if (t) {
-        this.seasonId = t.seasonID;
-      } else {
-        this.seasonId = 0;
-      }
-    }),
-    mergeMap(action =>
-      this.divisionService.divisions$.pipe(
+    // concatMap(action =>
+    //   of(action).pipe(
+    //     withLatestFrom(this.store.pipe(select(fromGames.getCurrentSeason))),
+    //     tap(divisions => console.log(divisions))
+    //   )
+    // ),
+    // tap(([action, t]) => {
+    //   if (t) {
+    //     this.seasonId = t.seasonID;
+    //   } else {
+    //     this.seasonId = 0;
+    //   }
+    // }),
+    switchMap(action =>
+      this.divisionService.getDivisions().pipe(
         map(
           divisions =>
-            new gameActions.LoadDivisionsSuccess(divisions, this.store)
+            new gameActions.LoadDivisionsSuccess(divisions)
         ),
         tap(divisions => console.log(divisions)),
         map(divisions => new gameActions.SetCurrentDivision(divisions[0])),

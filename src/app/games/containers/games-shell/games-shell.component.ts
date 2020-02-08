@@ -39,7 +39,9 @@ export class GamesShellComponent implements OnInit {
   filteredGames$: Observable<Game[]>;
   standings$: Observable<Standing[]>;
   teams: any;
-  user$ = this.userStore.pipe(select(fromUser.getCurrentUser)).subscribe(user => this.user = user);
+  user$ = this.userStore
+    .pipe(select(fromUser.getCurrentUser))
+    .subscribe(user => (this.user = user));
   allGames$: Observable<Game[]>;
   errorMessage: any;
   // currentSeason$: Observable<Season>;
@@ -60,7 +62,7 @@ export class GamesShellComponent implements OnInit {
   // TODO: this is a bug that needs to be fixed!
   // gameDivisionFilter$ = this._gameService.games$
   // .pipe(
-  //   map(games => 
+  //   map(games =>
   //     games.filter(game =>
   //       this.selectedDivisionId ? game.DivisionID === this.selectedDivisionId  : true)
   // ) as Game[]);
@@ -72,17 +74,15 @@ export class GamesShellComponent implements OnInit {
     private _gameService: GameService,
     private store: Store<fromGames.State>,
     private userStore: Store<fromUser.State>
-
   ) {}
 
   ngOnInit() {
+    this.setStateSubscriptions();
+
     this.store.dispatch(new gameActions.LoadCurrentSeason());
-    this.store.dispatch(new gameActions.LoadDivisions());
-   
-    this._gameService.gamesWithDivision$.pipe(
-      tap(test => console.log(test))
-      );
-    
+
+    this._gameService.gamesWithDivision$.pipe(tap(test => console.log(test)));
+
     // this.seasonService.currentSeason$.subscribe(season => {
     //   // this.store.dispatch(new gameActions.SetCurrentSeason(season));
     //   this.store.dispatch(new gameActions.LoadDivisions());
@@ -93,29 +93,34 @@ export class GamesShellComponent implements OnInit {
     //       this.divisionSelected(divisions[0]);
     //     }
     //   });
-      this.store.dispatch(new gameActions.LoadTeams());
-      this.store.dispatch(new gameActions.Load());
-      // this.store.dispatch(new gameActions.LoadFilteredGames());
+    // this.store.dispatch(new gameActions.LoadFilteredGames());
 
-      this.setStateSubscriptions();
     // });
   }
   setStateSubscriptions() {
-     this.currentSeason$ = this.store.pipe(
-       select(fromGames.getCurrentSeason),
-       tap(season => console.log(season))
-     );
-    this.divisions$ = this.store.pipe(
-      select(fromGames.divisions),
-      tap(divisions => console.log(divisions))
-    );
+    this.store.select(fromGames.getCurrentSeason).subscribe(season => {
+      console.log(season);
+      const t = this._gameService.currentSeason$; // = season.seasonID;
+      this.store.dispatch(new gameActions.LoadDivisions());
+      this.store.dispatch(new gameActions.LoadStandings());
+      this.store.dispatch(new gameActions.LoadTeams());
+      // this.store.dispatch(new gameActions.Load());
+    });
+    //  this.currentSeason$ = this.store.pipe(
+    //    select(fromGames.getCurrentSeason),
+    //    tap(season => console.log(season))
+    //  );
+    // this.divisions$ = this.store.pipe(
+    //   select(fromGames.getDivisions),
+    //   tap(divisions => console.log(divisions))
+    // );
     // this.selectedDivisionId$ = this.store.pipe(
     //   select(fromGames.getCurrentDivisionId),
     //   tap(division => console.log(division))
     // );
     // this.selectedTeam$ = this.store.pipe(select(fromGames.getCurrentTeam));
     // this.allGames$ = this.store.pipe(select(fromGames.getGames));
-    
+
     this.games$ = this.store.pipe(
       select(fromGames.getGames),
       tap(division => console.log(division))
@@ -125,7 +130,6 @@ export class GamesShellComponent implements OnInit {
     this.store.pipe(select(fromUser.getCurrentUser)).subscribe(user => {
       this.user = user;
     });
-    this.store.dispatch(new gameActions.LoadStandings());
   }
   public filterByDivision(divisionId: number): void {
     console.log(divisionId);

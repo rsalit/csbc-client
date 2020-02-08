@@ -43,13 +43,13 @@ export function reducer(
         ...state,
         currentSeason: action.payload
       };
-      case AdminActionTypes.SetSelectedSeasonId:
-        return {
-          ...state,
-          currentSeasonId: action.payload
-        };
-  
-      default: {
+    case AdminActionTypes.SetSelectedSeasonId:
+      return {
+        ...state,
+        currentSeasonId: action.payload
+      };
+
+    default: {
       return state;
     }
   }

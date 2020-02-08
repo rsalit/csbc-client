@@ -9,6 +9,11 @@ import {
 
 import { Content } from '../../domain/content';
 import { ContentService } from '../../admin/content/content.service';
+import *  as moment from 'moment';
+import { Store } from '@ngrx/store';
+
+import * as fromContent from '../../admin/content/state';
+import * as contentActions from '../../admin/content/state/content.actions';
 
 @Component({
   selector: 'csbc-announcements',
@@ -22,7 +27,8 @@ export class CsbcAnnouncementsComponent implements OnInit {
   activeWebContent: Content[];
   errorMessage: string;
 
-  constructor(private _webContentService: ContentService) {
+  constructor(private _webContentService: ContentService, private store: Store<fromContent.State>
+    ) {
     this.seasonInfoCount = 1;
     this.latestNewsCount = 0;
     this.meetingNoticeCount = 2;
@@ -34,9 +40,21 @@ export class CsbcAnnouncementsComponent implements OnInit {
   }
 
   getWebContent(): void {
-    this._webContentService.getContents().subscribe(
+    this.activeWebContent = [];
+    this.store.select(fromContent.getContentList).subscribe(
       webContents => {
-        this.activeWebContent = webContents;
+        if (webContents !== undefined) {
+          const today = moment();
+          console.log(webContents);
+          for (let i = 0; i < webContents.length; i++) {
+            const expirationDate = moment(webContents[i].expirationDate);
+            if (expirationDate >= today) {
+              console.log(webContents[i]);
+              this.activeWebContent.push(webContents[i]);
+            }
+          }
+        }
+        // this.activeWebContent = webContents;
         console.log(this.activeWebContent);
       },
       error => (this.errorMessage = <any>error)

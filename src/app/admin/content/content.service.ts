@@ -54,7 +54,7 @@ export class ContentService {
 
   getContents(): Observable<Content[]> {
     return this.http.get<Content[]>(this.getUrl).pipe(
-      tap(data => console.log('All: ' + JSON.stringify(data))),
+      // tap(data => console.log('All: ' + JSON.stringify(data))),
       catchError(this.data.handleError('getContents', []))
     );
   }

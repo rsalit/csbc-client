@@ -36,7 +36,7 @@ export enum GameActionTypes {
   LoadTeamsSuccess = '[Game] Load Teams Success',
   LoadTeamsFail = '[Game] Load Teams Fail',
   SetCanEdit = '[Game] Set Can Edit Scores',
-  SetCurrentGame ='[Game] Set Current Game'
+  SetCurrentGame = '[Game] Set Current Game'
 }
 
 // Action Creators
@@ -137,10 +137,8 @@ export class LoadDivisions implements Action {
 export class LoadDivisionsSuccess implements Action {
   readonly type = GameActionTypes.LoadDivisionsSuccess;
 
-  constructor(
-    public payload: Division[],
-    private store: Store<fromGames.State>
-  ) {
+  constructor(public payload: Division[]) {
+    console.log(payload);
     // this.store.dispatch(
     //   new SetCurrentDivision(payload[0])
     // );

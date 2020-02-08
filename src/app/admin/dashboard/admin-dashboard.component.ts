@@ -3,11 +3,10 @@ import { Content } from '../../domain/content';
 import { Store, select } from '@ngrx/store';
 
 import * as fromGames from '../../games/state';
-import *  as gameActions from './../../games/state/games.actions';
+import * as gameActions from './../../games/state/games.actions';
 import { Observable } from 'rxjs';
 import { Season } from 'app/domain/season';
 import { Division } from 'app/domain/division';
-
 
 @Component({
   selector: 'csbc-admin-dashboard',
@@ -25,11 +24,11 @@ export class AdminDashboardComponent implements OnInit {
     this.setStateSubscriptions();
   }
   setStateSubscriptions() {
-    this.store.pipe(select(fromGames.getCurrentSeason)).subscribe(
-      season => this.currentSeason = season);
-  this.store.pipe(select(fromGames.divisions)).subscribe(
-    divisions => this.divisions = divisions);
+    this.store
+      .pipe(select(fromGames.getCurrentSeason))
+      .subscribe(season => (this.currentSeason = season));
+    this.store
+      .pipe(select(fromGames.getDivisions))
+      .subscribe(divisions => (this.divisions = divisions));
+  }
 }
-
-}
-

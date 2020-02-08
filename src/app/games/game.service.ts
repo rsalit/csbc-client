@@ -25,16 +25,14 @@ import { User } from 'app/domain/user';
   providedIn: 'root'
 })
 export class GameService {
-  seasonId: number = 2192; // TO DO make this is passed in!
-  currentSeasonId$ = this.store.pipe(
-    select(fromGames.getCurrentSeason),
-    map(season => (this.seasonId = season.seasonID)),
-    tap(data => console.log('Season', JSON.stringify(data)))
-  );
-
-  divisions: Division[];
+  seasonId: number; // = 2192; // TO DO make this is passed in!
+  currentSeason$ = this.store
+    .select(fromGames.getCurrentSeason)
+    .subscribe(season => {
+      this.seasonId = season.seasonID;
+    });
   private gameUrl =
-    this.dataService.webUrl + '/api/games/getSeasonGames/' + this.seasonId;
+    this.dataService.webUrl + '/api/games/getSeasonGames/';
   //    this.seasonId;
   private standingsUrl = this.dataService.webUrl + '/api/gameStandings';
   // private divisionUrl = this.dataService.webUrl + '/api/divisions';
@@ -42,20 +40,22 @@ export class GameService {
     this.dataService.webUrl +
     '/api/division/GetSeasonDivisions/' +
     this.seasonId;
+  private divisionStartUrl =
+    this.dataService.webUrl + '/api/division/GetCurrentSeasonDivisions';
   games: Game[];
   divisionId: number;
   teamId: number;
   allGames: Game[];
   standing: any[];
   // divisions$: Observable<Division>;
-  games$ = this.http.get<Game[]>(this.gameUrl).pipe(
+  games$ = this.http.get<Game[]>(this.gameUrl+'296').pipe(
     // tap(data => console.log('All games: ' + JSON.stringify(data))),
     shareReplay(1),
     catchError(this.dataService.handleError)
   );
 
-  divisions$ = this.http.get<Division[]>(this.divisionUrl).pipe(
-    // tap(data => console.log('Divisions', JSON.stringify(data))),
+  divisions$ = this.http.get<Division[]>(this.divisionStartUrl).pipe(
+    tap(data => console.log('Divisions', JSON.stringify(data))),
     shareReplay(1),
     catchError(this.handleError)
   );
@@ -105,6 +105,7 @@ export class GameService {
   divisionGames$ = this.games$.pipe(
     map(games => games.filter(game => game.divisionID === this.divisionId))
   );
+  divisions: Division[];
   // divisionGames$ = this.allGames$.pipe(
   //   map(games => this.getDivisionGames(games, this.divisionId))
   // );
@@ -113,7 +114,9 @@ export class GameService {
     private dataService: DataService,
     private http: HttpClient,
     private store: Store<fromGames.State>
-  ) {}
+  ) {
+    this.getCurrentSeason();
+  }
 
   private getDivisionGames(games: Game[], divisionId: number) {
     let g: Game[] = [];
@@ -132,18 +135,18 @@ export class GameService {
   }
   getGames(): Observable<Game[]> {
     const divId = fromGames.getCurrentDivisionId;
-    return this.http.get<Game[]>(this.gameUrl).pipe(
+    return this.http.get<Game[]>(this.gameUrl + this.currentSeason$).pipe(
       map(response => (this.games = response)),
       // tap(data => console.log('All: ' + JSON.stringify(data))),
       catchError(this.dataService.handleError)
     );
   }
 
-  getGame(id: number): Observable<Game> {
-    return this.getGames().pipe(
-      map((content: Game[]) => content.find(p => p.gameId === id))
-    );
-  }
+  // getGame(id: number): Observable<Game> {
+  //   return this.getGames().pipe(
+  //     map((content: Game[]) => content.find(p => p.gameId === id))
+  //   );
+  // }
 
   filterGamesByDivision(div: number): Observable<Game[]> {
     let games: Game[] = [];
@@ -224,14 +227,24 @@ export class GameService {
   compare(a: Date | string, b: Date | string, isAsc: boolean) {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
-  getDivisions(seasonId: number): Observable<Division[]> {
-    return this.http.get<Division[]>(this.divisionUrl).pipe(
-      map(response => (this.divisions = response)),
-      shareReplay(1),
-      tap(data => console.log('All: ' + JSON.stringify(data))),
-      // tap(divisions => gameActions.gameActionTypes.SetCurrentDivision = ),
-      catchError(this.dataService.handleError)
-    );
+  getCurrentSeason() {
+    return this.store.select(fromGames.getCurrentSeason).subscribe(season => {
+    this.seasonId = season.seasonID;
+    console.log(season);
+  });
+}
+  getDivisions() {
+    //this.seasonId = season.seasonID;
+    return this.http
+      .get<Division[]>(
+        this.divisionStartUrl)
+      .pipe(
+        map(response => (this.divisions = response)),
+        shareReplay(1),
+        tap(data => console.log('All: ' + JSON.stringify(data))),
+        // tap(divisions => gameActions.gameActionTypes.SetCurrentDivision = ),
+        catchError(this.dataService.handleError)
+      );
   }
   // getStandings(): Observable<Standing[]> {
   //   this.store
