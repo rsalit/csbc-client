@@ -27,6 +27,7 @@ export class ScheduleComponent implements OnInit {
   divisionId: number;
   flexMediaWatcher: any;
   currentScreenWidth: any;
+  dailySchedule: Array<Game[]>;// = new Array();
   get games() {
     return this._games;
   }
@@ -103,10 +104,10 @@ export class ScheduleComponent implements OnInit {
         }
       });
     // this.dataSource = new MatTableDataSource(this.games);
-    this.store.pipe(select(fromGames.getFilteredGames)).subscribe(games => {
-      this.games = games;
-      this.dataSource.data = games;
-    });
+    // this.store.pipe(select(fromGames.getFilteredGames)).subscribe(games => {
+    //   this.games = games;
+    //   this.dataSource.data = games;
+    // });
     this.store.pipe(select(fromGames.getCanEdit)).subscribe(canEdit => {
       this.canEdit = canEdit;
       if (canEdit) {
@@ -118,7 +119,13 @@ export class ScheduleComponent implements OnInit {
     this.store.pipe(select(fromGames.getFilteredGames)).subscribe(games => {
       this.games = games;
       this.dataSource.data = games;
+      this.dailySchedule= new Array<Game[]>();
+      this.groupByDate(this.games).subscribe(dailyGames => {
+         this.dailySchedule.push(dailyGames);
+         console.log(this.dailySchedule);
+       });
     });
+    // this.groupByDate(this.games);
   }
 
   setupTable() {
@@ -145,6 +152,7 @@ export class ScheduleComponent implements OnInit {
   }
   groupByDate(games: Game[]) {
     const source = from(games);
+    console.log(games);
     const gDate = source.pipe(
       map(s => (s.gameDate = moment(s.gameDate).toDate()))
     );
@@ -152,14 +160,24 @@ export class ScheduleComponent implements OnInit {
     const gamesByDate = source.pipe(
       // map(s => s.gameDate = moment(s.gameDate).toDate()),
       groupBy(
-        game => game.gameDate,
-        g => g
-      ),
-      // return each item in group as array
-      mergeMap(group => zip(of(group.key), group.pipe(toArray())))
+        game => 
+          moment(game.gameDate).toDate().getDate()),
+          mergeMap(group => group.pipe(toArray()))
+          // game.gameDate,
+      // ),
+      // // return each item in group as array
+      //mergeMap(group => zip(of(group.key), group.pipe(toArray())))
     );
-    console.log(gamesByDate);
+    gamesByDate.subscribe(games => console.log(games));
     return gamesByDate;
+  }
+  groupByDate2(games: Game[]) {
+    let dailySchedule = {};
+    games.forEach((val) => {
+      var date = moment(val.gameDate).toDate();
+
+    })
+
   }
   editGame(game) {
     this.store.dispatch(new gameActions.SetCurrentGame(game));

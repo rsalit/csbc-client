@@ -58,12 +58,15 @@ export class ScheduleShellComponent implements OnInit {
   constructor(
     private store: Store<fromGames.State>,
     private userStore: Store<fromUser.State>,
-    private divisinService: DivisionService,
+    private divisionService: DivisionService,
     private gameService: GameService
   ) {}
 
   ngOnInit() {
+    // this.groupByDate(this.games);
+
     // this.setStateSubscriptions();
+
   }
 
   setStateSubscriptions() {
@@ -112,7 +115,8 @@ export class ScheduleShellComponent implements OnInit {
       mergeMap(group => zip(of(group.key), group.pipe(toArray()))),
       tap(data => console.log(data))
     );
-    // console.log(test);
+    console.log(test);
+    console.log(t1);
     // console.log(this.gamesByDate);
     return t1;
   }
