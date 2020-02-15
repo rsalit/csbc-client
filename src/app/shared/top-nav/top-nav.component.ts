@@ -14,24 +14,26 @@ import { User } from 'app/domain/user';
   styleUrls: ['./top-nav.component.scss']
 })
 export class TopNavComponent implements OnInit {
-  @Output() public sidenavToggle= new EventEmitter();
+  @Output() public sidenavToggle = new EventEmitter();
   currentUser$: Observable<User>;
   userName = '';
   showAdminMenu = false;
   currentUser: User;
   drawer: {
     opened: false;
-  }
+  };
 
   constructor(public dialog: MatDialog, private store: Store<fromUser.State>) {}
 
   ngOnInit() {
     this.store.pipe(select(fromUser.getCurrentUser)).subscribe(user => {
       // console.log(user);
-      this.currentUser = user;
-      if (user) {
-        this.userName = user.firstName;
-        this.showAdminMenu = user.screens.length > 0;
+      if (user !== null && user.userId !== 0) {
+        this.currentUser = user;
+        if (user) {
+          this.userName = user.firstName;
+          this.showAdminMenu = user.screens.length > 0;
+        }
       }
     });
   }
@@ -47,5 +49,5 @@ export class TopNavComponent implements OnInit {
   }
   public onToggleSidenav = () => {
     this.sidenavToggle.emit();
-  }
+  };
 }

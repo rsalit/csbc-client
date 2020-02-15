@@ -10,26 +10,27 @@ import { User } from 'app/domain/user';
   styleUrls: ['./sidenav-list.component.css']
 })
 export class SidenavListComponent implements OnInit {
-@Output() sidenavClose = new EventEmitter();
-showAdminMenu = false;
-currentUser: User;
-userName = '';
+  @Output() sidenavClose = new EventEmitter();
+  showAdminMenu = false;
+  currentUser: User;
+  userName = '';
 
-  constructor(private store: Store<fromUser.State>) { }
+  constructor(private store: Store<fromUser.State>) {}
 
   ngOnInit() {
     this.store.pipe(select(fromUser.getCurrentUser)).subscribe(user => {
       // console.log(user);
-      this.currentUser = user;
-      if (user) {
-        this.userName = user.firstName;
-        this.showAdminMenu = user.screens.length > 0;
+      if (user !== null && user.userId !== 0) {
+        this.currentUser = user;
+        if (user) {
+          this.userName = user.firstName;
+          this.showAdminMenu = user.screens.length > 0;
+        }
       }
     });
   }
 
   public onSidenavClose = () => {
     this.sidenavClose.emit();
-  }
-
+  };
 }

@@ -1,21 +1,19 @@
 <h1 mat-dialog-title>Login</h1>
 <div mat-dialog-content>
-  <form
-    class="login-form"
-    [formGroup]="loginForm"
-    (ngSubmit)="onSubmitClick()"
-  >
-  <div *ngIf="loginForm.invalid"
-    class="alert alert-danger">
-  </div>
+  <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmitClick()">
+    <mat-error *ngIf="!isFormValid" class="error"
+      >User Name or password is not valid
+    </mat-error>
     <mat-form-field>
       <input matInput formControlName="userName" placeholder="User Name" />
-      <!-- <mat-error [@ngIf]="userName.invalid" [ngClass]="{ 'has-error': isSubmitted && formControls.userName.errors }"></mat-error> -->
+      <mat-error *ngIf="userName.errors">login name is required</mat-error>
     </mat-form-field>
 
     <mat-form-field>
       <input matInput formControlName="password" placeholder="Password" />
-      <!-- <mat-error [@ngIf]="password.invalid" [ngClass]="{ 'has-error': isSubmitted && formControls.password.errors }"></mat-error> -->
+      <mat-error *ngIf="password.invalid" class="error"
+        >Password is required!</mat-error
+      >
     </mat-form-field>
   </form>
 </div>
@@ -31,5 +29,7 @@
     Ok
   </button>
 
-  <button mat-raised-button color="primary" (click)="onCancelClick()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="onCancelClick()">
+    Cancel
+  </button>
 </div>

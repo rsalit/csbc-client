@@ -12,6 +12,9 @@ import {
   FormBuilder,
   Validators
 } from '@angular/forms';
+import * as userActions from '../../user/state/user.actions';
+import * as fromUser from '../../user/state';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'csbc-login-dialog',
@@ -23,32 +26,51 @@ export class LoginDialogComponent implements OnInit {
     userName: ['', Validators.required],
     password: ['', Validators.required]
   });
-  get userName() { return this.loginForm.get('userName'); }
-  get password() { return this.loginForm.get('password'); }
+  isFormValid: boolean;
+  get userName() {
+    return this.loginForm.get('userName');
+  }
+  get password() {
+    return this.loginForm.get('password');
+  }
 
   constructor(
     public dialogRef: MatDialogRef<LoginDialogComponent>,
     private fb: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private store: Store<fromUser.State>
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.isFormValid = true;
+  }
   onCancelClick() {
     this.dialogRef.close();
   }
   onSubmitClick() {
-    if (
-      this.validate(
+    this.loginForm.markAllAsTouched();
+    console.log(this.loginForm);
+    if (!this.loginForm.invalid) {
+      this.validateUser(
         this.loginForm.controls['userName'].value,
         this.loginForm.controls['password'].value
-      )
-    ) {
-      this.dialogRef.close();
+      );
+      this.store.select(fromUser.getCurrentUser).subscribe(user => {
+        console.log(user);
+        if (user !== null && user.userId !== 0) {
+          this.dialogRef.close();
+        } else {
+          this.isFormValid = false;
+        }
+
+      });
     }
   }
-  validate(userName: string, password: string) {
-    const user = this.authService.login(userName, password);
-    console.log(user);
-    return user !== undefined;
+  validateUser(userName: string, password: string) {
+    return this.authService.login(userName, password).subscribe(response => {
+      if (response !== null) {
+        this.store.dispatch(new userActions.SetCurrentUser(response));
+      }
+    });
   }
 }

@@ -7,6 +7,7 @@ import { tap, catchError } from 'rxjs/operators';
 import * as userActions from '../user/state/user.actions';
 import * as fromUser from '../user/state';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -29,14 +30,11 @@ export class AuthService {
     return !!this.currentUser;
   }
 
-  login(userName: string, password: string): void {
-    this.http
+  login(userName: string, password: string): Observable<User> {
+    let tFlag = false;
+    return this.http
       .get<User>(this.loginUrl + '/' + userName + '/' + password)
-      .subscribe((response: User) => {
-        this.user = response;
-        this.setUserState(this.user);
-        console.log(this.user);
-      });
+    
   }
   setUserState(user: User) {
     this.store.dispatch(new userActions.SetCurrentUser(user));
