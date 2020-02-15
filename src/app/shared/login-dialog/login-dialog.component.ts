@@ -5,7 +5,13 @@ import {
   MAT_DIALOG_DATA
 } from '@angular/material/dialog';
 import { AuthService } from 'app/user/auth.service';
-import { FormControl, FormGroup, FormArray, FormBuilder } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormArray,
+  FormBuilder,
+  Validators
+} from '@angular/forms';
 
 @Component({
   selector: 'csbc-login-dialog',
@@ -14,9 +20,11 @@ import { FormControl, FormGroup, FormArray, FormBuilder } from '@angular/forms';
 })
 export class LoginDialogComponent implements OnInit {
   loginForm = this.fb.group({
-    userName: new FormControl(''),
-  password: new FormControl('')
+    userName: ['', Validators.required],
+    password: ['', Validators.required]
   });
+  get userName() { return this.loginForm.get('userName'); }
+  get password() { return this.loginForm.get('password'); }
 
   constructor(
     public dialogRef: MatDialogRef<LoginDialogComponent>,
@@ -24,20 +32,23 @@ export class LoginDialogComponent implements OnInit {
     private authService: AuthService
   ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
   onCancelClick() {
     this.dialogRef.close();
   }
   onSubmitClick() {
-    console.log(this.loginForm);
-    if (this.validate(this.loginForm.controls['userName'].value, this.loginForm.controls['password'].value, )) {
+    if (
+      this.validate(
+        this.loginForm.controls['userName'].value,
+        this.loginForm.controls['password'].value
+      )
+    ) {
       this.dialogRef.close();
     }
   }
   validate(userName: string, password: string) {
     const user = this.authService.login(userName, password);
     console.log(user);
-    return true;
+    return user !== undefined;
   }
 }

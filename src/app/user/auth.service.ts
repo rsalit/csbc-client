@@ -9,48 +9,40 @@ import * as fromUser from '../user/state';
 import { Store } from '@ngrx/store';
 
 @Injectable({
-
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class AuthService {
-    currentUser: User | null;
-    redirectUrl: string;
-    loginUrl: string;
-    user: User;
+  currentUser: User | null;
+  redirectUrl: string;
+  loginUrl: string;
+  user: User;
 
-    constructor(private http: HttpClient, private dataService: DataService,
-        private store: Store<fromUser.State>
-        ) {
-        this.loginUrl = this.dataService.webUrl + '/api/login';
-     }
+  constructor(
+    private http: HttpClient,
+    private dataService: DataService,
+    private store: Store<fromUser.State>
+  ) {
+    this.loginUrl = this.dataService.webUrl + '/api/login';
+  }
 
-    isLoggedIn(): boolean {
-        return !!this.currentUser;
-    }
+  isLoggedIn(): boolean {
+    return !!this.currentUser;
+  }
 
-    login(userName: string, password: string): void {
-        // Code here would log into a back end service
-        // and return user information
-        // This is just hard-coded here.
-        this.http
+  login(userName: string, password: string): void {
+    this.http
       .get<User>(this.loginUrl + '/' + userName + '/' + password)
       .subscribe((response: User) => {
-                this.user = response;
-                this.setUserState(this.user);
-                console.log(this.user);
-            });
-;
-        // this.currentUser = {
-        //     id: 2,
-        //     userName: userName,
-        //     isAdmin: false
-        // };
-    }
-    setUserState(user: User) {
-        this.store.dispatch(new userActions.SetCurrentUser(user));
-    }
+        this.user = response;
+        this.setUserState(this.user);
+        console.log(this.user);
+      });
+  }
+  setUserState(user: User) {
+    this.store.dispatch(new userActions.SetCurrentUser(user));
+  }
 
-    logout(): void {
-        this.currentUser = null;
-    }
+  logout(): void {
+    this.currentUser = null;
+  }
 }

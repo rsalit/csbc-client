@@ -41,7 +41,7 @@ export class ContentService {
     console.log(value);
   }
   content$ = this.http.get<Content[]>(this.getUrl).pipe(
-    tap(data => console.log('All: ' + JSON.stringify(data))),
+    // tap(data => console.log('All: ' + JSON.stringify(data))),
     shareReplay(1),
     catchError(this.data.handleError('getContents', []))
   );

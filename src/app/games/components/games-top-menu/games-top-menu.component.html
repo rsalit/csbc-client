@@ -1,17 +1,5 @@
 <mat-toolbar>
   <span class="season">{{ seasonDescription }}</span>
-  <div
-    [formGroup]="menuForm"
-    fxLayout="row"
-    fxLayoutAlign="space-evenly center"
-    fxShow="true"
-    fxHide.lt-md="true"
-  >
-    <a routerLink="/games/schedule" mat-button>Schedule</a>
-    <a routerLink="/games/standings" mat-button>Standings</a>
-    <a fxHide.gt-md="true"
-    routerLink="/games/scores" mat-button>Scores</a>
-</div>
 <div
 [formGroup]="menuForm"
 fxLayout="row"
@@ -19,16 +7,29 @@ fxLayoutAlign="space-evenly center"
 fxShow="true"
 fxHide.gt-sm="true"
 >
-<button mat-button [matMenuTriggerFor]="menu">View</button>
+<!-- <button mat-button [matMenuTriggerFor]="menu">View</button>
 <mat-menu #menu="matMenu">
   <button mat-menu-item><a routerLink="/games/schedule" mat-button>Schedule</a></button>
   <button mat-menu-item><a routerLink="/games/standings" mat-button>Standings</a></button>
   <button mat-menu-item> <a routerLink="/games/scores" mat-button>Scores</a></button> 
-</mat-menu>
+</mat-menu> -->
 </div>
   <span class="fill-space"></span>
   <csbc-game-filter
     [currentDivision]="selectedDivisionId$ | async"
     (selectedDivision)="divisionSelected($event)"
   ></csbc-game-filter>
+</mat-toolbar>
+<mat-toolbar>
+  <div
+    [formGroup]="menuForm"
+    fxLayout="row"
+    fxLayoutAlign="space-evenly center"
+    fxShow="true"
+  >
+    <button mat-button routerLink="/games/schedule" >Schedule</button>
+    <button mat-button routerLink="/games/standings" >Standings</button>
+    <button mat-button fxHide.gt-md="true"
+    routerLink="/games/scores" >Scores</button>
+</div>
 </mat-toolbar>

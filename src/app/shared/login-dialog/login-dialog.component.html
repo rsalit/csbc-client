@@ -1,16 +1,21 @@
 <h1 mat-dialog-title>Login</h1>
 <div mat-dialog-content>
   <form
-    class="example-form"
+    class="login-form"
     [formGroup]="loginForm"
     (ngSubmit)="onSubmitClick()"
   >
+  <div *ngIf="loginForm.invalid"
+    class="alert alert-danger">
+  </div>
     <mat-form-field>
       <input matInput formControlName="userName" placeholder="User Name" />
+      <!-- <mat-error [@ngIf]="userName.invalid" [ngClass]="{ 'has-error': isSubmitted && formControls.userName.errors }"></mat-error> -->
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput formControlName="password" placeholder="password" />
+      <input matInput formControlName="password" placeholder="Password" />
+      <!-- <mat-error [@ngIf]="password.invalid" [ngClass]="{ 'has-error': isSubmitted && formControls.password.errors }"></mat-error> -->
     </mat-form-field>
   </form>
 </div>

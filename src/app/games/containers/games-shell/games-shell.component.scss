@@ -114,3 +114,9 @@
   padding-top: 8px;
   padding-bottom: 8px;
 }
+.mat-table td:first-of-type, .mat-table th:first-of-type {
+  padding-left: 8px;
+}
+.mat-table td:last-of-type, .mat-table th:last-of-type {
+  padding-left: 8px;
+}

@@ -1,7 +1,7 @@
 <!-- <div style="height: 100vh;" class="wrapper"> -->
 <mat-toolbar color="default" fxShow="true">
   <div fxHide.gt-xs>
-    <button mat-idon-button (click)="onToggleSidenav()">
+    <button mat-button (click)="onToggleSidenav()" class="menu-button">
       <mat-icon>menu</mat-icon>
     </button>
   </div>
@@ -17,7 +17,7 @@
   </div>
   <div fxFlex fxLayout fxLayoutAlign="end">
     <button mat-raised-button *ngIf="!currentUser" (click)="openDialog()">
-      Login
+      Admin Login
     </button>
     <p readonly *ngIf="currentUser">Hello {{ userName }}</p>
   </div>

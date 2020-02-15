@@ -14,7 +14,7 @@ import { MediaObserver } from '@angular/flex-layout';
 @Component({
   selector: 'csbc-scores',
   templateUrl: './scores.component.html',
-  styleUrls: ['./scores.component.scss']
+  styleUrls: ['./scores.component.scss', '../../containers/games-shell/games-shell.component.scss']
 })
 export class ScoresComponent implements OnInit {
   dataSource: MatTableDataSource<Game>;
@@ -45,11 +45,10 @@ export class ScoresComponent implements OnInit {
 
   displayedColumns = [
     'gameDate',
-    'gameTime',
-    'homeTeamName',
     'visitingTeamName',
-    'homeTeamScore',
-    'visitingTeamScore'
+    'homeTeamName',
+    'visitingTeamScore',
+    'homeTeamScore'
   ];  constructor(    private store: Store<fromGames.State>,
     private userStore: Store<fromUser.State>,
     public dialog: MatDialog,

@@ -45,11 +45,11 @@ export class CsbcAnnouncementsComponent implements OnInit {
       webContents => {
         if (webContents !== undefined) {
           const today = moment();
-          console.log(webContents);
+          // console.log(webContents);
           for (let i = 0; i < webContents.length; i++) {
             const expirationDate = moment(webContents[i].expirationDate);
             if (expirationDate >= today) {
-              console.log(webContents[i]);
+              // console.log(webContents[i]);
               this.activeWebContent.push(webContents[i]);
             }
           }
