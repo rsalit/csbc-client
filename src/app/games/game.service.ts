@@ -241,18 +241,12 @@ export class GameService {
       .pipe(
         map(response => (this.divisions = response)),
         shareReplay(1),
-        tap(data => console.log('All: ' + JSON.stringify(data))),
+        // tap(data => console.log('All: ' + JSON.stringify(data))),
         // tap(divisions => gameActions.gameActionTypes.SetCurrentDivision = ),
         catchError(this.dataService.handleError)
       );
   }
-  // getStandings(): Observable<Standing[]> {
-  //   this.store
-  //     .pipe(select(fromGames.getCurrentDivisionId))
-  //     .subscribe(divisionId => {
-  //       return this.getStandingsByDivision(divisionId);
-  //     });
-  // }
+  
   standingsByDivision$ = combineLatest([this.currentDivision$]).pipe();
   getStandingsByDivision(divisionId: number) {
     return this.http.get<any[]>(this.standingsUrl + '/' + divisionId).pipe(

@@ -138,7 +138,6 @@ export class GamesShellComponent implements OnInit {
 
   divisionSelected(division: Division): void {
     this.store.dispatch(new gameActions.SetCurrentDivision(division));
-    console.log(division);
     console.log(this.user$);
     if (division !== undefined) {
       this.canEdit = this.getCanEdit(this.user, division.divisionID);

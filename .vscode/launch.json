@@ -1,39 +1,32 @@
 {
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "ng serve",
-            "type": "chrome",
-            "request": "launch",
-            "url": "http://localhost:4200",
-            "webRoot": "${workspaceRoot}"
-        },
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Launch Program",
-            "program": "${workspaceFolder}/app.js"
-        },
+  "version": "0.2.0",
+  "configurations": [
     {
-        "type": "chrome",
-        "request": "launch",
-        "name": "Launch Chrome",
-        "url": "http://localhost:8080",
-        "webRoot": "${workspaceRoot}"
+      "name": "Attach to Chrome",
+      "port": 9222,
+      "request": "attach",
+      "type": "pwa-chrome",
+      "webRoot": "${workspaceFolder}"
     },
-        {
-            "type": "chrome",
-            "request": "launch",
-            "name": "Launch Chrome against localhost",
-            "url": "http://localhost:8080",
-            "webRoot": "${workspaceRoot}"
-        },
-        {
-            "type": "chrome",
-            "request": "attach",
-            "name": "Attach to Chrome",
-            "port": 9222,
-            "webRoot": "${workspaceRoot}"
-        }
-    ]
+    {
+      "name": "ng serve",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:4200",
+      "webRoot": "${workspaceRoot}"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Program",
+      "program": "${workspaceFolder}/app.js"
+    },
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Launch Chrome",
+      "url": "http://localhost:4200",
+      "webRoot": "${workspaceRoot}"
+    }
+  ]
 }

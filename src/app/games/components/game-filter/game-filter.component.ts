@@ -63,7 +63,7 @@ export class GameFilterComponent implements OnInit {
   setControlSubscriptions() {
     this.criteriaForm.get('divisions').valueChanges.subscribe(val => {
       console.log(val[0]);
-      this.store.dispatch(new gameActions.SetCurrentDivision(val[0]));
+      // this.store.dispatch(new gameActions.SetCurrentDivision(val[0]));
       this.divisionSelected(val[0]);
     });
     this.criteriaForm.get('teams').valueChanges.subscribe(val => {
@@ -99,7 +99,7 @@ export class GameFilterComponent implements OnInit {
   divisionSelected(division: Division): void {
     if (division === undefined) {
       division = this.divisions[0];
-      this.store.dispatch(new gameActions.SetCurrentDivision(division));
+      // this.store.dispatch(new gameActions.SetCurrentDivision(division));
       console.log(division);
     }
     this.selectedDivision.emit(division);

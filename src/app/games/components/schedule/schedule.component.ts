@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { GameActions } from './../../state/games.actions';
 import { FormBuilder } from '@angular/forms';
 import { Game } from '../../../domain/game';
@@ -27,7 +27,7 @@ export class ScheduleComponent implements OnInit {
   divisionId: number;
   flexMediaWatcher: any;
   currentScreenWidth: any;
-  dailySchedule: Array<Game[]>;// = new Array();
+  dailySchedule: Array<Game[]>; // = new Array();
   get games() {
     return this._games;
   }
@@ -42,7 +42,7 @@ export class ScheduleComponent implements OnInit {
     //});
   }
   private _games: Game[];
-  @Input() canEdit: boolean;
+  @Output() canEdit: boolean;
 
   errorMessage: string;
   public title: string;
@@ -80,29 +80,31 @@ export class ScheduleComponent implements OnInit {
     if (this.canEdit === true) {
       this.displayedColumns.push('actions');
     }
-    this.userStore.pipe(select(fromUser.getCurrentUser)).subscribe(user => {
-      this.user = user;
-      console.log(this.user);
+    // this.userStore.select(fromUser.getCurrentUser).subscribe(user => {
+    //   this.user = user;
+    //   console.log(this.user);
+    //   this.store.select(fromGames.getCurrentDivision).subscribe(division => {
+    //     console.log(division);
+    //     if (division !== null && division !== undefined) {
+    //       this.divisionId = division.divisionID;
+
+    //       console.log(this.divisionId);
+    //       this.canEdit = false;
+    //       if (this.user !== null && this.user !== undefined) {
+    //         for (let i = 0; i <= this.user.divisions.length; i++) {
+    //           console.log('User div:' + this.user.divisions[i].divisionID);
+    //           if (this.user.divisions[i].divisionID === this.divisionId) {
+    //             this.canEdit = true;
+    //             break;
+    //           }
+    //         }
+    //       }
+    //     }
+    //   });
+    // });
+    this.store.select(fromGames.getCurrentDivision).subscribe(division => {
+      console.log(division);
     });
-    this.store
-      .pipe(select(fromGames.getCurrentDivision))
-      .subscribe(division => {
-        console.log(division);
-        if (division !== null && division !== undefined) {
-          this.divisionId = division.divisionID;
-          console.log(this.divisionId);
-          this.canEdit = false;
-          if (this.user !== null && this.user !== undefined) {
-            for (let i = 0; i < this.user.divisions.length; i++) {
-              if (this.user.divisions[i].divisionID === this.divisionId) {
-                this.canEdit = true;
-                console.log('Found division');
-                break;
-              }
-            }
-          }
-        }
-      });
     // this.dataSource = new MatTableDataSource(this.games);
     // this.store.pipe(select(fromGames.getFilteredGames)).subscribe(games => {
     //   this.games = games;
@@ -110,20 +112,21 @@ export class ScheduleComponent implements OnInit {
     // });
     this.store.pipe(select(fromGames.getCanEdit)).subscribe(canEdit => {
       this.canEdit = canEdit;
-      if (canEdit) {
-        this.displayedColumns.push('actions');
-      }
+      console.log(this.canEdit);
+      // if (canEdit) {
+      //   this.displayedColumns.push('actions');
+      // }
     });
 
     this.dataSource = new MatTableDataSource(this.games);
     this.store.pipe(select(fromGames.getFilteredGames)).subscribe(games => {
       this.games = games;
       this.dataSource.data = games;
-      this.dailySchedule= new Array<Game[]>();
+      this.dailySchedule = new Array<Game[]>();
       this.groupByDate(this.games).subscribe(dailyGames => {
-         this.dailySchedule.push(dailyGames);
-         console.log(this.dailySchedule);
-       });
+        this.dailySchedule.push(dailyGames);
+        // console.log(this.dailySchedule);
+      });
     });
     // this.groupByDate(this.games);
   }
@@ -159,25 +162,21 @@ export class ScheduleComponent implements OnInit {
 
     const gamesByDate = source.pipe(
       // map(s => s.gameDate = moment(s.gameDate).toDate()),
-      groupBy(
-        game => 
-          moment(game.gameDate).toDate().getDate()),
-          mergeMap(group => group.pipe(toArray()))
-          // game.gameDate,
-      // ),
-      // // return each item in group as array
-      //mergeMap(group => zip(of(group.key), group.pipe(toArray())))
+      groupBy(game =>
+        moment(game.gameDate)
+          .toDate()
+          .getDate()
+      ),
+      mergeMap(group => group.pipe(toArray()))
     );
-    gamesByDate.subscribe(games => console.log(games));
+    // gamesByDate.subscribe(games => console.log(games));
     return gamesByDate;
   }
   groupByDate2(games: Game[]) {
     let dailySchedule = {};
-    games.forEach((val) => {
+    games.forEach(val => {
       var date = moment(val.gameDate).toDate();
-
-    })
-
+    });
   }
   editGame(game) {
     this.store.dispatch(new gameActions.SetCurrentGame(game));

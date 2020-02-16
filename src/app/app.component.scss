@@ -510,6 +510,9 @@ th {
   .mat-drawer-container {
     background-color: $background-color;
   }
+  .mat-drawer-content {
+    overflow: inherit;
+  }
   main {
     padding:10px;
   }

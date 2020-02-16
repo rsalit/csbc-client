@@ -58,11 +58,6 @@ export function reducer(state = initialState, action: GameActions): GameState {
         ...state,
         currentSeason: action.payload
       };
-    // case GameActionTypes.ToggleGameCode:
-    //   return {
-    //     ...state,
-    //     showListView: action.payload
-    //   };
     case GameActionTypes.SetCurrentDivision:
       return {
         ...state,

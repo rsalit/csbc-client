@@ -50,12 +50,14 @@ export class LoadCurrentSeason implements Action {
 export class SetCurrentSeason implements Action {
   readonly type = GameActionTypes.SetCurrentSeason;
   constructor(public payload: Season) {
-    console.log(payload);
+    // console.log(payload);
   }
 }
 export class SetCurrentDivision implements Action {
   readonly type = GameActionTypes.SetCurrentDivision;
-  constructor(public payload: Division) {}
+  constructor(public payload: Division) {
+    console.log(payload);
+  }
 }
 export class SetCurrentTeam implements Action {
   readonly type = GameActionTypes.SetCurrentTeam;
@@ -155,10 +157,7 @@ export class LoadTeams implements Action {
 export class LoadTeamsSuccess implements Action {
   readonly type = GameActionTypes.LoadTeamsSuccess;
 
-  constructor(public payload: Team[]) {
-    console.log(payload);
-    console.log('LoadTeamSuccess');
-  }
+  constructor(public payload: Team[]) {}
 }
 export class LoadTeamsFail implements Action {
   readonly type = GameActionTypes.LoadTeamsFail;
