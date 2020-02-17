@@ -6,30 +6,27 @@ import { GameService } from './../../game.service';
 @Component({
   selector: 'csbc-standings',
   templateUrl: './standings.component.html',
-  styleUrls: ['./standings.component.scss']
+  styleUrls: [
+    './standings.component.scss',
+    '../../containers/games-shell/games-shell.component.scss'
+  ]
 })
 export class StandingsComponent implements OnInit {
   public title: string;
   @Input() teams: any[];
 
   private _standings: Standing[];
-  get standings () {
+  get standings() {
     return this._standings;
   }
   @Input()
-  set standings (standings: Standing[]) {
+  set standings(standings: Standing[]) {
     this._standings = standings;
     console.log(standings);
     this.dataSource = new MatTableDataSource(standings);
   }
 
-  displayedColumns = [
-    'teamName',
-    'won',
-    'lost',
-    'pct',
-    'streak',
-  ];
+  displayedColumns = ['teamName', 'won', 'lost', 'pct', 'streak'];
   dataSource: MatTableDataSource<unknown>;
   constructor(private gameService: GameService) {
     this.title = 'Standings';
@@ -45,7 +42,6 @@ export class StandingsComponent implements OnInit {
   }
 
   getStandings() {
-
     // this.gameService.getStandingsByDivision()..subscribe(standings => {
     //   console.log(standings);
     //   this.standings = standings;
