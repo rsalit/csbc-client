@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
 
 import { AdminComponent } from './admin.component';
 import { AdminDashboardComponent } from './dashboard/admin-dashboard.component';
@@ -37,8 +38,8 @@ import { SeasonSetupComponent } from './containers/season-setup/season-setup.com
 import { RegistrationPaymentsComponent } from './registrations-and-payments/containers/registration-payments/registration-payments.component';
 import { SeasonRegistrationsComponent } from './registrations-and-payments/components/season-registrations/season-registrations.component';
 import { PaymentsComponent } from './registrations-and-payments/components/payments/payments.component';
-import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule } from '@angular/material';
-import { LayoutModule } from '@angular/cdk/layout';
+// import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule } from '@angular/material';
+// import { LayoutModule } from '@angular/cdk/layout';
 
 @NgModule({
   imports: [
@@ -51,13 +52,12 @@ import { LayoutModule } from '@angular/cdk/layout';
     ContentModule,
     DirectorModule,
     StoreModule.forFeature('admin', reducer),
-    EffectsModule.forFeature([AdminEffects]),
-    MatGridListModule,
-    MatCardModule,
-    MatMenuModule,
-    MatIconModule,
-    MatButtonModule,
-    LayoutModule
+    EffectsModule.forFeature([AdminEffects])
+    // MatGridListModule,
+    // MatCardModule,
+    // MatMenuModule,
+    // MatIconModule,
+    // MatButtonModule
   ],
   declarations: [
     AdminComponent,
