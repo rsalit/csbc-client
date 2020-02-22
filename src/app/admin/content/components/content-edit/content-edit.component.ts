@@ -31,13 +31,13 @@ import 'rxjs/add/observable/of';
 
 import { map, tap } from 'rxjs/operators';
 import { catchError } from 'rxjs/operators';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Content } from '../../../../domain/content';
 import { ContentService } from '../../content.service';
 import { pipe } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 
 import * as fromContent from '../../state';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'csbc-content-edit',

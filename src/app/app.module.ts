@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -37,15 +38,13 @@ import { GamesPipe } from './games.pipe';
 import { CsbcNavComponent } from './csbc-nav/csbc-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { CsbcDashboardComponent } from './csbc-dashboard/csbc-dashboard.component';
-import {
-  MatGridListModule,
-  MatCardModule,
-  MatMenuModule,
-  MatIconModule,
-  MatButtonModule,
-  MAT_DIALOG_DEFAULT_OPTIONS
-} from '@angular/material';
-import { MatTabsModule, MatSidenavModule } from '@angular/material';
+// import {
+//   MatGridListModule,
+//   MatCardModule,
+//   MatMenuModule,
+//   MatIconModule,
+//   MatButtonModule} from '@angular/material';
+// import { MatTabsModule, MatSidenavModule } from '@angular/material';
 
 import { AppEffects } from './app.effects';
 import { reducers, metaReducers } from './reducers';
@@ -84,13 +83,13 @@ import { SidenavListComponent } from './shared/sidenav-list/sidenav-list.compone
     LoginRoutingModule,
     LayoutModule,
     UserModule,
-    MatGridListModule,
-    MatCardModule,
-    MatMenuModule,
-    MatIconModule,
-    MatButtonModule,
-    MatTabsModule,
-    MatSidenavModule,
+    // MatGridListModule,
+    // MatCardModule,
+    // MatMenuModule,
+    // MatIconModule,
+    // MatButtonModule,
+    // MatTabsModule,
+    // MatSidenavModule,
     StoreModule.forRoot({}),
     StoreDevtoolsModule.instrument({
       name: 'CSBC Site',

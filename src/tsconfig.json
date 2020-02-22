@@ -11,8 +11,12 @@
     "outDir": "../dist/out-tsc",
     "sourceMap": true,
     "target": "es6",
-    "typeRoots": [
-      "../node_modules/@types"
+    "typeRoots": ["../node_modules/@types"]
+  },
+  
+    "exclude": [
+      //files to exclude: example below
+      "node_modules",
+      "**/*.spec.ts"
     ]
-  }
 }

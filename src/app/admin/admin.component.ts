@@ -1,12 +1,12 @@
 import { Component, OnInit, NgZone, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { MatSidenav } from '@angular/material';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Store } from '@ngrx/store';
 
 import * as fromContent from './content/state';
 import * as contentActions from './content/state/content.actions';
+import { MatSidenav } from '@angular/material/sidenav';
 
 
 class MenuItem {

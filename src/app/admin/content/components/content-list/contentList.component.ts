@@ -1,8 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { Store } from '@ngrx/store';
 
 import { Content } from '../../../../domain/content';
@@ -11,6 +9,8 @@ import { ContentEditComponent } from '../content-edit/content-edit.component';
 
 import * as fromContent from '../../state';
 import * as contentActions from '../../state/content.actions';
+import { MatDialog } from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'csbc-content-list',

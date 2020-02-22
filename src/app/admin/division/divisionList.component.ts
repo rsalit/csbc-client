@@ -6,7 +6,6 @@ import { SeasonService } from '../../services/season.service';
 import { DivisionService } from '../../services/division.service';
 import { Division } from '../../domain/division';
 import { Season } from '../../domain/season';
-import { MatTableDataSource } from '@angular/material';
 import { Store, select } from '@ngrx/store';
 // import { CsbcSeasonSelectComponent } from '../../shared/season-select/csbc-season-select.component';
 import * as fromAdmin from '../state';
@@ -14,6 +13,7 @@ import * as adminActions from '../state/admin.actions';
 
 import { LoadDivisions } from './../state/admin.actions';
 import { Observable } from 'rxjs';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'csbc-division-list',

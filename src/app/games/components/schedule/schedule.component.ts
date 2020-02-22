@@ -7,13 +7,14 @@ import * as fromGames from '../../state';
 import * as fromUser from '../../../user/state';
 import * as gameActions from '../../state/games.actions';
 
-import { MatTableDataSource, MatDialog } from '@angular/material';
 import { groupBy, mergeMap, toArray, map } from 'rxjs/operators';
 import { from, zip, of } from 'rxjs';
 import * as moment from 'moment';
 import { User } from 'app/domain/user';
 import { GameScoreDialogComponent } from '../game-score-dialog/game-score-dialog.component';
 import { MediaObserver } from '@angular/flex-layout';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'csbc-schedule',

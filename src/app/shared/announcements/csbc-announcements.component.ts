@@ -1,11 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CoreModule } from '../../core/core.module';
-import {
-  MatTableDataSource,
-  MatSort,
-  MatPaginator,
-  MatCard
-} from '@angular/material';
 
 import { Content } from '../../domain/content';
 import { ContentService } from '../../admin/content/content.service';

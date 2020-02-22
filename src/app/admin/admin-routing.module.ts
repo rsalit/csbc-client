@@ -25,6 +25,8 @@ const adminRoutes: Routes = [
       { path: '', component: AdminDashboardComponent },
       { path: 'seasons', component: AdminSeasonShellComponent },
       { path: 'division', component: AdminDivisionShellComponent },
+      { path: 'games', component: AdminGamesComponent },
+
       { path: 'season-setup', component: SeasonSetupComponent },
       {
         path: 'content',

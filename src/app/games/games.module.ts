@@ -26,11 +26,9 @@ import { DailyScheduleComponent } from './components/daily-schedule/daily-schedu
 
 @NgModule({
   imports: [
-    // CommonModule,
+    CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    // AppModule,
-    // BrowserAnimationsModule,
     CoreModule,
     SharedModule,
     GamesRoutingModule,

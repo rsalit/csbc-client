@@ -38,8 +38,6 @@ import { SeasonSetupComponent } from './containers/season-setup/season-setup.com
 import { RegistrationPaymentsComponent } from './registrations-and-payments/containers/registration-payments/registration-payments.component';
 import { SeasonRegistrationsComponent } from './registrations-and-payments/components/season-registrations/season-registrations.component';
 import { PaymentsComponent } from './registrations-and-payments/components/payments/payments.component';
-// import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule } from '@angular/material';
-// import { LayoutModule } from '@angular/cdk/layout';
 
 @NgModule({
   imports: [

@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Game } from 'app/domain/game';
 import { DataSource } from '@angular/cdk/table';
-import { MatTableDataSource, MatDialog } from '@angular/material';
 import { Store, select } from '@ngrx/store';
 import { MediaObserver } from '@angular/flex-layout';
 import { GameScoreDialogComponent } from '../game-score-dialog/game-score-dialog.component';
@@ -9,6 +8,8 @@ import { GameScoreDialogComponent } from '../game-score-dialog/game-score-dialog
 import * as fromGames from '../../state';
 import * as fromUser from '../../../user/state';
 import * as gameActions from '../../state/games.actions';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'daily-schedule',
