@@ -33,6 +33,12 @@ import { ContentModule } from './content/content.module';
 import { DirectorModule } from './director/director.module';
 import { ImportScheduleComponent } from './import-schedule/import-schedule.component';
 import { SeasonSelectComponent } from './components/season-select/season-select.component';
+import { SeasonSetupComponent } from './containers/season-setup/season-setup.component';
+import { RegistrationPaymentsComponent } from './registrations-and-payments/containers/registration-payments/registration-payments.component';
+import { SeasonRegistrationsComponent } from './registrations-and-payments/components/season-registrations/season-registrations.component';
+import { PaymentsComponent } from './registrations-and-payments/components/payments/payments.component';
+import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule } from '@angular/material';
+import { LayoutModule } from '@angular/cdk/layout';
 
 @NgModule({
   imports: [
@@ -45,7 +51,13 @@ import { SeasonSelectComponent } from './components/season-select/season-select.
     ContentModule,
     DirectorModule,
     StoreModule.forFeature('admin', reducer),
-    EffectsModule.forFeature([AdminEffects])
+    EffectsModule.forFeature([AdminEffects]),
+    MatGridListModule,
+    MatCardModule,
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule,
+    LayoutModule
   ],
   declarations: [
     AdminComponent,
@@ -67,7 +79,11 @@ import { SeasonSelectComponent } from './components/season-select/season-select.
     AdminTeamListComponent,
     AdminDivisionShellComponent,
     ImportScheduleComponent,
-    SeasonSelectComponent
+    SeasonSelectComponent,
+    SeasonSetupComponent,
+    RegistrationPaymentsComponent,
+    SeasonRegistrationsComponent,
+    PaymentsComponent
   ]
 })
 export class AdminModule {}

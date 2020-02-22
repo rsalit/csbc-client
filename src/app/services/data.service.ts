@@ -10,9 +10,9 @@ export class DataService {
 
   constructor(private _http: HttpClient) {
     // this.webUrl = 'http://svc.csbchoops.net';
-    // this.webUrl = 'http://localhost:29784';
+    this.webUrl = 'http://localhost:29784';
     // this.webUrl = 'http://csbc-webapi.azurewebsites.net';
-    this.webUrl = 'https://apicsbc.azurewebsites.net';
+    // this.webUrl = 'https://apicsbc.azurewebsites.net';
   }
 
   /**

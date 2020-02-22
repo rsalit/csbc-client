@@ -7,7 +7,8 @@ import * as gameActions from './../../games/state/games.actions';
 import { Observable } from 'rxjs';
 import { Season } from 'app/domain/season';
 import { Division } from 'app/domain/division';
-
+import { TeamService } from 'app/services/team.service';
+import { Team } from 'app/domain/team';
 @Component({
   selector: 'csbc-admin-dashboard',
   templateUrl: './admin-dashboard.component.html',
@@ -16,19 +17,31 @@ import { Division } from 'app/domain/division';
 export class AdminDashboardComponent implements OnInit {
   currentSeason: void | Season;
   divisions: Division[];
-  constructor(private store: Store<fromGames.State>) {}
+  divisionCount: number;
+  teams: Team[];
+  teamCount: number;
+  constructor(private store: Store<fromGames.State>, private teamService: TeamService) {}
 
   ngOnInit() {
     this.store.dispatch(new gameActions.LoadCurrentSeason());
-    this.store.dispatch(new gameActions.LoadDivisions());
     this.setStateSubscriptions();
+    this.teamService.getTeams().subscribe(teams => {
+      this.teams = teams;
+      this.teamCount = teams.length;
+    });
   }
   setStateSubscriptions() {
     this.store
-      .pipe(select(fromGames.getCurrentSeason))
-      .subscribe(season => (this.currentSeason = season));
+      .select(fromGames.getCurrentSeason)
+      .subscribe(season => {
+        (this.currentSeason = season)
+        this.store.dispatch(new gameActions.LoadDivisions());
+      }
+        );
     this.store
-      .pipe(select(fromGames.getDivisions))
-      .subscribe(divisions => (this.divisions = divisions));
+      .select(fromGames.getDivisions)
+      .subscribe(divisions => {(this.divisions = divisions)
+      this.divisionCount = divisions.length});
+
   }
 }

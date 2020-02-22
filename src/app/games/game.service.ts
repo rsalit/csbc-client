@@ -41,7 +41,7 @@ export class GameService {
     '/api/division/GetSeasonDivisions/' +
     this.seasonId;
   private divisionStartUrl =
-    this.dataService.webUrl + '/api/division/GetCurrentSeasonDivisions';
+    this.dataService.webUrl + '/api/division/GetSeasonDivisions';
   games: Game[];
   divisionId: number;
   teamId: number;
@@ -54,11 +54,13 @@ export class GameService {
     catchError(this.dataService.handleError)
   );
 
-  divisions$ = this.http.get<Division[]>(this.divisionStartUrl).pipe(
-    tap(data => console.log('Divisions', JSON.stringify(data))),
-    shareReplay(1),
-    catchError(this.handleError)
-  );
+  // divisions$ = this.http.get<Division[]>(this.divisionStartUrl).pipe(
+  //   tap(data => console.log('Divisions', JSON.stringify(data))),
+  //   shareReplay(1),
+  //   catchError(this.handleError)
+  // );
+  divisions$ = this.store.select(fromGames.getDivisions);
+
   gameDivisions$ = this.http.get<Division[]>(this.divisionUrl).pipe(
     tap(data => console.log('Divisions', JSON.stringify(data))),
     shareReplay(1),
@@ -233,11 +235,11 @@ export class GameService {
     console.log(season);
   });
 }
-  getDivisions() {
+  getDivisions(seasonId) {
     //this.seasonId = season.seasonID;
     return this.http
       .get<Division[]>(
-        this.divisionStartUrl)
+        this.divisionStartUrl + '/' + seasonId)
       .pipe(
         map(response => (this.divisions = response)),
         shareReplay(1),

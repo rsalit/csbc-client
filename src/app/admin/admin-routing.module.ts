@@ -12,6 +12,7 @@ import { AdminDivisionShellComponent } from './containers/admin-division-shell/a
 import { PageNotFoundComponent } from 'app/app.not-found.component';
 
 import { AuthGuard }                from '../auth/auth.guard';
+import { SeasonSetupComponent } from './containers/season-setup/season-setup.component';
 
 const adminRoutes: Routes = [
 
@@ -24,6 +25,7 @@ const adminRoutes: Routes = [
       { path: '', component: AdminDashboardComponent },
       { path: 'seasons', component: AdminSeasonShellComponent },
       { path: 'division', component: AdminDivisionShellComponent },
+      { path: 'season-setup', component: SeasonSetupComponent },
       {
         path: 'content',
         loadChildren: () =>
