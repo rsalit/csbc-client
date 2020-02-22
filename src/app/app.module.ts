@@ -65,7 +65,7 @@ import { SidenavListComponent } from './shared/sidenav-list/sidenav-list.compone
     ComposeMessageComponent,
     GamesPipe,
     CsbcNavComponent,
-    CsbcDashboardComponent,
+    CsbcDashboardComponent
   ],
   imports: [
     BrowserModule,

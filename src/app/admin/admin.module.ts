@@ -13,7 +13,7 @@ import { DivisionDetailComponent } from './division/divisionDetail.component';
 import { DivisionListComponent } from './division/divisionList.component';
 import { TeamListComponent } from './team/teamList.component';
 import { PlayerListComponent } from './player/player-list.component';
-import { AdminGamesComponent } from './admin-games/admin-games.component';
+
 import { DivisionSelectComponent } from '../division-select/division-select.component';
 import { CsbcSeasonSelectComponent } from '../shared/season-select/csbc-season-select.component';
 import { DivisionMasterComponent } from './division-master/division-master.component';
@@ -32,16 +32,18 @@ import { AdminTeamListComponent } from './components/admin-team-list/admin-team-
 import { AdminDivisionShellComponent } from './containers/admin-division-shell/admin-division-shell.component';
 import { ContentModule } from './content/content.module';
 import { DirectorModule } from './director/director.module';
+
 import { ImportScheduleComponent } from './import-schedule/import-schedule.component';
 import { SeasonSelectComponent } from './components/season-select/season-select.component';
 import { SeasonSetupComponent } from './containers/season-setup/season-setup.component';
 import { RegistrationPaymentsComponent } from './registrations-and-payments/containers/registration-payments/registration-payments.component';
 import { SeasonRegistrationsComponent } from './registrations-and-payments/components/season-registrations/season-registrations.component';
 import { PaymentsComponent } from './registrations-and-payments/components/payments/payments.component';
+import { AdminGamesModule } from './admin-games/admin-games.module';
 
 @NgModule({
   imports: [
-  CommonModule,
+    CommonModule,
     ReactiveFormsModule,
     FormsModule,
     SharedModule,
@@ -49,6 +51,7 @@ import { PaymentsComponent } from './registrations-and-payments/components/payme
     AdminRoutingModule,
     ContentModule,
     DirectorModule,
+    AdminGamesModule,
     StoreModule.forFeature('admin', reducer),
     EffectsModule.forFeature([AdminEffects])
     // MatGridListModule,
@@ -66,7 +69,6 @@ import { PaymentsComponent } from './registrations-and-payments/components/payme
     DivisionListComponent,
     TeamListComponent,
     PlayerListComponent,
-    AdminGamesComponent,
     DivisionSelectComponent,
     CsbcSeasonSelectComponent,
     DivisionMasterComponent,

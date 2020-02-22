@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AdminDashboardComponent } from './dashboard/admin-dashboard.component';
-import { AdminGamesComponent } from './admin-games/admin-games.component';
 
 // import { AuthGuard } from '../auth-guard.service';
 import { AdminShellComponent } from './containers/admin-shell/admin-shell.component';
@@ -15,7 +14,6 @@ import { AuthGuard }                from '../auth/auth.guard';
 import { SeasonSetupComponent } from './containers/season-setup/season-setup.component';
 
 const adminRoutes: Routes = [
-
   {
     path: '',
     component: AdminShellComponent,
@@ -25,7 +23,6 @@ const adminRoutes: Routes = [
       { path: '', component: AdminDashboardComponent },
       { path: 'seasons', component: AdminSeasonShellComponent },
       { path: 'division', component: AdminDivisionShellComponent },
-      { path: 'games', component: AdminGamesComponent },
 
       { path: 'season-setup', component: SeasonSetupComponent },
       {
@@ -34,7 +31,7 @@ const adminRoutes: Routes = [
           import('./content/content.module').then(mod => mod.ContentModule)
       },
       { path: 'teams', component: TeamListComponent },
-      { path: 'games', component: AdminGamesComponent },
+      { path: 'games', loadChildren: () => import('./admin-games/admin-games.module').then( g => g.AdminGamesModule)},
       { path: 'dashboard', component: AdminDashboardComponent },
       {
         path: 'director',
