@@ -18,6 +18,10 @@ export const getCurrentSeasonId = createSelector(
   getAdminFeatureState,
   state => state.currentSeasonId
 );
+export const getCurrentSeason = createSelector(
+  getAdminFeatureState,
+  state => state.currentSeason
+);
 export const getCurrentDivisionId = createSelector(
   getAdminFeatureState,
   state => state.currentDivisionId

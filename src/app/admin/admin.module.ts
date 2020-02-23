@@ -14,7 +14,6 @@ import { DivisionListComponent } from './division/divisionList.component';
 import { TeamListComponent } from './team/teamList.component';
 import { PlayerListComponent } from './player/player-list.component';
 
-import { DivisionSelectComponent } from '../division-select/division-select.component';
 import { CsbcSeasonSelectComponent } from '../shared/season-select/csbc-season-select.component';
 import { DivisionMasterComponent } from './division-master/division-master.component';
 
@@ -54,11 +53,6 @@ import { AdminGamesModule } from './admin-games/admin-games.module';
     AdminGamesModule,
     StoreModule.forFeature('admin', reducer),
     EffectsModule.forFeature([AdminEffects])
-    // MatGridListModule,
-    // MatCardModule,
-    // MatMenuModule,
-    // MatIconModule,
-    // MatButtonModule
   ],
   declarations: [
     AdminComponent,
@@ -69,7 +63,6 @@ import { AdminGamesModule } from './admin-games/admin-games.module';
     DivisionListComponent,
     TeamListComponent,
     PlayerListComponent,
-    DivisionSelectComponent,
     CsbcSeasonSelectComponent,
     DivisionMasterComponent,
     AdminShellComponent,

@@ -35,16 +35,8 @@ import { GameService } from './services/game.service';
 import { DataService } from './services/data.service';
 // import { PageNotFoundComponent } from './app.not-found.component';
 import { GamesPipe } from './games.pipe';
-import { CsbcNavComponent } from './csbc-nav/csbc-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { CsbcDashboardComponent } from './csbc-dashboard/csbc-dashboard.component';
-// import {
-//   MatGridListModule,
-//   MatCardModule,
-//   MatMenuModule,
-//   MatIconModule,
-//   MatButtonModule} from '@angular/material';
-// import { MatTabsModule, MatSidenavModule } from '@angular/material';
 
 import { AppEffects } from './app.effects';
 import { reducers, metaReducers } from './reducers';
@@ -64,7 +56,6 @@ import { SidenavListComponent } from './shared/sidenav-list/sidenav-list.compone
     LoginComponent,
     ComposeMessageComponent,
     GamesPipe,
-    CsbcNavComponent,
     CsbcDashboardComponent
   ],
   imports: [
