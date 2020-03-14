@@ -140,8 +140,8 @@ export class GamesShellComponent implements OnInit {
     this.store.dispatch(new gameActions.SetCurrentDivision(division));
     console.log(this.user$);
     if (division !== undefined) {
-      this.canEdit = this.getCanEdit(this.user, division.divisionID);
-      this.store.dispatch(new gameActions.SetCanEdit(this.canEdit));
+      // this.canEdit = this._gameService.setCanEdit(division);
+      this.store.dispatch(new gameActions.SetCanEdit(this._gameService.getCanEdit(this.user, division.divisionID)));
       // console.log(this.canEdit);
       this.store.dispatch(new gameActions.LoadStandings());
     }

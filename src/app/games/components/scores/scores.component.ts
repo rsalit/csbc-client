@@ -15,7 +15,10 @@ import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'csbc-scores',
   templateUrl: './scores.component.html',
-  styleUrls: ['./scores.component.scss', '../../containers/games-shell/games-shell.component.scss']
+  styleUrls: [
+    './scores.component.scss',
+    '../../containers/games-shell/games-shell.component.scss'
+  ]
 })
 export class ScoresComponent implements OnInit {
   dataSource: MatTableDataSource<Game>;
@@ -50,7 +53,9 @@ export class ScoresComponent implements OnInit {
     'homeTeamName',
     'visitingTeamScore',
     'homeTeamScore'
-  ];  constructor(    private store: Store<fromGames.State>,
+  ];
+  constructor(
+    private store: Store<fromGames.State>,
     private userStore: Store<fromUser.State>,
     public dialog: MatDialog,
     private media: MediaObserver
@@ -75,11 +80,15 @@ export class ScoresComponent implements OnInit {
           console.log(this.divisionId);
           this.canEdit = false;
           if (this.user !== null && this.user !== undefined) {
-            for (let i = 0; i < this.user.divisions.length; i++) {
-              if (this.user.divisions[i].divisionID === this.divisionId) {
-                this.canEdit = true;
-                console.log('Found division');
-                break;
+            if (this.user.userType === 3) {
+              this.canEdit = true;
+            } else {
+              for (let i = 0; i < this.user.divisions.length; i++) {
+                if (this.user.divisions[i].divisionID === this.divisionId) {
+                  this.canEdit = true;
+                  console.log('Found division');
+                  break;
+                }
               }
             }
           }
@@ -103,5 +112,4 @@ export class ScoresComponent implements OnInit {
       this.dataSource.data = games;
     });
   }
-
 }

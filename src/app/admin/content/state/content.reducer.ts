@@ -7,6 +7,7 @@ import {
   SetActiveContentSuccess
 } from './content.actions';
 import { Content } from 'app/domain/content';
+import { WebContentType } from 'app/domain/webContentType';
 
 export interface ContentState {
   currentContentId: number;
@@ -14,6 +15,7 @@ export interface ContentState {
   contentList: Content[];
   isActiveOnly: boolean;
   filteredList: Content[];
+contentTypeList: WebContentType[];
 }
 
 const initialState: ContentState = {
@@ -21,7 +23,8 @@ const initialState: ContentState = {
   selectedContent: null,
   contentList: [],
   isActiveOnly: true,
-  filteredList: []
+  filteredList: [],
+  contentTypeList: []
 };
 
 export function reducer(
@@ -54,6 +57,11 @@ export function reducer(
         ...state,
         filteredList: action.payload
       };
+case ContentActionTypes.LoadContentTypeListSuccess:
+  return {
+    ...state,
+    contentTypeList: action.payload
+  };
 
     default: {
       return state;

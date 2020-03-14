@@ -8,6 +8,8 @@
 //     dateAndTime: string;
 //     webContentTypeId: number;
 
+import { WebContentType } from './webContentType';
+
 // }
 
 export class Content {
@@ -21,6 +23,7 @@ export class Content {
     public expirationDate: Date;
     public webContentTypeId: number =1;
     public contentSequence: number = 1;
+    public webContentType: WebContentType;
     constructor() {
     }
 }

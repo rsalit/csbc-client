@@ -38,6 +38,7 @@ import { Store, select } from '@ngrx/store';
 
 import * as fromContent from '../../state';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { WebContentType } from 'app/domain/webContentType';
 
 @Component({
   selector: 'csbc-content-edit',
@@ -56,9 +57,23 @@ export class ContentEditComponent implements OnInit {
   errorMessage: string;
   pageTitle: string;
   hideId: boolean;
-  private baseUrl = 'api/contents';
+  private baseUrl = 'api/webcontent';
   selectedRecord$ = this.contentService.selectedContent$;
   selectedContent: Content;
+  contentTypes: WebContentType[] = [
+    {
+      webContentTypeId: 1,
+      webContentTypeDescription: 'Season Info'
+    },
+    {
+      webContentTypeId: 2,
+      webContentTypeDescription: 'Events'
+    },
+    {
+      webContentTypeId: 3,
+      webContentTypeDescription: 'Meeting Notice'
+    }
+  ];
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -79,7 +94,7 @@ export class ContentEditComponent implements OnInit {
       location: '',
       dateAndTime: '',
       webContentId: '',
-      webContentTypeId: 1,
+      webContentTypeControl: null,
       contentSequence: 1,
       expirationDate: new Date()
     });
@@ -96,7 +111,7 @@ export class ContentEditComponent implements OnInit {
       dateAndTime: this.content.dateAndTime,
       location: this.content.location,
       expirationDate: this.content.expirationDate,
-      webContentId: this.content.webContentId
+      webContentTypeControl: this.content.webContentType,
     });
   }
   getContent(): void {
@@ -106,12 +121,6 @@ export class ContentEditComponent implements OnInit {
         this.selectedContent = content;
         this.onContentRetrieved(content);
       });
-    // this.contentService
-    //   .getContent(id)
-    //   .subscribe(
-    //     (content: Content) => this.onContentRetrieved(content),
-    //     (error: any) => (this.errorMessage = <any>error)
-    //   );
   }
   onContentRetrieved(content: Content): void {
     console.log(content);
@@ -119,7 +128,7 @@ export class ContentEditComponent implements OnInit {
       this.contentForm.reset();
     }
     // this.content = content;
-    //console.log(this.content);
+    console.log(this.content);
     if (content.webContentId === 0) {
       this.pageTitle = 'Add Content';
     } else {
@@ -135,8 +144,7 @@ export class ContentEditComponent implements OnInit {
       location: content.location,
       expirationDate: content.expirationDate,
       webContentId: content.webContentId,
-      webContentTypeId:
-        content.webContentTypeId === null ? 1 : content.webContentTypeId
+      webContentTypeControl: content.webContentType
     });
   }
   saveContent() {
@@ -145,6 +153,29 @@ export class ContentEditComponent implements OnInit {
       this.contentService.saveContent(this.contentForm.value);
       this.router.navigate(['/admin/content']);
     }
+  }
+  getWebContentType(id: number): WebContentType {
+    let webContentType = new WebContentType();
+    console.log(id);
+    switch (id) {
+      case 1: {
+        webContentType.webContentTypeId = id;
+        webContentType.webContentTypeDescription = 'Season Info';
+      }
+      case 2: {
+        webContentType.webContentTypeId = id;
+        webContentType.webContentTypeDescription = 'Season Info';
+      }
+      case 3: {
+        webContentType.webContentTypeId = id;
+        webContentType.webContentTypeDescription = 'Meeting Notice';
+      }
+      default: {
+        webContentType.webContentTypeId = id;
+        webContentType.webContentTypeDescription = 'Season Info';
+      }
+    }
+    return webContentType;
   }
   public hasError = (controlName: string, errorName: string) => {
     return this.contentForm.controls[controlName].hasError(errorName);

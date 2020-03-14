@@ -1,6 +1,7 @@
 /* NgRx */
 import { Action } from '@ngrx/store';
 import { Content } from 'app/domain/content';
+import { WebContentType } from 'app/domain/webContentType';
 
 export enum ContentActionTypes {
   Load = '[Content] Load',
@@ -13,7 +14,10 @@ export enum ContentActionTypes {
   SetActiveContent = '[Content] Show only active content',
   SetActiveContentSuccess = '[Content] Show only active content success',
   SetActiveContentFail = '[Content] Show only active content fail',
-  SetIsActiveOnly = '[Content] Set Is Active Content Only'
+  SetIsActiveOnly = '[Content] Set Is Active Content Only',
+  LoadContentTypeList = '[Content] Load Content Type List',
+  LoadContentTypeListSuccess = '[Content] Load Content Type List Success',
+  LoadContentTypeListFail = '[Content] Load Content Type List Fail',
 }
 
 export class Load implements Action {
@@ -60,6 +64,17 @@ export class SetIsActiveOnly implements Action {
   readonly type = ContentActionTypes.SetIsActiveOnly;
   constructor(public payload: boolean) {}
 }
+export class LoadContentTypeList implements Action {
+  readonly type = ContentActionTypes.LoadContentTypeList;
+}
+export class LoadContentTypeListSuccess implements Action {
+  readonly type = ContentActionTypes.LoadContentTypeListSuccess;
+  constructor(public payload: WebContentType[]) {}
+}
+export class LoadContentTypeListFail implements Action {
+  readonly type = ContentActionTypes.LoadContentTypeListFail;
+  constructor(public payload: string) {}
+}
 
 export type ContentActions =
   | Load
@@ -72,4 +87,7 @@ export type ContentActions =
   | SetActiveContent
   | SetActiveContentSuccess
   | SetActiveContentFail
-  | SetIsActiveOnly;
+  | SetIsActiveOnly
+  | LoadContentTypeList
+  | LoadContentTypeListSuccess
+  | LoadContentTypeListFail

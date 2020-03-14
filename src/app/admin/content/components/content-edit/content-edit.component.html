@@ -7,9 +7,13 @@
           <mat-form-field class="full-width">
             <input matInput placeholder="Title" formControlName="title" />
             <mat-hint>Not more then 50 characters long.</mat-hint>
-            <mat-error *ngIf="hasError('title', 'required')">Name is required</mat-error>
-            <mat-error *ngIf="hasError('title', 'maxlength')">You have more than 50 characters</mat-error>
-        </mat-form-field>
+            <mat-error *ngIf="hasError('title', 'required')"
+              >Name is required</mat-error
+            >
+            <mat-error *ngIf="hasError('title', 'maxlength')"
+              >You have more than 50 characters</mat-error
+            >
+          </mat-form-field>
 
           <mat-form-field class="full-width">
             <input
@@ -39,16 +43,19 @@
           </mat-form-field>
           <mat-divider></mat-divider>
           <mat-form-field type="date" class="standard-field-width">
-            <!-- <mat-label>Select an option:</mat-label> -->
-            <input
+            <mat-label>Announcement Type:</mat-label>
+            <!-- <input
               matInput
               placeholder="Notice Type"
-              formControlName="webContentType"
-            />
-            <mat-select formControlName="webContentTypeId">
-              <mat-option value=1>Season Info</mat-option>
-              <mat-option value=2>Meeting Notice</mat-option>
-              </mat-select>
+              formControlName="webContentTypeId"
+            /> -->
+            <mat-select formControlName="webContentTypeControl">
+              <mat-option
+                *ngFor="let webContentType of contentTypes"
+                [value]="webContentType"
+                >{{ webContentType.webContentTypeDescription }}</mat-option
+              >
+            </mat-select>
           </mat-form-field>
           <mat-form-field>
             <input

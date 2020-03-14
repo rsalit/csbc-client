@@ -49,13 +49,12 @@ export class DailyScheduleComponent implements OnInit {
     this.flexMediaWatcher = this.media.media$.subscribe(change => {
       if (change.mqAlias !== this.currentScreenWidth) {
         this.currentScreenWidth = change.mqAlias;
-        console.log(this.currentScreenWidth);
+        // console.log(this.currentScreenWidth);
         this.setupTable();
         this.store.select(fromGames.getCanEdit).subscribe(canEdit => {
           this.canEdit = canEdit;
          //  console.log(this.canEdit);
           if (canEdit === true) {
-            console.log('canEdit is true');
             this.displayedColumns.push('actions');
             // this.displayedColumns = this.displayedColumns.concat(['actions']);
           }

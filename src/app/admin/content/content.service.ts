@@ -12,7 +12,7 @@ import { of } from 'rxjs/Observable/of';
 import { Subject } from 'rxjs/Subject';
 import '../../rxjs-extensions';
 
-import *  as moment from 'moment';
+import * as moment from 'moment';
 
 import { Content } from '../../domain/content';
 import { DataService } from '../../services/data.service';
@@ -20,12 +20,14 @@ import { ConditionalExpr } from '@angular/compiler';
 
 import * as fromContent from '../../admin/content/state';
 import { Store } from '@ngrx/store';
+import { WebContentType } from 'app/domain/webContentType';
 
 @Injectable()
 export class ContentService {
   // private baseUrl = 'http://svc.csbchoops.net/api/WebContent';
-  baseUrl = this.data.webUrl;
-  getUrl = this.baseUrl + '/CurrentWebContent';
+  //baseUrl = this.data.webUrl;
+  baseUrl = 'https://localhost:5001';
+  getUrl = this.baseUrl + '/api/webcontent';
   postUrl = this.baseUrl + '/api/webcontent';
   putUrl = this.baseUrl + '/api/webcontent';
   private _selectedContent: any;
@@ -122,16 +124,30 @@ export class ContentService {
   //     );
   // }
 
-  saveContent(content: Content) {
-    console.log(content);
+  saveContent(contentForm: any) {
+    console.log(contentForm);
+    let content = new Content();
+    // content.webContentType = this.getWebContentType(
+    //   contentForm.webContentType.Web
+    // );
+    content.webContentType = contentForm.webContentTypeControl;
+    content.webContentId = contentForm.webContentId;
+    content.title = contentForm.title;
+    content.subTitle = contentForm.subTitle;
+    content.body = contentForm.body;
+    content.dateAndTime = contentForm.dateAndTime;
+    content.location = contentForm.location;
+    content.expirationDate = contentForm.expirationDate;
+    content.webContentId = contentForm.webContentId;
+
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = { headers: new HttpParams() };
 
-    if (content.webContentId === undefined) {
+    if (contentForm.webContentId === undefined) {
       return this.createContent(content, options.headers);
+    } else {
+      return this.updateContent(content, options.headers);
     }
-
-    return this.updateContent(content, options.headers);
   }
 
   private createContent(content: Content, options: HttpParams) {
@@ -162,6 +178,7 @@ export class ContentService {
         'Content-Type': 'application/json'
       })
     };
+    console.log(content);
     return this.http.put(this.postUrl, content, httpOptions).subscribe(x => {});
     // .pipe(
     //  //  map(() => content),
@@ -188,7 +205,31 @@ export class ContentService {
       location: null,
       expirationDate: new Date(),
       webContentTypeId: 1,
-      contentSequence: 1
+      contentSequence: 1,
+      webContentType: null
     };
+  }
+  getWebContentType(id: number): WebContentType {
+    let webContentType = new WebContentType();
+    console.log(id);
+    switch (id) {
+      case 1: {
+        webContentType.webContentTypeId = id;
+        webContentType.webContentTypeDescription = 'Season Info';
+      }
+      case 2: {
+        webContentType.webContentTypeId = id;
+        webContentType.webContentTypeDescription = 'Season Info';
+      }
+      case 3: {
+        webContentType.webContentTypeId = id;
+        webContentType.webContentTypeDescription = 'Meeting Notice';
+      }
+      default: {
+        webContentType.webContentTypeId = id;
+        webContentType.webContentTypeDescription = 'Season Info';
+      }
+    }
+    return webContentType;
   }
 }

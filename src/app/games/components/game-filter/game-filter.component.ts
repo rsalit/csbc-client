@@ -48,7 +48,7 @@ export class GameFilterComponent implements OnInit {
     this.showAllTeams = true;
     this.createForm();
     this.setStateSubscriptions();
-    //this.setControlSubscriptions();
+    this.setControlSubscriptions();
     // this.criteriaForm.get('divisions').setValue(this.divisions[0]);
     // console.log(this.criteriaForm.get('divisions').value);
   }
@@ -63,17 +63,13 @@ export class GameFilterComponent implements OnInit {
   setControlSubscriptions() {
     this.criteriaForm.get('divisions').valueChanges.subscribe(val => {
       console.log(val[0]);
-      // this.store.dispatch(new gameActions.SetCurrentDivision(val[0]));
+      this.store.dispatch(new gameActions.SetCurrentDivision(val[0]));
       this.divisionSelected(val[0]);
     });
-    this.criteriaForm.get('teams').valueChanges.subscribe(val => {
-      console.log(val);
-      this.store.dispatch(new gameActions.SetCurrentTeam(val));
-    });
-    this.criteriaForm.get('teams').valueChanges.subscribe(val => {
-      console.log(val);
-      this.store.dispatch(new gameActions.SetCurrentTeam(val));
-    });
+    // this.criteriaForm.get('teams').valueChanges.subscribe(val => {
+    //   console.log(val);
+    //   this.store.dispatch(new gameActions.SetCurrentTeam(val));
+    // });
   }
 
   setStateSubscriptions() {

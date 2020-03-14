@@ -15,6 +15,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Game } from 'app/domain/game';
 import * as fromGames from './state';
 import * as gameActions from './state/games.actions';
+import * as fromUser from '../User/state';
 import { Store, select } from '@ngrx/store';
 import { CompileMetadataResolver } from '@angular/compiler';
 import { Standing } from 'app/domain/standing';
@@ -31,8 +32,7 @@ export class GameService {
     .subscribe(season => {
       this.seasonId = season.seasonID;
     });
-  private gameUrl =
-    this.dataService.webUrl + '/api/games/getSeasonGames/';
+  private gameUrl = this.dataService.webUrl + '/api/games/getSeasonGames/';
   //    this.seasonId;
   private standingsUrl = this.dataService.webUrl + '/api/gameStandings';
   // private divisionUrl = this.dataService.webUrl + '/api/divisions';
@@ -48,7 +48,7 @@ export class GameService {
   allGames: Game[];
   standing: any[];
   // divisions$: Observable<Division>;
-  games$ = this.http.get<Game[]>(this.gameUrl+'296').pipe(
+  games$ = this.http.get<Game[]>(this.gameUrl + '296').pipe(
     // tap(data => console.log('All games: ' + JSON.stringify(data))),
     shareReplay(1),
     catchError(this.dataService.handleError)
@@ -108,6 +108,7 @@ export class GameService {
     map(games => games.filter(game => game.divisionID === this.divisionId))
   );
   divisions: Division[];
+  user: User;
   // divisionGames$ = this.allGames$.pipe(
   //   map(games => this.getDivisionGames(games, this.divisionId))
   // );
@@ -115,7 +116,8 @@ export class GameService {
   constructor(
     private dataService: DataService,
     private http: HttpClient,
-    private store: Store<fromGames.State>
+    private store: Store<fromGames.State>,
+    private userStore: Store<fromUser.State>
   ) {
     this.getCurrentSeason();
   }
@@ -231,15 +233,14 @@ export class GameService {
   }
   getCurrentSeason() {
     return this.store.select(fromGames.getCurrentSeason).subscribe(season => {
-    this.seasonId = season.seasonID;
-    console.log(season);
-  });
-}
+      this.seasonId = season.seasonID;
+      console.log(season);
+    });
+  }
   getDivisions(seasonId) {
     //this.seasonId = season.seasonID;
     return this.http
-      .get<Division[]>(
-        this.divisionStartUrl + '/' + seasonId)
+      .get<Division[]>(this.divisionStartUrl + '/' + seasonId)
       .pipe(
         map(response => (this.divisions = response)),
         shareReplay(1),
@@ -248,7 +249,7 @@ export class GameService {
         catchError(this.dataService.handleError)
       );
   }
-  
+
   standingsByDivision$ = combineLatest([this.currentDivision$]).pipe();
   getStandingsByDivision(divisionId: number) {
     return this.http.get<any[]>(this.standingsUrl + '/' + divisionId).pipe(
@@ -260,14 +261,26 @@ export class GameService {
   getCanEdit(user: User, divisionId: number): boolean {
     console.log(divisionId);
     if (user) {
-      user.divisions.forEach(element => {
-        if (divisionId === element.divisionID) {
-          return true;
-          console.log('found ' + divisionId);
-        }
-      });
+      if (user.userType === 3) {
+        return true;
+      } else {
+        user.divisions.forEach(element => {
+          if (divisionId === element.divisionID) {
+            return true;
+            console.log('found ' + divisionId);
+          }
+        });
+      }
     }
     return false;
+  }
+  setCanEdit(division: Division) {
+    this.store.pipe(select(fromUser.getCurrentUser)).subscribe(user => {
+      console.log(user);
+      let canEdit = this.getCanEdit(user, division.divisionID);
+      this.store.dispatch(new gameActions.SetCanEdit(canEdit));
+      console.log(canEdit);
+    });
   }
 
   private handleError(err: any) {

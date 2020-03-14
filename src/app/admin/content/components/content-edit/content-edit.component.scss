@@ -1,22 +1,34 @@
 @import '../../../../../content/_variables';
 
 fieldset {
-  background-color: lighten($card-background-color, 30%);
+  background-color: darken($card-background-color, 30%);
   border-radius: 10px;
   padding-left: 20px;
   padding-right: 20px;
   padding-top: 16px;
   padding-bottom: 16px;
+  color: $field-label;
 }
 h2 {
-  color: white;
+  color: $field-label;
   font-size: 1.5em;
   padding-bottom: 6px;
   padding-left: 12px;
 }
-input, textarea {
-  background-color: transparent;
+
+input, textarea.mat-input-element{
+  background-color: $card-background-color;
+  padding-top: 12px;
+  padding-bottom:12px;
+  padding-left: 12px;
 }
+textarea {
+  background-color: $card-background-color;
+  padding-top: 12px;
+  padding-bottom:12px;
+  padding-left: 12px;
+}
+
 .standard-field-width {
   padding-right: 12px;
 }
@@ -30,4 +42,18 @@ button {
 .mat-card {
   background-color: $card-background-color;
   color: $card-color;
+}
+
+
+.mat-form-field-appearance-legacy .mat-form-field-label .mat-select-placeholder {
+  color: $field-label !important;
+}
+.mat-form-field-label-wrapper {
+  color: $field-label;
+} 
+.mat-input {
+  color: $field-label !important;
+}
+.mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+  color: $field-label !important;
 }
