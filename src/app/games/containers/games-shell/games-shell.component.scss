@@ -3,13 +3,12 @@
 .shell {
   width: 100%;
   padding-top: 12px;
-  padding-left:8px;
-  padding-right:8px;
-  margin-left: auto ;
-  margin-right: auto ;
- 
+  padding-left: 8px;
+  padding-right: 8px;
+  margin-left: auto;
+  margin-right: auto;
 }
-.games-wrapper {
+.game-wrapper {
   background-color: $background-color;
 }
 .season {
@@ -59,50 +58,43 @@
   margin-left: 20px;
   margin-right: 20px;
   background-color: $card-background-color;
-  font: .9rem
+  font: 0.9rem;
 }
 @media screen and (max-width: 600px) {
   .table-wrapper {
     padding-left: 2px;
     padding-right: 2px;
     margin-left: 2px;
-    margin-right: 2px;  }
+    margin-right: 2px;
+  }
 
-    .location {
-      font-size:.7em;
-      font-weight: 500;
-      // width: 180px;   
+  .location {
+    font-size: 0.7em;
+    font-weight: 500;
+    // width: 180px;
   }
 }
 .date {
-  
   font-weight: 600;
   // width: 100px;
   padding-left: 10px;
 }
 .time {
-  
   font-weight: 600;
   // width: 100px;
-  
 }
 .team {
-  
   font-weight: 700;
   // width: 260px;
-  
 }
 .homeTeam {
   font-weight: 700;
   // width: 260px;
-  
-  
 }
 
 .location {
   font-weight: 500;
   // width: 180px;
-  
 }
 .edit {
   display: inline-block;
@@ -110,13 +102,15 @@
   padding-left: 10px;
 }
 .row {
-  border-top: 1px solid whitesmoke ;
+  border-top: 1px solid whitesmoke;
   padding-top: 8px;
   padding-bottom: 8px;
 }
-.mat-table td:first-of-type, .mat-table th:first-of-type {
+.mat-table td:first-of-type,
+.mat-table th:first-of-type {
   padding-left: 8px;
 }
-.mat-table td:last-of-type, .mat-table th:last-of-type {
+.mat-table td:last-of-type,
+.mat-table th:last-of-type {
   padding-left: 8px;
 }

@@ -70,8 +70,6 @@ export class ContentService {
         // console.log(today);
         for (let i = 0; i < contents.length; i++) {
           const expirationDate = moment(contents[i].expirationDate);
-          // console.log(expirationDate);
-          // console.log(expirationDate > today);
           if (expirationDate >= today) {
             console.log(contents[i]);
             filteredContent.push(contents[i]);
@@ -131,19 +129,21 @@ export class ContentService {
     //   contentForm.webContentType.Web
     // );
     content.webContentType = contentForm.webContentTypeControl;
-    content.webContentId = contentForm.webContentId;
+    content.webContentId =
+      contentForm.webContentId === null ? 0 : contentForm.webContentId;
+    console.log(content);
     content.title = contentForm.title;
     content.subTitle = contentForm.subTitle;
     content.body = contentForm.body;
     content.dateAndTime = contentForm.dateAndTime;
     content.location = contentForm.location;
     content.expirationDate = contentForm.expirationDate;
-    content.webContentId = contentForm.webContentId;
-
+    // content.webContentId = contentForm.webContentId;
+    console.log(content);
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = { headers: new HttpParams() };
 
-    if (contentForm.webContentId === undefined) {
+    if (contentForm.webContentId === null) {
       return this.createContent(content, options.headers);
     } else {
       return this.updateContent(content, options.headers);
@@ -151,12 +151,13 @@ export class ContentService {
   }
 
   private createContent(content: Content, options: HttpParams) {
-    content.webContentId = this.standardNotice;
+    // content.webContentId = this.standardNotice;
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
+    console.log(content);
     return this.http
       .post(this.postUrl, content, httpOptions)
       .subscribe(x => {});

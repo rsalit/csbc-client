@@ -59,6 +59,9 @@ export class ContentListComponent implements OnInit {
     this.router.navigate(['./admin/content/edit']);
     // this._contentService.selectedContent = content;
   }
+  addContent() {
+    this.router.navigate(['./admin/content/edit']);
+  }
   openDialog(): void {
     const dialogRef = this.dialog.open(ContentEditComponent, {
       height: '600px',

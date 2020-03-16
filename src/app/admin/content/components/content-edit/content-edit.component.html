@@ -44,12 +44,10 @@
           <mat-divider></mat-divider>
           <mat-form-field type="date" class="standard-field-width">
             <mat-label>Announcement Type:</mat-label>
-            <!-- <input
-              matInput
-              placeholder="Notice Type"
-              formControlName="webContentTypeId"
-            /> -->
-            <mat-select formControlName="webContentTypeControl">
+            <mat-select
+              [value]="selected"
+              formControlName="webContentTypeControl"
+            >
               <mat-option
                 *ngFor="let webContentType of contentTypes"
                 [value]="webContentType"
@@ -57,7 +55,7 @@
               >
             </mat-select>
           </mat-form-field>
-          <mat-form-field>
+          <mat-form-field class="sequenceWidth">
             <input
               matInput
               [matDatepicker]="picker"
@@ -70,7 +68,7 @@
             ></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
-          <mat-form-field class="full-width">
+          <mat-form-field class="sequenceWidth">
             <input
               matInput
               placeholder="NoticeSequence"
@@ -86,62 +84,6 @@
             placeholder=""
             formControlName="webContentId"
           />
-
-          <!-- <div class="row"> -->
-          <!-- <div class="col-md-12">
-                        <div class=form-group [ngClass]="{'has-error': (contentForm.get('title').touched || contentForm.get('title').dirty) && !contentForm.get('title').valid }">
-                            <label class="control-label" for="title">Title</label>
-                            <input id="title" class="form-control" type="text" placeholder="Title" formControlName="title" />
-                        </div>
-                        <span class="help-block" *ngIf="(contentForm.get('title').touched 
-                                                         || contentForm.get('title').dirty) && 
-                                                        contentForm.get('title').errors">
-                            <span *ngIf="contentForm.get('title').errors">
-                                Please include a title.
-                            </span>
-                            </span>
-                    </div> -->
-          <!-- <div class="col-md-12">
-                        <div class=form-group [ngClass]="{'has-error': (contentForm.get('subTitle').touched || contentForm.get('subTitle').dirty) && !contentForm.get('subTitle').valid }">
-                            <label class="control-label" for="subTitle">Sub-Title</label>
-                            <input id="subTitle" class="form-control" type="text" placeholder="Sub-title" formControlName="subTitle" />
-                        </div>
-                    </div> -->
-          <!-- <div class="col-md-12">
-                        <div class=form-group [ngClass]="{'has-error': (contentForm.get('body').touched || contentForm.get('body').dirty) && !contentForm.get('body').valid }">
-                            <label class="control-label" for="body">Body</label>
-                            <textarea rows="4" id="body" class="form-control" placeholder="Body" formControlName="body"></textarea>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class=form-group [ngClass]="{'has-error': (contentForm.get('location').touched || contentForm.get('location').dirty) && !contentForm.get('location').valid }">
-                            <label class="control-label" for="location">Location</label>
-                            <input id="location" class="form-control" type="text" placeholder="Location" formControlName="location" />
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class=form-group [ngClass]="{'has-error': (contentForm.get('dateAndTime').touched || contentForm.get('dateAndTime').dirty) && !contentForm.get('dateAndTime').valid }">
-                            <label class="control-label" for="dateAndTime">Date and Time</label>
-                            <input id="dateAndTime" class="form-control" type="text" placeholder="Date and Time" formControlName="dateAndTime" />
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class=form-group [ngClass]="{'has-error': (contentForm.get('expirationDate').touched || contentForm.get('expirationDate').dirty) && !contentForm.get('expirationDate').valid }">
-                            -<label class="control-label" for="expirationDate">Expiration Date</label>
-                            <input id="expirationDate" class="form-control" [hidden]="hideId" type="date" placeholder="" formControlName="expirationDate"
-                            />
-                        </div>
-                    </div>
-
-                    <div class="col-md-2">
-                        <div class=form-group [ngClass]="{'has-error': (contentForm.get('webContentId').touched || contentForm.get('webContentId').dirty) && !contentForm.get('webContentId').valid }">
-                           
-                            <input id="webContentId" class="form-control" [hidden]="hideId" type="text" placeholder="" formControlName="webContentId"
-                            />
-                        </div>
-                    </div>
-                    
-                </div> -->
         </fieldset>
       </mat-card-content>
       <mat-card-actions>

@@ -6,7 +6,9 @@
 .mat-sidenav-container {
   background-color: $background-color;
 }
-
+.mat-toolbar {
+  background-color: $card-background-color;
+}
 a {
   font-size: 1.2em;
   font-weight: 600;

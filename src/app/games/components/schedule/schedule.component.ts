@@ -81,36 +81,9 @@ export class ScheduleComponent implements OnInit {
     if (this.canEdit === true) {
       this.displayedColumns.push('actions');
     }
-    // this.userStore.select(fromUser.getCurrentUser).subscribe(user => {
-    //   this.user = user;
-    //   console.log(this.user);
-    //   this.store.select(fromGames.getCurrentDivision).subscribe(division => {
-    //     console.log(division);
-    //     if (division !== null && division !== undefined) {
-    //       this.divisionId = division.divisionID;
-
-    //       console.log(this.divisionId);
-    //       this.canEdit = false;
-    //       if (this.user !== null && this.user !== undefined) {
-    //         for (let i = 0; i <= this.user.divisions.length; i++) {
-    //           console.log('User div:' + this.user.divisions[i].divisionID);
-    //           if (this.user.divisions[i].divisionID === this.divisionId) {
-    //             this.canEdit = true;
-    //             break;
-    //           }
-    //         }
-    //       }
-    //     }
-    //   });
-    // });
     this.store.select(fromGames.getCurrentDivision).subscribe(division => {
-      console.log(division);
+      // console.log(division);
     });
-    // this.dataSource = new MatTableDataSource(this.games);
-    // this.store.pipe(select(fromGames.getFilteredGames)).subscribe(games => {
-    //   this.games = games;
-    //   this.dataSource.data = games;
-    // });
     this.store.pipe(select(fromGames.getCanEdit)).subscribe(canEdit => {
       this.canEdit = canEdit;
       console.log(this.canEdit);

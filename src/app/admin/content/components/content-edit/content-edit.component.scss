@@ -35,6 +35,9 @@ textarea {
 .full-width {
   width: 98%;
 }
+.sequenceWidth {
+  width: 25%;
+}
 button {
   padding-right: 12px;
 
@@ -43,7 +46,10 @@ button {
   background-color: $card-background-color;
   color: $card-color;
 }
-
+.mat-icon-button {
+  background-color: $card-background-color;
+  color: $card-color;
+}
 
 .mat-form-field-appearance-legacy .mat-form-field-label .mat-select-placeholder {
   color: $field-label !important;

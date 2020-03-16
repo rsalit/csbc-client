@@ -12,7 +12,7 @@ import * as gameActions from '../../state/games.actions';
 import { Division } from 'app/domain/division';
 import { Team } from 'app/domain/team';
 import { DivisionService } from 'app/services/division.service';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, tap, map } from 'rxjs/operators';
 import { EMPTY } from 'rxjs';
 import { GameService } from 'app/games/game.service';
 
@@ -31,12 +31,13 @@ export class GameFilterComponent implements OnInit {
   @Output() selectedTeam = new EventEmitter<Team>();
   criteriaForm: FormGroup;
   divisions$ = this.divisionService.divisions$.pipe(
-    tap(data => console.log(data)),
+    tap(d => console.log(d)),
     catchError(err => {
       // this.errorMessage$ = err;
       return EMPTY;
     })
   );
+  selected: Division;
 
   constructor(
     private fb: FormBuilder,
@@ -49,8 +50,7 @@ export class GameFilterComponent implements OnInit {
     this.createForm();
     this.setStateSubscriptions();
     this.setControlSubscriptions();
-    // this.criteriaForm.get('divisions').setValue(this.divisions[0]);
-    // console.log(this.criteriaForm.get('divisions').value);
+    // this.criteriaForm.get('divisions').setValue();
   }
 
   createForm() {
@@ -62,9 +62,11 @@ export class GameFilterComponent implements OnInit {
   }
   setControlSubscriptions() {
     this.criteriaForm.get('divisions').valueChanges.subscribe(val => {
-      console.log(val[0]);
-      this.store.dispatch(new gameActions.SetCurrentDivision(val[0]));
-      this.divisionSelected(val[0]);
+      if (val !== undefined) {
+        console.log(val[0]);
+        this.store.dispatch(new gameActions.SetCurrentDivision(val[0]));
+        this.divisionSelected(val[0]);
+      }
     });
     // this.criteriaForm.get('teams').valueChanges.subscribe(val => {
     //   console.log(val);
@@ -75,15 +77,17 @@ export class GameFilterComponent implements OnInit {
   setStateSubscriptions() {
     this.store.select(fromGames.getCurrentSeason).subscribe(currentSeason => {
       this.divisionService.divisions$.subscribe(divisions => {
-        console.log(divisions);
-        const defaultDivision = divisions[0];
-        this.criteriaForm.get('divisions').setValue(defaultDivision);
-        // console.log(defaultDivision);
-        this.store.dispatch(
-          new gameActions.SetCurrentDivision(defaultDivision)
-        );
-        this.divisionSelected(defaultDivision);
-        // });
+        if (divisions.length > 0) {
+          console.log(divisions);
+          const defaultDivision = divisions[0];
+          this.criteriaForm.get('divisions').setValue(defaultDivision);
+          // console.log(defaultDivision);
+          this.store.dispatch(
+            new gameActions.SetCurrentDivision(defaultDivision)
+          );
+          this.criteriaForm.get('divisions').setValue(defaultDivision);
+          this.divisionSelected(defaultDivision);
+        }
         // const d = this.store.pipe(select(fromGames.divisions));
         // this.store.pipe(select(fromGames.getTeams)).subscribe(teams => {
         //   console.log(teams);
@@ -94,9 +98,11 @@ export class GameFilterComponent implements OnInit {
   }
   divisionSelected(division: Division): void {
     if (division === undefined) {
-      division = this.divisions[0];
-      // this.store.dispatch(new gameActions.SetCurrentDivision(division));
-      console.log(division);
+      if (this.divisions !== undefined) {
+        division = this.divisions[0];
+        // this.store.dispatch(new gameActions.SetCurrentDivision(division));
+        console.log(division);
+      }
     }
     this.selectedDivision.emit(division);
   }

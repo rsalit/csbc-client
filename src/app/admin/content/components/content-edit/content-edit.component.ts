@@ -74,6 +74,7 @@ export class ContentEditComponent implements OnInit {
       webContentTypeDescription: 'Meeting Notice'
     }
   ];
+  selected: WebContentType;
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -127,8 +128,7 @@ export class ContentEditComponent implements OnInit {
     if (this.contentForm) {
       this.contentForm.reset();
     }
-    // this.content = content;
-    console.log(this.content);
+    
     if (content.webContentId === 0) {
       this.pageTitle = 'Add Content';
     } else {
@@ -146,6 +146,8 @@ export class ContentEditComponent implements OnInit {
       webContentId: content.webContentId,
       webContentTypeControl: content.webContentType
     });
+    this.selected = content.webContentType;
+    console.log(this.selected);
   }
   saveContent() {
     console.log(this.contentForm.value);

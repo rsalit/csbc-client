@@ -88,7 +88,7 @@ export class GameService {
     .pipe(select(fromGames.getCurrentDivision))
     .subscribe(division => {
       if (division) {
-        console.log(division);
+        // console.log(division);
         return (this.divisionId = division.divisionID);
       }
     });
