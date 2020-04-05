@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { CsbcHomeSidebarComponent } from './csbc-home-sidebar.component';
+import { CsbcAnnouncementsComponent } from './announcements.component';
 
-describe('CsbcHomeSidebarComponent', () => {
-  let component: CsbcHomeSidebarComponent;
-  let fixture: ComponentFixture<CsbcHomeSidebarComponent>;
+describe('CsbcAnnouncementsComponent', () => {
+  let component: CsbcAnnouncementsComponent;
+  let fixture: ComponentFixture<CsbcAnnouncementsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CsbcHomeSidebarComponent ]
+      declarations: [ CsbcAnnouncementsComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CsbcHomeSidebarComponent);
+    fixture = TestBed.createComponent(CsbcAnnouncementsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

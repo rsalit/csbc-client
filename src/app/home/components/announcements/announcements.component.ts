@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { CoreModule } from '../../core/core.module';
 
-import { Content } from '../../domain/content';
-import { ContentService } from '../../admin/content/content.service';
+import { Content } from '../../../domain/content';
+import { ContentService } from '../../../admin/content/content.service';
 import *  as moment from 'moment';
 import { Store } from '@ngrx/store';
 
-import * as fromContent from '../../admin/content/state';
-import * as contentActions from '../../admin/content/state/content.actions';
+import * as fromHome from '../../state/';
+//import * as homeActions from '../../state/home.actions';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'csbc-announcements',
-  templateUrl: './csbc-announcements.component.html',
+  templateUrl: './announcements.component.html',
   styleUrls: ['./announcements.component.scss']
 })
 export class CsbcAnnouncementsComponent implements OnInit {
@@ -20,22 +20,25 @@ export class CsbcAnnouncementsComponent implements OnInit {
   meetingNoticeCount: number;
   activeWebContent: Content[];
   errorMessage: string;
+  content$ = this.store
+    .select(fromHome.getContent)
+    .pipe(map((result) => result.filter((c) => c.webContentTypeId < 3)));
 
-  constructor(private _webContentService: ContentService, private store: Store<fromContent.State>
+
+  constructor(private _webContentService: ContentService, private store: Store<fromHome.State>
     ) {
     this.seasonInfoCount = 1;
     this.latestNewsCount = 0;
     this.meetingNoticeCount = 2;
-    // this.getWebContent();
   }
 
   ngOnInit() {
-    this.getWebContent();
+    // this.getWebContent();
   }
 
   getWebContent(): void {
     this.activeWebContent = [];
-    this.store.select(fromContent.getContentList).subscribe(
+    this.store.select(fromHome.getContent).subscribe(
       webContents => {
         if (webContents !== undefined) {
           const today = moment();

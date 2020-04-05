@@ -1,24 +1,26 @@
 @import '../../../../content/_variables.scss';
 
 .panel-title {
-    font-size: 1.2em;
-    text-align: center;
-    background-color: #424242;
+  font-size: 1.2em;
+  text-align: center;
+  background-color: #424242;
 }
 
 img {
-height: 280px;
+  height: 280px;
 }
 
 h4 {
-    padding-top: 12px;
-    padding-left: 40px;
-    padding-right: 24px;
+  padding-top: 12px;
+  padding-left: 40px;
+  padding-right: 24px;
 }
 .tag-line {
-    color: $brand-color;
-    text-align: right;
-    font-weight: 700;
-    font-size: 1em;
-
+  color: $brand-color;
+  text-align: right;
+  font-weight: 700;
+  font-size: 1em;
+}
+.tag {
+  height: 40px;
 }

@@ -21,9 +21,6 @@ import { SharedModule } from 'app/shared/shared.module';
     CoreModule,
     DirectorRoutingModule,
     StoreModule.forFeature('director', reducer)
-    // EffectsModule.forFeature(
-    //  [ GameEffects ]
-    // ),
   ],
   declarations: [
     DirectorShellComponent,

@@ -12,25 +12,22 @@ import { error } from 'selenium-webdriver';
 
 @Injectable()
 export class ContentService {
-    private _webContentUrl: string;
-    constructor(private _http: HttpClient, public dataService: DataService) {
-       this._webContentUrl =  this.dataService.webUrl + '/api/WebContent';
-     }
+  private _webContentUrl: string;
+  getActiveContent$ = this._http.get<Content[]>(
+    this.dataService.getActiveWebContentUrl
+  );
+  constructor(private _http: HttpClient, public dataService: DataService) {
+    this._webContentUrl = this.dataService.getActiveWebContentUrl;
+  }
 
-      getContents(): Observable<Content[]> {
-          return this._http.get<Content[]>(this._webContentUrl)
-              .pipe(
-                  // map(response => <Content[]>
-                  tap(content => console.log(content)),
-              // catchError(this.handleError(response => response.error))
-              );
-    //          .do(data => console.log('All: ' + JSON.stringify(data))
-     }
+  getContents(): Observable<Content[]> {
+    return this._http
+      .get<Content[]>(this.dataService.getActiveWebContentUrl);
+  }
 
-     getContent(id: number): Observable<Content> {
-         return this.getContents()
-             .pipe(
-                 map((content: Content[]) => content.find(p => p.webContentId === id))
-             );
-     }
+  getContent(id: number): Observable<Content> {
+    return this.getContents().pipe(
+      map((content: Content[]) => content.find((p) => p.webContentId === id))
+    );
+  }
 }

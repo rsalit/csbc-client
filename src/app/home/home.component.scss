@@ -5,6 +5,10 @@ img {
   object-fit: contain;
 }
 
+.tag {
+  height: 40px;
+}
+
 #logo {
   display: flex;
   justify-content: center;
@@ -30,4 +34,7 @@ em {
   font-style: italic;
   padding-top: 40px;
   padding-right: 24px;
+}
+.center-top {
+  padding-top: 20px;
 }

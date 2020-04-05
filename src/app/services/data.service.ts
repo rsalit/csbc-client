@@ -7,6 +7,8 @@ import { HttpClient } from '@angular/common/http';
 @Injectable()
 export class DataService {
   webUrl: string;
+  dotNetCoreUrl = 'https://localhost:5001';
+  getActiveWebContentUrl = this.dotNetCoreUrl + '/api/webcontent/getActiveWebContent';
 
   constructor(private _http: HttpClient) {
     // this.webUrl = 'http://svc.csbchoops.net';

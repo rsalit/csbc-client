@@ -74,13 +74,6 @@ import { SidenavListComponent } from './shared/sidenav-list/sidenav-list.compone
     LoginRoutingModule,
     LayoutModule,
     UserModule,
-    // MatGridListModule,
-    // MatCardModule,
-    // MatMenuModule,
-    // MatIconModule,
-    // MatButtonModule,
-    // MatTabsModule,
-    // MatSidenavModule,
     StoreModule.forRoot({}),
     StoreDevtoolsModule.instrument({
       name: 'CSBC Site',

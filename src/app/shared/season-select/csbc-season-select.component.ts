@@ -12,28 +12,25 @@ import { Season } from '../../domain/season';
   styleUrls: ['./csbc-season-select.component.css']
 })
 export class CsbcSeasonSelectComponent implements OnInit {
+  @Input() seasons$: Observable<Season[]>;
   @Input() selectedSeason: Season = new Season();
   @Output() setSeason = new EventEmitter<Season>(); // : Season;
-  seasons: Observable<Season[]>;
+  
   season: Season = new Season();
-  constructor(private _seasonService: SeasonService) {
-
-  }
+  constructor(private _seasonService: SeasonService) {}
 
   ngOnInit() {
     // this.seasons = this._seasonService.getSeasons();
-    console.log(this.seasons);
+    console.log(this.seasons$);
     // this.selectedSeason = this.seasons[0];
-
   }
-  onClick(selectedSeason: Season): void {
-    console.log(selectedSeason);
-    if (selectedSeason.seasonID !== undefined) {
-      this.selectedSeason = selectedSeason;
-      // this._seasonService.selectedSeason$ = Observable.of(selectedSeason);
-      // this._seasonService.setSelectedSeason(Observable.of(selectedSeason));
-      // this.setSeason.emit(selectedSeason);
-      console.log(selectedSeason);
+
+  onClick(season: Season): void {
+    console.log(season);
+    if (season.seasonID !== undefined) {
+      this.selectedSeason = season;
+      console.log(season);
+      this.setSeason.emit(season);
     }
   }
 }

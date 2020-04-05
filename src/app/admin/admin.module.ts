@@ -14,7 +14,6 @@ import { DivisionListComponent } from './division/divisionList.component';
 import { TeamListComponent } from './team/teamList.component';
 import { PlayerListComponent } from './player/player-list.component';
 
-import { CsbcSeasonSelectComponent } from '../shared/season-select/csbc-season-select.component';
 import { DivisionMasterComponent } from './division-master/division-master.component';
 
 import { CoreModule } from '../core/core.module';
@@ -63,7 +62,6 @@ import { AdminGamesModule } from './admin-games/admin-games.module';
     DivisionListComponent,
     TeamListComponent,
     PlayerListComponent,
-    CsbcSeasonSelectComponent,
     DivisionMasterComponent,
     AdminShellComponent,
     AdminSeasonShellComponent,
@@ -76,7 +74,8 @@ import { AdminGamesModule } from './admin-games/admin-games.module';
     SeasonSetupComponent,
     RegistrationPaymentsComponent,
     SeasonRegistrationsComponent,
-    PaymentsComponent
-  ]
+    PaymentsComponent,
+  ],
+  // exports: [SeasonSelectComponent]
 })
 export class AdminModule {}

@@ -1,0 +1,13 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+      <div class="panel-title">
+        {{info.title}}
+      </div>
+    </div>
+    <div class="panel-body">
+      <h5 class="text-center text-primary">{{info.subTitle}}</h5>
+      <div class="text-center"><strong><span>{{info.body}}</span></strong></div>
+      <div class="text-center" [hidden]="!info.location">Location: {{info.location}}</div>
+      <div class="text-center" [hidden]="!info.dateAndTime">Date/Time: {{info.dateAndTime}}</div>
+    </div>
+  </div>

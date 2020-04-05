@@ -14,10 +14,11 @@ import { reducer } from './state/content.reducer';
 import { ContentListToolbarComponent } from './components/content-list-toolbar/content-list-toolbar.component';
 import { ContentEffects } from './state/content.effect';
 import { EffectsModule } from '@ngrx/effects';
+import { ContentService } from './content.service';
 
 @NgModule({
   imports: [
-    CommonModule,
+  CommonModule,
     ReactiveFormsModule,
     FormsModule,
     SharedModule,
@@ -32,6 +33,7 @@ import { EffectsModule } from '@ngrx/effects';
     ContentListComponent,
     ContentEditComponent,
     ContentListToolbarComponent
-  ]
+  ],
+  providers: [ContentService]
 })
 export class ContentModule {}

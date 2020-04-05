@@ -26,8 +26,8 @@ import { WebContentType } from 'app/domain/webContentType';
 export class ContentService {
   // private baseUrl = 'http://svc.csbchoops.net/api/WebContent';
   //baseUrl = this.data.webUrl;
-  baseUrl = 'https://localhost:5001';
-  getUrl = this.baseUrl + '/api/webcontent';
+  baseUrl = this.data.dotNetCoreUrl;
+  getUrl = this.baseUrl + '/api/webcontent/getActiveWebContent';
   postUrl = this.baseUrl + '/api/webcontent';
   putUrl = this.baseUrl + '/api/webcontent';
   private _selectedContent: any;
@@ -56,7 +56,7 @@ export class ContentService {
 
   getContents(): Observable<Content[]> {
     return this.http.get<Content[]>(this.getUrl).pipe(
-      // tap(data => console.log('All: ' + JSON.stringify(data))),
+      tap(data => console.log('All: ' + JSON.stringify(data))),
       catchError(this.data.handleError('getContents', []))
     );
   }

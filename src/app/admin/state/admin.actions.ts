@@ -3,9 +3,14 @@ import { Action } from '@ngrx/store';
 import { Division } from 'app/domain/division';
 import { Team } from 'app/domain/team';
 import { Season } from 'app/domain/season';
+import { Game } from 'app/domain/game';
 
 export enum AdminActionTypes {
-  Load = '[Admin] Load',
+  LoadCurrentSeason = '[Admin] Load Current Season',
+  SetCurrentSeason = '[Admin] Set Current Season',
+  LoadGames = '[Admin] Load Games',
+  LoadGamesSuccess = '[Admin] Load Games Success',
+  LoadGamesFail = '[Admin] Load GamesFail',
   LoadSeasons = '[Admin] Load Seasons',
   LoadSeasonsSuccess = '[Admin] Load Seasons Success',
   LoadSeasonsFail = '[Admin] Load Seasons Fail',
@@ -18,12 +23,23 @@ export enum AdminActionTypes {
   SetSelectedDivision = '[Admin] Set Selected Division',
   LoadTeams = '[Admin] Load All Season Divisions',
   LoadTeamsSuccess = '[Admin API] Load Divisions Success',
-  LoadTeamsFail = '[Admin API] Load Divisions File',
+  LoadTeamsFail = '[Admin API] Load Teams File',
   SetSelectedTeam = '[Admin] Set Selected Division'
-
 }
-export class Load implements Action {
-  readonly type = AdminActionTypes.Load;
+export class LoadCurrentSeason implements Action {
+  readonly type = AdminActionTypes.LoadCurrentSeason;
+}
+export class LoadGames implements Action {
+  readonly type = AdminActionTypes.LoadGames;
+}
+export class LoadGamesSuccess implements Action {
+  readonly type = AdminActionTypes.LoadGamesSuccess;
+  constructor(public payload: Game[]) {}
+}
+
+export class LoadGamesFail implements Action {
+  readonly type = AdminActionTypes.LoadGamesFail;
+  constructor(public payload: string) {}
 }
 export class LoadSeasons implements Action {
   readonly type = AdminActionTypes.LoadSeasons;
@@ -43,13 +59,19 @@ export class GetCurrentSeason implements Action {
 }
 export class SetSelectedSeason implements Action {
   readonly type = AdminActionTypes.SetSelectedSeason;
-  constructor (public payload: Season){
+  constructor(public payload: Season) {
     // currentS
+  }
+}
+export class SetCurrentSeason implements Action {
+  readonly type = AdminActionTypes.SetCurrentSeason;
+  constructor(public payload: Season) {
+    // console.log(payload);
   }
 }
 export class SetSelectedSeasonId implements Action {
   readonly type = AdminActionTypes.SetSelectedSeasonId;
-  constructor (public payload: number){
+  constructor(public payload: number) {
     // currentS
   }
 }
@@ -70,7 +92,7 @@ export class LoadDivisionsFail implements Action {
 }
 export class SetSelectedDivision implements Action {
   readonly type = AdminActionTypes.SetSelectedDivision;
-  constructor (public payload: Division){}
+  constructor(public payload: Division) {}
 }
 export class LoadTeams implements Action {
   readonly type = AdminActionTypes.LoadTeams;
@@ -88,11 +110,15 @@ export class LoadTeamsFail implements Action {
 }
 export class SetSelectedTeam implements Action {
   readonly type = AdminActionTypes.SetSelectedTeam;
-  constructor (public payload: Team){}
+  constructor(public payload: Team) {}
 }
 
 export type AdminActions =
-  | Load
+  | LoadCurrentSeason
+  | SetCurrentSeason
+  | LoadGames
+  | LoadGamesSuccess
+  | LoadGamesFail
   | LoadSeasons
   | LoadSeasonsSuccess
   | LoadSeasonsFail

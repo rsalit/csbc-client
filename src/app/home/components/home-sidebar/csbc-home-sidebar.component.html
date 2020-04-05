@@ -2,8 +2,8 @@
   <div class="">
     <!--<h4 class="text-center text-info">{{boardMeetingMessage}}</h4>-->
     <ul>
-      <li *ngFor="let info of activeWebContent">
-        <div *ngIf="info.webContentTypeId==3">
+      <li *ngFor="let info of content$ | async">
+        <!-- <div *ngIf="info.webContentTypeId==3"> -->
           <div class="card">
             
               <div class="card-block">
@@ -17,8 +17,7 @@
                 <div class="text-center" [hidden]="!info.dateAndTime">Date/Time: {{info.dateAndTime}}</div>
               </div>
             </div>
-        
-        </div>
+        <!-- </div> -->
       </li>
     </ul>
   </div>

@@ -1,8 +1,9 @@
 <div id="contentText" class="col-sm-12 col-sm-offset-0 col-xs-12">
-  <div [ngClass]="setSeasonInfoClass()" [hidden]="!showSeasonInfo()">
+  <div [ngClass]="setSeasonInfoClass()" [hidden]="!showSeasonInfo">
 
-    <div *ngFor="let info of activeWebContent" id="showSeasonList" [ngClass]="setSeasonListClass()">
-      <div class="panel panel-default">
+    <div *ngFor="let info of content$ | async" id="showSeasonList" [ngClass]="setSeasonListClass()">
+      <csbc-announcement [info] ="info"></csbc-announcement>
+      <!-- <div class="panel panel-default">
         <div class="panel-heading">
           <div class="panel-title">
             {{info.title}}
@@ -14,7 +15,7 @@
           <div class="text-center" [hidden]="!info.location">Location: {{info.location}}</div>
           <div class="text-center" [hidden]="!info.dateAndTime">Date/Time: {{info.dateAndTime}}</div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
   <div [ngClass]="setNewsClass()" [hidden]="!showNews()">

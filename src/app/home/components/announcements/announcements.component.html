@@ -1,6 +1,6 @@
 <div id="contentText" class="row">
   <div [ngClass]="setNewsClass()">
-    <div *ngFor="let info of activeWebContent" class="announcements">
+    <div *ngFor="let info of content$ | async" class="announcements">
       <div > 
         <!-- *ngIf="info.webContentTypeId == 1"> -->
         <mat-card>

@@ -38,6 +38,11 @@ export function reducer(
         ...state,
         divisions: action.payload
       };
+    case AdminActionTypes.SetCurrentSeason:
+      return {
+        ...state,
+        currentSeason: action.payload
+      };
     case AdminActionTypes.SetSelectedSeason:
       return {
         ...state,
