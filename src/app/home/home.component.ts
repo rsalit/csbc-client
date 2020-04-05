@@ -67,12 +67,14 @@ export class HomeComponent implements OnInit {
         this.showSidebar = results.length > 0;
       console.log(results);
       if (results.length > 0) {
-        this.imageClass = 'col-sm-9';
+        this.imageClass = 'col-sm-9 col-xs-12';
         this.meetingNoticeClass = 'col-sm-3 col-xs-12';
       } else {
         this.imageClass = 'col-sm-12 center-block';
         this.meetingNoticeClass = 'col-sm-0 col-xs-0';
       }
+      console.log('Image class: ' +  this.imageClass);
+      console.log('Meeting notice class: ' + this.meetingNoticeClass);
     });
   }
 

@@ -2,17 +2,17 @@ import { Component, OnInit } from '@angular/core';
 
 import { Content } from '../../../domain/content';
 import { ContentService } from '../../../admin/content/content.service';
-import *  as moment from 'moment';
+import * as moment from 'moment';
 import { Store } from '@ngrx/store';
 
 import * as fromHome from '../../state/';
 //import * as homeActions from '../../state/home.actions';
-import { map } from 'rxjs/operators';
+import { map, tap, groupBy } from 'rxjs/operators';
 
 @Component({
   selector: 'csbc-announcements',
   templateUrl: './announcements.component.html',
-  styleUrls: ['./announcements.component.scss']
+  styleUrls: ['./announcements.component.scss'],
 })
 export class CsbcAnnouncementsComponent implements OnInit {
   seasonInfoCount: number;
@@ -20,26 +20,33 @@ export class CsbcAnnouncementsComponent implements OnInit {
   meetingNoticeCount: number;
   activeWebContent: Content[];
   errorMessage: string;
-  content$ = this.store
-    .select(fromHome.getContent)
-    .pipe(map((result) => result.filter((c) => c.webContentTypeId < 3)));
+  content$ = this.store.select(fromHome.getContent).pipe(
+    map(result => result.filter(c => c.webContentTypeId < 3)),
+    map(t => t.sort(this.sortByContentSequence))
+  );
 
-
-  constructor(private _webContentService: ContentService, private store: Store<fromHome.State>
-    ) {
-    this.seasonInfoCount = 1;
-    this.latestNewsCount = 0;
-    this.meetingNoticeCount = 2;
+  constructor(
+    private _webContentService: ContentService,
+    private store: Store<fromHome.State>
+  ) {
   }
 
   ngOnInit() {
     // this.getWebContent();
+    this.content$.subscribe(x => console.log(x));
   }
 
+  sortByContentSequence(a,b) {
+    if (a.contentSequence < b.contentSequence)
+      return -1;
+    if (a.contentSequence > b.contentSequence)
+      return 1;
+    return 0;
+  }
   getWebContent(): void {
     this.activeWebContent = [];
     this.store.select(fromHome.getContent).subscribe(
-      webContents => {
+      (webContents) => {
         if (webContents !== undefined) {
           const today = moment();
           // console.log(webContents);
@@ -54,7 +61,7 @@ export class CsbcAnnouncementsComponent implements OnInit {
         // this.activeWebContent = webContents;
         console.log(this.activeWebContent);
       },
-      error => (this.errorMessage = <any>error)
+      (error) => (this.errorMessage = <any>error)
     );
   }
   showNews(): boolean {
@@ -75,14 +82,14 @@ export class CsbcAnnouncementsComponent implements OnInit {
     return this.meetingNoticeCount > 0;
   }
   setSeasonInfoClass() {
-      return 'col-8 offset-4 col-xs-12';
+    return 'col-8 offset-4 col-xs-12';
   }
 
   setNewsClass(): string {
     if (this.showSeasonInfo() || this.latestNewsCount > 0) {
-      return 'col-sm-8 offset-sm-2 col-xs-12';
+      return 'col-sm-10 offset-sm-1 col-xs-12';
     } else {
-      return 'col-sm-8 offset-sm-2 col-xs-12';
+      return 'col-sm-10 offset-sm-1 col-xs-12';
     }
   }
   setSeasonListClass(): string {

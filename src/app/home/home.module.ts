@@ -12,6 +12,7 @@ import { reducer } from './state/home.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { HomeEffects } from './state/home.effects';
 import { AnnouncementComponent } from './components/announcement/announcement.component';
+import { MeetingComponent } from './components/meeting/meeting.component';
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import { AnnouncementComponent } from './components/announcement/announcement.co
     CsbcAnnouncementsComponent,
     CsbcHomeSidebarComponent,
     AnnouncementComponent,
+    MeetingComponent,
 
   ],
   providers: [
