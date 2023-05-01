@@ -47,7 +47,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.800.1",
-    "@angular/cli": "^8.0.1",
+    "@angular/cli": "^15.2.7",
     "@ngrx/schematics": "^8.5.2",
     "@types/jasmine": "^2.2.30",
     "@types/node": "^9.6.6",
